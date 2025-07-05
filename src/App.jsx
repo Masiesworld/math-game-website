@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <nav class="navbar background">
+        <div class ="title">
+            <h1>Math Trials</h1>
+          </div>
+        <ul class="nav-list">
+          <li>
+            <button class="btn btn-sm">
+              Home
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-sm">
+              Profile
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div class= "box-main">
+        <h1>Placeholder for Leaderboard?</h1>
+        <h1>Placeholder where game window will go?</h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+      <footer className="footer">
+        <p className="text-footer">
+          Made by: Macy Yu, Kyle Wostbrock, Rafael Hinchey, and Nicholas Lucky
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      </footer>
+    </div>
   )
 }
 

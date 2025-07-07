@@ -1,0 +1,13 @@
+
+.footer{
+    background-color: #000;
+}
+
+.text-footer {
+    text-align: center;
+    padding: 10px 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display:flex;
+    justify-content: center;
+    color: #fff;
+}

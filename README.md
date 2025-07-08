@@ -19,10 +19,14 @@ A math game website that is fun and engaging for a general audience who enjoys m
     - current version as of writing this is 8.0.11
 2. cd server -> npm install
 3. create a .env file and paste the following information below:
-    MONGO_URI=mongodb://127.0.0.1:27017/my-math-game
+    MONGO_URI=
     PORT=5000
 4. Start MongoDB locally:
     For Windows: Open a separate command prompt -> "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe"
         - can double-check in file explorer if the path above exists
     For Mac: Open a separate terminal -> mongod
 5. From the server directory -> npm run dev
+
+## Working between Frontend and Backend
+- For frontend, make sure to be in the client directory
+- For backend, make sure to be in the server directory

@@ -54,48 +54,6 @@ body, html, #root{
     font-size: small;
 }
 
-
-.sign-in-form {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 50px;
-  text-align: center;
-  background-color: #f7f7f7;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  color: #000;
-}
-
-.sign-in-form input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-.sign-up-form {
-  max-width: 60%;
-  margin: 100px auto;
-  padding: 50px;
-  text-align: center;
-  background-color: #f7f7f7;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  color: #000;
-}
-
-.sign-up-form input {
-  width: 40%;
-  padding: 10px;
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-.sign-up-form .btn {
-  display: inline-block;
-  margin-top: 10px;
-}
-
 .app-container {
   display: flex;
   flex-direction: column;

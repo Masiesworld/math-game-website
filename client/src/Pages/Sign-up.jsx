@@ -31,7 +31,7 @@
                     <h2 className='align-end'>Confirm Password: <input value ={passwordCheck} onChange={handlePasswordCheckChange} type='text'/></h2>
 
                     <Link to="/Sign-in" className="btn btn-sm">Create Account
-                    {/* Check validity of enter info, if it is valid create account else display error*/}
+                    {/* Check validity of entered info, if it is valid create account else display error*/}
                     </Link>
                 </div>
             </div>

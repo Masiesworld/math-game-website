@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ /* your .env file here! */ });
 const express = require('express'); // necessary for backend server
 const cors = require('cors'); // necessary for frontend to access backend
 const connectDB = require('./db/connect'); // function to connect to MongoDB

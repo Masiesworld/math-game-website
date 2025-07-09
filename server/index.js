@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './test.env' });
+require('dotenv').config({ path: 'test.env' });
 const express = require('express'); // necessary for backend server
 const cors = require('cors'); // necessary for frontend to access backend
 const connectDB = require('./db/connect'); // function to connect to MongoDB
@@ -72,11 +72,26 @@ app.get('/test-insert', async (req, res) => { // test to see if we can insert a 
 // User log in route
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  // Here you would typically check the username and password against a database
-  // For now, we'll just return a success message
-  if (username && password) {
-    res.json({ message: 'Login successful', user: username });
-  } else {
-    res.status(400).json({ error: 'Username and password are required' });
+
+  try {
+    const usersCollection = db.collection('users');
+
+    const user = await usersCollection.findOne({ username: username });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (user.password !== password) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    // Success!
+    res.json({ message: 'Login successful', username: user.username });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
+

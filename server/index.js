@@ -32,7 +32,7 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-app.post('/questions', async (req, res) => { // add a new question to the database with use of init.json
+app.post('/questions', async (req, res) => { // add a new question/answer to the database with use of init.json
   try {
     const questions = db.collection('questions');
     const newQuestion = req.body;
@@ -66,5 +66,17 @@ app.get('/test-insert', async (req, res) => { // test to see if we can insert a 
     res.json({ message: 'Inserted', id: result.insertedId, dbName: db.databaseName });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// User log in route
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  // Here you would typically check the username and password against a database
+  // For now, we'll just return a success message
+  if (username && password) {
+    res.json({ message: 'Login successful', user: username });
+  } else {
+    res.status(400).json({ error: 'Username and password are required' });
   }
 });

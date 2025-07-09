@@ -1,15 +1,28 @@
-    import React, { useState } from 'react'
+    import React, { useEffect, useState } from 'react'
     import '../App.css'
     
     
     function Signin(){
 
         const [name, setName] = useState("");
+        const [password, setPassword] = useState("");
+        const [message, setMessage] = useState('Loading...');
 
         function handleNameChange(event){
             setName(event.target.value);
         }
 
+        /*
+        useEffect(() => {
+            fetch('http://localhost:5000/login')
+              .then(res => res.json())
+              .then(data => setMessage(data.message))
+              .catch(err => {
+                console.error('Error fetching from backend:', err);
+                setMessage('Error connecting to backend');
+              });
+          }, []);
+        */
     return(
         <>
             {/* <div class= "box-main">
@@ -19,8 +32,10 @@
             <div className='sign-in-form'>
                 <h2>Sign In</h2>
                 <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
+                <input value={password} onChange={handleNameChange} type='text' placeholder='Enter your password'/>
                 {/* could delete later */}
-                <p>Username: {name}</p> 
+                <p>Username: {name}</p>
+                <p>Password: {password}</p>
                 
             </div>
         </>

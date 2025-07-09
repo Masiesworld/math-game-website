@@ -14,17 +14,8 @@
             setName(event.target.value);
         }
 
-        const [password, setPassword] = useState("");
-
         function handlePasswordChange(event){
                 setPassword(event.target.value)
-        }
-
-    return(
-        <>
-        <div className= 'box-main'>
-        function handlePasswordChange(event){
-            setPassword(event.target.value);
         }
         
        const handleLogin = async () => {
@@ -60,14 +51,7 @@
                 <p>Username: {name}</p> 
                 <p>Reset password</p>
                 <p>Don't have an account?</p>
-                <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link>
-
-            </div>
-        </div>    
-        </>
-         )
-    }
-                <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
+                <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link> 
                 <button onClick={handleLogin}>Login</button>
                 <p className={message.includes('successful') ? 'success-message' : 'error-message'}>
                     {message}

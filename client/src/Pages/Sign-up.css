@@ -17,6 +17,17 @@
   font-size: 16px;
 }
 
+.sign-up-form p {
+    display: end;
+}
+
+.sign-up-form input[type="checkbox"] {
+    cursor: pointer;
+    width: 15px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
 .sign-up-form .btn {
   display: inline-block;
   margin-top: 10px;

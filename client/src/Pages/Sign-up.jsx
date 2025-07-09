@@ -22,10 +22,17 @@
                 function handlePasswordCheckChange(event){
                     setPasswordCheck(event.target.value)
                 }
+
+        const [isChecked, setIsChecked] = useState(false);
+                function HandleCheck(event){
+                    setIsChecked(event.target.checked);
+                }
+
     return(
         <div>
             <div className= "box-main">
                 <div className='sign-up-form'>
+                    <p>Account Type <input type='checkbox' checked={isChecked} onChange={HandleCheck}/>Teacher</p>
                     <h2 className='align-end'>Username: <input value ={name} onChange={handleNameChange} type='text'/></h2>
                     <h2 className='align-end'>Email: <input value ={email} onChange={handleEmailChange} type='text'/></h2>
                     <h2 className='align-end'>Password: <input value ={password} onChange={handlePasswordChange} type='text'/></h2>

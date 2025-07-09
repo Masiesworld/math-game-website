@@ -3,6 +3,7 @@ import { useState } from 'react'
     
     
     function SignUp(){
+        
     return(
         <div>
             <div class= "box-main">

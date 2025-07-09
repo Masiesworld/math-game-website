@@ -19,7 +19,8 @@ body, html, #root{
     width: 90vw;
     margin: auto;
     height: auto;
-    background-color: rgba(128, 128, 128, 0.39);
+    background-color: rgba(241, 241, 241, 0.39);
+    color: #000;
 }
 
 

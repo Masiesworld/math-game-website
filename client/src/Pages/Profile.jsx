@@ -5,7 +5,7 @@
     function Profile(){
     return(
         <div>
-            <div class= "box-main">
+            <div className= "box-main">
                 <h1>Placeholder for details such as picture/class affiliation/personal scores?/ability to change details</h1>
             </div>
         </div>

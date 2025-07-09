@@ -1,8 +1,9 @@
     import React, { useState } from 'react'
+    import { Link } from 'react-router-dom'
     import '../App.css'
     
     
-    function Signin(){
+    function SignIn(){
 
         const [name, setName] = useState("");
 
@@ -21,11 +22,14 @@
                 <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
                 {/* could delete later */}
                 <p>Username: {name}</p> 
-                
+                <p>Reset password</p>
+                <p>Don't have an account?</p>
+                <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link>
+
             </div>
         </div>    
         </>
          )
     }
 
-    export default Signin
+    export default SignIn

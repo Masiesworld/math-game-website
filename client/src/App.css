@@ -16,9 +16,9 @@ body, html, #root{
     justify-content: center;
     align-items: center;
     color: rgb(255, 255, 255);
-    max-width: 90%;
+    width: 90vw;
     margin: auto;
-    height: 80%;
+    height: auto;
     background-color: rgba(128, 128, 128, 0.39);
 }
 
@@ -54,11 +54,12 @@ body, html, #root{
 .sign-in-form {
   max-width: 400px;
   margin: 100px auto;
-  padding: 20px;
+  padding: 50px;
   text-align: center;
   background-color: #f7f7f7;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #000;
 }
 
 .sign-in-form input {

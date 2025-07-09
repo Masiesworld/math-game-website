@@ -15,7 +15,7 @@ function NavBar(){
 
     return(
     <div>
-      <nav className="navbar-background">
+      <nav className="navbar navbar-background">
         <div className ="title">
             <h1>Math Trials</h1>
         </div>

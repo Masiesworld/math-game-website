@@ -15,7 +15,7 @@
             {/* <div class= "box-main">
                 <h1>Placeholder for Sign in/ sign up link or popup?/reset password function</h1>
             </div> */}
-
+        <div className= 'box-main'>
             <div className='sign-in-form'>
                 <h2>Sign In</h2>
                 <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
@@ -23,6 +23,7 @@
                 <p>Username: {name}</p> 
                 
             </div>
+        </div>    
         </>
          )
     }

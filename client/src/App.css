@@ -51,6 +51,7 @@ body, html, #root{
 .btn-sm {
     padding: 6px 10px;
     vertical-align: middle;
+    font-size: small;
 }
 
 
@@ -72,6 +73,29 @@ body, html, #root{
   font-size: 16px;
 }
 
+.sign-up-form {
+  max-width: 60%;
+  margin: 100px auto;
+  padding: 50px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #000;
+}
+
+.sign-up-form input {
+  width: 40%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.sign-up-form .btn {
+  display: inline-block;
+  margin-top: 10px;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -81,4 +105,8 @@ body, html, #root{
 .main-content {
   flex: 1;
   padding: 20px;
+}
+
+.align-end{
+  text-align: end;
 }

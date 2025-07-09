@@ -11,6 +11,12 @@
             setName(event.target.value);
         }
 
+        const [password, setPassword] = useState("");
+
+        function handlePasswordChange(event){
+                setPassword(event.target.value)
+        }
+
     return(
         <>
             {/* <div class= "box-main">
@@ -20,6 +26,7 @@
             <div className='sign-in-form'>
                 <h2>Sign In</h2>
                 <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
+                <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
                 {/* could delete later */}
                 <p>Username: {name}</p> 
                 <p>Reset password</p>

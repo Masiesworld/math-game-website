@@ -12,6 +12,10 @@
             setName(event.target.value);
         }
 
+        function handlePasswordChange(event){
+            setPassword(event.target.value);
+        }
+
         /*
         useEffect(() => {
             fetch('http://localhost:5000/login')
@@ -32,7 +36,7 @@
             <div className='sign-in-form'>
                 <h2>Sign In</h2>
                 <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
-                <input value={password} onChange={handleNameChange} type='text' placeholder='Enter your password'/>
+                <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
                 {/* could delete later */}
                 <p>Username: {name}</p>
                 <p>Password: {password}</p>

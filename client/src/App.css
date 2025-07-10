@@ -97,3 +97,13 @@ body, html, #root{
   top: 50%;
   left: 20%;
 }
+
+.success-message {
+  color: green;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}

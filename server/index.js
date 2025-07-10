@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './test.env' });
+require('dotenv').config({ path: 'test.env' });
 const express = require('express'); // necessary for backend server
 const cors = require('cors'); // necessary for frontend to access backend
 const connectDB = require('./db/connect'); // function to connect to MongoDB
@@ -32,7 +32,7 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-app.post('/questions', async (req, res) => { // add a new question to the database with use of init.json
+app.post('/questions', async (req, res) => { // add a new question/answer to the database with use of init.json
   try {
     const questions = db.collection('questions');
     const newQuestion = req.body;
@@ -68,3 +68,30 @@ app.get('/test-insert', async (req, res) => { // test to see if we can insert a 
     res.status(500).json({ error: err.message });
   }
 });
+
+// User log in route
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const usersCollection = db.collection('users');
+
+    const user = await usersCollection.findOne({ username: username });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (user.password !== password) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    // Success!
+    res.json({ message: 'Login successful', username: user.username });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+

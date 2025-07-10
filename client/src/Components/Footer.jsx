@@ -6,7 +6,7 @@ function Footer(){
     const [message, setMessage] = useState('Loading...');
     
       useEffect(() => {
-        fetch('http://localhost:5000/api/test') // Your Express route
+        fetch('http://localhost:3001/api/test') // Your Express route
           .then(res => res.json())
           .then(data => setMessage(data.message))
           .catch(err => {

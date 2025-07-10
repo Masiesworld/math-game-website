@@ -29,9 +29,12 @@ function Home() {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
   const [questions, setQuestions] = useState(0);
+
+  const [a, setA] = useState("");
+  const [b, setB] = useState("");
   
   useEffect(() => {
-    fetch('http://localhost:5000/api/test') // Your Express route
+    fetch('http://localhost:3001/api/test') // Your Express route
     .then(res => res.json())
     .then(data => setMessage(data.message))
     .catch(err => {
@@ -50,6 +53,29 @@ function Home() {
     setQuestions(questions + 1);
   }
 
+  async function getQuestions() {
+    console.log("called");
+    try {
+      const response = await fetch('http://localhost:3001/questions', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      console.log("after the await");
+      const data = await response.json();
+      console.log("after the data; data is: ");
+      console.log(data);
+      if (response.ok) {
+        setMessage(data.message);
+      } 
+      else {
+        setMessage(data.error);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setMessage('Error connecting to backend');
+    }
+  }
+
   return (
     <div>
       <div className="box-main">
@@ -59,6 +85,7 @@ function Home() {
           <h1 id="score">Score: {score}</h1>
           <h1 id="question">QUESTION</h1>
           {answerChoices}
+          <button onClick={function(){getQuestions()}}>GET QUESTIONS</button>
         </div>
         <h2>{message}</h2>
       </div>
@@ -69,8 +96,24 @@ function Home() {
 export default Home;
 
 /*
-<AnswerChoice id={1} choice={"CORRECT"} onClick={function(){CheckAnswer(1);}}/>
-          <AnswerChoice id={2} choice={"INCORRECT"} onClick={function(){CheckAnswer(0);}}/>
-          <AnswerChoice id={3} choice={"INCORRECT"} onClick={function(){CheckAnswer(0);}}/>
-          <AnswerChoice id={4} choice={"INCORRECT"} onClick={function(){CheckAnswer(0);}}/>
+       const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({username: name, password: password})
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage(data.message);
+      } 
+      else {
+        setMessage(data.error);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setMessage('Error connecting to backend');
+    }
+}
 */

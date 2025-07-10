@@ -4,7 +4,7 @@ const cors = require('cors'); // necessary for frontend to access backend
 const connectDB = require('./db/connect'); // function to connect to MongoDB
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(cors());
@@ -95,3 +95,18 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// THE TESTINGS OF A SOMEONE WHO THINKS THIS IS A PYTHON !!!
+app.get('/', (req, res) => {
+  let header = `This is the default http://localhost:${PORT} URL!`;
+
+  let otherURLs = "\n\nThe other URLs are:";
+  let URL_one = `\n1. http://localhost:${PORT}/ping --> pong`;
+  let URL_two = `\n2. http://localhost:${PORT}/questions --> fetch all questions from the database`;
+  let URL_three = `\n3. http://localhost:${PORT}/api/test --> test frontend is reading from backend`;
+  let URL_four = `\n4. http://localhost:${PORT}/test-insert --> test to see if we can insert a question`;
+
+  let full = header + otherURLs + URL_one + URL_two + URL_three + URL_four;
+
+  res.set('Content-Type', 'text/plain');
+  res.send(full);
+});

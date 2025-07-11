@@ -19,6 +19,52 @@ function RandomizeAnswerChoices(answerChoices) {
   return randomized;
 }
 
+async function initQuestions() {
+  console.log("INITIALIZE QUESTIONS");
+  try {
+    const response = await fetch('http://localhost:3001/initialize-questions', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    console.log("after the await");
+    const data = await response.json();
+    console.log("after the data; data is: ");
+    console.log(data);
+    if (response.ok) {
+      setMessage(data.message);
+    }
+    else {
+      setMessage(data.error);
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    setMessage('Error connecting to backend');
+  }
+}
+
+async function initUsers() {
+  console.log("INITIALIZE USERS");
+  try {
+    const response = await fetch('http://localhost:3001/initialize-users', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    console.log("after the await");
+    const data = await response.json();
+    console.log("after the data; data is: ");
+    console.log(data);
+    if (response.ok) {
+      setMessage(data.message);
+    }
+    else {
+      setMessage(data.error);
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    setMessage('Error connecting to backend');
+  }
+}
+
 function Home() {
   let answerChoices = [<AnswerChoice id={1} choice={"CORRECT"} onClick={function(){CheckAnswer(1);}}/>,
                        <AnswerChoice id={2} choice={"INCORRECT"} onClick={function(){CheckAnswer(0);}}/>,
@@ -32,7 +78,7 @@ function Home() {
 
   const [a, setA] = useState("");
   const [b, setB] = useState("");
-  
+
   useEffect(() => {
     fetch('http://localhost:3001/api/test') // Your Express route
     .then(res => res.json())
@@ -66,7 +112,7 @@ function Home() {
       console.log(data);
       if (response.ok) {
         setMessage(data.message);
-      } 
+      }
       else {
         setMessage(data.error);
       }
@@ -93,27 +139,6 @@ function Home() {
   );
 }
 
+initQuestions();
+initUsers();
 export default Home;
-
-/*
-       const handleLogin = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({username: name, password: password})
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setMessage(data.message);
-      } 
-      else {
-        setMessage(data.error);
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      setMessage('Error connecting to backend');
-    }
-}
-*/

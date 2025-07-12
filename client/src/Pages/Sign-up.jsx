@@ -1,32 +1,56 @@
-    import { useState } from 'react'
-    import { Link } from 'react-router-dom'
-    import '../App.css'
-    import './Sign-up.css'
-    
-    
-    function SignUp(){
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import '../App.css'
+import './Sign-up.css'
 
-        const [name, setName] = useState("");
-                function handleNameChange(event){
-                    setName(event.target.value);
-                }
-        const [email, setEmail] = useState("");
-                function handleEmailChange(event){
-                    setEmail(event.target.value)
-                }
-        const [password, setPassword] = useState("");
-                function handlePasswordChange(event){
-                    setPassword(event.target.value)
-                }
-        const [passwordCheck, setPasswordCheck] = useState("");
-                function handlePasswordCheckChange(event){
-                    setPasswordCheck(event.target.value)
-                }
+function SignUp(){
 
-        const [isChecked, setIsChecked] = useState(false);
-                function HandleCheck(event){
-                    setIsChecked(event.target.checked);
-                }
+    const [name, setName] = useState("");
+            function handleNameChange(event){
+                setName(event.target.value);
+            }
+    const [email, setEmail] = useState("");
+            function handleEmailChange(event){
+                setEmail(event.target.value)
+            }
+    const [password, setPassword] = useState("");
+            function handlePasswordChange(event){
+                setPassword(event.target.value)
+            }
+    const [passwordCheck, setPasswordCheck] = useState("");
+            function handlePasswordCheckChange(event){
+                setPasswordCheck(event.target.value)
+            }
+
+    const [isChecked, setIsChecked] = useState(false);
+            function HandleCheck(event){
+                setIsChecked(event.target.checked);
+            }
+    const [message, setMessage] = useState("");
+    
+    async function validateUser() {
+        console.log("VALIDATE USER");
+        try {
+            const response = await fetch('http://localhost:3001/sign-up', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({username: name, password: password})
+            });
+            console.log("after the await");
+            const data = await response.json();
+            console.log("after the data; data is: ");
+            console.log(data);
+            if (response.ok) {
+                setMessage(data.message);
+            }
+            else {
+                setMessage(data.error);
+            }
+            } catch (error) {
+                console.error('Login error:', error);
+                setMessage('Error connecting to backend');
+            }
+    }
 
     return(
         <div>
@@ -38,13 +62,17 @@
                     <h2 className='align-end'>Password: <input value ={password} onChange={handlePasswordChange} type='text'/></h2>
                     <h2 className='align-end'>Confirm Password: <input value ={passwordCheck} onChange={handlePasswordCheckChange} type='text'/></h2>
 
-                    <Link to="/Sign-in" className="btn btn-sm">Create Account
+                    <button onClick={validateUser}>TEST CREATE</button>
+                    
+                    <Link to="/Sign-in" className="btn btn-sm" onClick={validateUser}>Create Account
                     {/* Check validity of entered info, if it is valid create account else display error*/}
                     </Link>
+
+                    <p className={message.includes('successful') ? 'success-message' : 'error-message'}>{message}</p>
                 </div>
             </div>
         </div>
-         )
-    }
+    )
+}
 
-    export default SignUp
+export default SignUp

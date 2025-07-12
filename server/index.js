@@ -54,8 +54,38 @@ connectDB(process.env.MONGO_URI)
 
 
 
+// User sign up route
+app.post('/sign-up', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const usersCollection = db.collection('users');
+
+    const user = await usersCollection.findOne({ username: username });
+
+    if (user) {
+      return res.status(404).json({ error: 'Username already exists' });
+    }
+
+    if (password.length < 8) {
+      return res.status(401).json({ error: 'Password must be at least 8 characters long' });
+    }
+
+    // Success!
+    res.json({ message: 'Sign up successful!', username: username });
+
+    // Add the user credential to the users database
+    let result = await usersCollection.insertOne({ username: username, password: password });
+    console.log(`SIGNED UP WITH USERNAME ${username} + PASSWORD ${password} ENTERED`);
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // THE TESTINGS OF A SOMEONE WHO THINKS THIS IS A PYTHON !!!
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
   let header = `This is the default http://localhost:${PORT} URL!`;
 
   let otherURLs = "\n\nThe other URLs are:";

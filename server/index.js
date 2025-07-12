@@ -16,8 +16,32 @@ connectDB(process.env.MONGO_URI)
     db = client.db('Math-Trials');
     console.log('Using database:', db.databaseName);
 
-
     // Start server only after DB connects
+    // ..helper function before passing it into route files
+    function entryIsUnique(database_name, entry, uniqueKey) {
+      const database = db.collection(database_name);
+      return database.find({ [uniqueKey]: entry[uniqueKey] }).toArray()
+        .then(existing_entries => {
+          return !existing_entries.some(e => e[uniqueKey] === entry[uniqueKey]);
+    });
+}
+
+    // Routes
+    // ..system routes
+    const systemRouter = require('./routes/system')
+    app.use('',systemRouter)
+
+    // ..users routes
+    const usersRouter = require('./routes/users')(db, entryIsUnique);
+    app.use('/users', usersRouter);
+
+    // ..questions routes
+    const questionsRouter = require('./routes/questions')(db, entryIsUnique);
+    app.use('/questions', questionsRouter);
+
+
+
+
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`);
     });
@@ -26,127 +50,9 @@ connectDB(process.env.MONGO_URI)
     console.error('Failed to connect to MongoDB', err);
   });
 
-// Routes
 
-app.get('/ping', (req, res) => {
-  res.send('pong');
-});
 
-app.post('/questions', async (req, res) => { // add a new question/answer to the database with use of init.json
-  try {
-    const questions = db.collection('questions');
-    const newQuestion = req.body;
-    const result = await questions.insertOne(newQuestion);
 
-    res.status(201).json({ message: 'Question added', id: result.insertedId });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Something went wrong' });
-  }
-});
-
-app.get('/questions', async (req, res) => { // fetch all questions from the database
-  try {
-    const questions = db.collection('questions');
-    const data = await questions.find({}).toArray();
-    res.json(data);
-
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch questions' });
-  }
-});
-
-app.get('/api/test', (req, res) => { // test frontend is reading from backend
-  res.json({ message: 'Backend is working!' });
-});
-
-app.get('/test-insert', async (req, res) => { // test to see if we can insert a question
-  try {
-    const questions = db.collection('questions');
-    const result = await questions.insertOne({ question: "Test question?", answer: 42 });
-    res.json({ message: 'Inserted', id: result.insertedId, dbName: db.databaseName });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-async function entryIsUnique(database_name, entry, uniqueKey) {
-  const database = db.collection(database_name);
-  const existing_entries = await database.find({}).toArray();
-
-  for (let i = 0; i < existing_entries.length; i++) {
-      if (entry[uniqueKey] == existing_entries[i][uniqueKey])
-        return false;
-  }
-
-  return true;
-}
-
-app.get('/initialize-questions', async (req, res) => { // test to see if we can insert initquestions.json into MongoDB Compass
-  try {
-    const initJson = require("./initquestions.json");
-    const questions = db.collection('questions');
-
-    // Insert each question and answer entry into the database
-    for (let i = 0; i < initJson.length; i++) {
-      // Make sure we are not inserting duplicate questions
-      if (await entryIsUnique('questions', initJson[i], "question")) {
-        console.log("QUESTION IS UNIQUE");
-        let result = await questions.insertOne({ question: initJson[i]["question"], answer: initJson[i]["answer"] });
-      }
-    }
-
-    res.json({ message: 'Inserted', dbName: db.databaseName, questions: initJson});
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.get('/initialize-users', async (req, res) => { // test to see if we can insert initusers.json into MongoDB Compass
-  try {
-    const initJson = require("./initusers.json");
-    const users = db.collection('users');
-
-    // Insert each user and password entry into the database
-    for (let i = 0; i < initJson.length; i++) {
-      // Make sure we are not inserting duplicate users
-      if (await entryIsUnique('users', initJson[i], "username")) {
-        console.log("USER IS UNIQUE");
-        let result = await users.insertOne({ username: initJson[i]["username"], password: initJson[i]["password"] });
-      }
-    }
-
-    res.json({ message: 'Inserted', dbName: db.databaseName, users: initJson});
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// User log in route
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const usersCollection = db.collection('users');
-
-    const user = await usersCollection.findOne({ username: username });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    if (user.password !== password) {
-      return res.status(401).json({ error: 'Incorrect password' });
-    }
-
-    // Success!
-    res.json({ message: 'Login successful', username: user.username });
-
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
 
 // THE TESTINGS OF A SOMEONE WHO THINKS THIS IS A PYTHON !!!
 app.get('/', async (req, res) => {

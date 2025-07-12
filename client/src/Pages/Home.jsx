@@ -45,7 +45,7 @@ async function initQuestions() {
 async function initUsers() {
   console.log("INITIALIZE USERS");
   try {
-    const response = await fetch('http://localhost:3001/initialize-users', {
+    const response = await fetch('http://localhost:3001/users/initialize-users', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });

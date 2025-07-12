@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import '../App.css'
-import './Sign-up.css'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../App.css';
+import './Sign-up.css';
 
 function SignUp(){
 
@@ -28,6 +29,8 @@ function SignUp(){
             }
     const [message, setMessage] = useState("");
     
+    const navigate = useNavigate();
+
     async function validateUser() {
         console.log("VALIDATE USER");
         try {
@@ -42,6 +45,7 @@ function SignUp(){
             console.log(data);
             if (response.ok) {
                 setMessage(data.message);
+                navigate("/Sign-in");
             }
             else {
                 setMessage(data.error);
@@ -62,11 +66,7 @@ function SignUp(){
                     <h2 className='align-end'>Password: <input value ={password} onChange={handlePasswordChange} type='text'/></h2>
                     <h2 className='align-end'>Confirm Password: <input value ={passwordCheck} onChange={handlePasswordCheckChange} type='text'/></h2>
 
-                    <button onClick={validateUser}>TEST CREATE</button>
-                    
-                    <Link to="/Sign-in" className="btn btn-sm" onClick={validateUser}>Create Account
-                    {/* Check validity of entered info, if it is valid create account else display error*/}
-                    </Link>
+                    <button className="btn btn-sm" onClick={validateUser}>Create Account</button>
 
                     <p className={message.includes('successful') ? 'success-message' : 'error-message'}>{message}</p>
                 </div>
@@ -76,3 +76,10 @@ function SignUp(){
 }
 
 export default SignUp
+
+/*
+<Link to="/Sign-in" className="btn btn-sm" onClick={validateUser}>Create Account
+                    {Check validity of entered info, if it is valid create account else display error
+                    }
+                    </Link>
+*/

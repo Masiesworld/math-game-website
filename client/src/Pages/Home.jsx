@@ -3,7 +3,7 @@ import '../App.css';
 
 function AnswerChoice({ id, choice, onClick }) {
   return (
-    <button onClick={onClick} class="answer-choice">
+    <button onClick={onClick} className="answer-choice">
       {choice}
     </button>
   );
@@ -22,7 +22,7 @@ function RandomizeAnswerChoices(answerChoices) {
 async function initQuestions() {
   console.log("INITIALIZE QUESTIONS");
   try {
-    const response = await fetch('http://localhost:3001/initialize-questions', {
+    const response = await fetch('http://localhost:3001/questions/initialize-questions', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -31,10 +31,10 @@ async function initQuestions() {
     console.log("after the data; data is: ");
     console.log(data);
     if (response.ok) {
-      setMessage(data.message);
+      setMessage(data.message || `Insert ${data.length} questions`);
     }
     else {
-      setMessage(data.error);
+      setMessage(data.error || 'Error fetching questions');
     }
   } catch (error) {
     console.error('Login error:', error);

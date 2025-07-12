@@ -50,6 +50,7 @@ app.get('/questions', async (req, res) => { // fetch all questions from the data
     const questions = db.collection('questions');
     const data = await questions.find({}).toArray();
     res.json(data);
+
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch questions' });
   }
@@ -64,6 +65,58 @@ app.get('/test-insert', async (req, res) => { // test to see if we can insert a 
     const questions = db.collection('questions');
     const result = await questions.insertOne({ question: "Test question?", answer: 42 });
     res.json({ message: 'Inserted', id: result.insertedId, dbName: db.databaseName });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+async function entryIsUnique(database_name, entry, uniqueKey) {
+  const database = db.collection(database_name);
+  const existing_entries = await database.find({}).toArray();
+
+  for (let i = 0; i < existing_entries.length; i++) {
+      if (entry[uniqueKey] == existing_entries[i][uniqueKey])
+        return false;
+  }
+
+  return true;
+}
+
+app.get('/initialize-questions', async (req, res) => { // test to see if we can insert initquestions.json into MongoDB Compass
+  try {
+    const initJson = require("./initquestions.json");
+    const questions = db.collection('questions');
+
+    // Insert each question and answer entry into the database
+    for (let i = 0; i < initJson.length; i++) {
+      // Make sure we are not inserting duplicate questions
+      if (await entryIsUnique('questions', initJson[i], "question")) {
+        console.log("QUESTION IS UNIQUE");
+        let result = await questions.insertOne({ question: initJson[i]["question"], answer: initJson[i]["answer"] });
+      }
+    }
+
+    res.json({ message: 'Inserted', dbName: db.databaseName, questions: initJson});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/initialize-users', async (req, res) => { // test to see if we can insert initusers.json into MongoDB Compass
+  try {
+    const initJson = require("./initusers.json");
+    const users = db.collection('users');
+
+    // Insert each user and password entry into the database
+    for (let i = 0; i < initJson.length; i++) {
+      // Make sure we are not inserting duplicate users
+      if (await entryIsUnique('users', initJson[i], "username")) {
+        console.log("USER IS UNIQUE");
+        let result = await users.insertOne({ username: initJson[i]["username"], password: initJson[i]["password"] });
+      }
+    }
+
+    res.json({ message: 'Inserted', dbName: db.databaseName, users: initJson});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -96,7 +149,7 @@ app.post('/login', async (req, res) => {
 });
 
 // THE TESTINGS OF A SOMEONE WHO THINKS THIS IS A PYTHON !!!
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   let header = `This is the default http://localhost:${PORT} URL!`;
 
   let otherURLs = "\n\nThe other URLs are:";

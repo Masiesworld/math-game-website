@@ -31,7 +31,7 @@ function Home() {
   const [questions, setQuestions] = useState(0);
   
   useEffect(() => {
-    fetch('http://localhost:5000/api/test') // Your Express route
+    fetch('http://localhost:3001/api/test') // Your Express route
     .then(res => res.json())
     .then(data => setMessage(data.message))
     .catch(err => {

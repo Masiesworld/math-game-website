@@ -1,6 +1,12 @@
 [
   {
     "username": "userTest",
-    "password": "test123"
+    "password": "password",
+    "role": "student"
+  },
+  {
+    "username": "teacherTest",
+    "password": "teacher123",
+    "role": "teacher"
   }
 ]

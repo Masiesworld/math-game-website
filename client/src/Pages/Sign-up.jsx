@@ -23,7 +23,7 @@ function SignUp(){
                 setPasswordCheck(event.target.value)
             }
 
-    const [isChecked, setIsChecked] = useState(false);
+    const [adminChecked, setIsChecked] = useState(false);
             function HandleCheck(event){
                 setIsChecked(event.target.checked);
             }
@@ -37,7 +37,7 @@ function SignUp(){
             const response = await fetch('http://localhost:3001/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({username: name, password: password})
+            body: JSON.stringify({username: name, password: password, role: adminChecked ? "teacher" : "student"}) // role parameter added, "student" or "teacher"
             });
             console.log("after the await");
             const data = await response.json();
@@ -60,7 +60,7 @@ function SignUp(){
         <div>
             <div className= "box-main">
                 <div className='sign-up-form'>
-                    <p>Account Type <input type='checkbox' checked={isChecked} onChange={HandleCheck}/>Teacher</p>
+                    <p>Account Type <input type='checkbox' checked={adminChecked} onChange={HandleCheck}/>Teacher</p>
                     <h2>Username: <input value ={name} onChange={handleNameChange} type='text'/></h2>
                     <h2>Email: <input value ={email} onChange={handleEmailChange} type='text'/></h2>
                     <h2>Password: <input value ={password} onChange={handlePasswordChange} type='text'/></h2>

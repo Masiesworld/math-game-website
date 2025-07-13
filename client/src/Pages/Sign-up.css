@@ -21,6 +21,10 @@
     display: end;
 }
 
+.sign-up-form h2{
+  text-align: end;
+}
+
 .sign-up-form input[type="checkbox"] {
     cursor: pointer;
     width: 15px;

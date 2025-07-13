@@ -1,0 +1,47 @@
+.Profile {
+  max-width: 80%;
+  margin: 100px auto;
+  padding: 50px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #000;
+  margin-top: -250px;
+}
+
+.information {
+    text-align: left;
+    margin-left: 50px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.row label{
+    width: 15px;
+    margin-right: 10px;
+}
+
+.row input{
+    align-items: flex;
+    padding: 5px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+.Profile h1 {
+    font-size: 36px;
+}
+
+.PassChange {
+    display: flex;
+}
+
+.PassChange .btn{
+    font-size: 12px;
+}
+

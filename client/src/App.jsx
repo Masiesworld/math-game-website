@@ -9,6 +9,9 @@ import Profile from "./Pages/Profile"
 import SignIn from './Pages/Sign-in'
 import SignUp from './Pages/Sign-up'
 
+import PasswordReset from './Pages/PasswordReset'
+
+
 function App() {
   return (
     <div className='app-container'>
@@ -20,6 +23,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/Sign-in" element={<SignIn />} />
             <Route path="/Sign-up" element={<SignUp />} />
+            <Route path="/PasswordReset" element={<PasswordReset />} />
           </Routes>
 
             <Footer/>

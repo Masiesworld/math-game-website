@@ -31,6 +31,7 @@ body, html, #root{
     color: #000000;
     background-color: #2ece43;
     border-radius: 8px;
+    border: 1px solid #000000;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     cursor: pointer;
 }
@@ -65,6 +66,7 @@ body, html, #root{
   height: 65%;
 
   background-color: rgb(100, 125, 133);
+  border: 1.5px solid #000000;
 }
 
 #score {

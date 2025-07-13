@@ -9,6 +9,7 @@
     width: 100%;
     box-sizing: border-box;
     z-index: 1000;
+    border: 1px solid #000000;
 }
 
 .navbar-background {

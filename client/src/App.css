@@ -18,24 +18,11 @@ body, html, #root{
     color: rgb(255, 255, 255);
     width: 90vw;
     margin: auto;
-    height: auto;
+    height: 100vh;
     background-color: rgba(241, 241, 241, 0.39);
     color: #000;
 }
 
-
-.box-main::after {
-  content: '';
-  display: block;
-  height: 100vh; /* Simulates a full screen of content */
-  background: repeating-linear-gradient(
-    45deg,
-    #e0e0e0,
-    #e0e0e0 10px,
-    #f8f8f8 10px,
-    #f8f8f8 20px
-  );
-}
 
 .btn {
     margin-left: 10px;

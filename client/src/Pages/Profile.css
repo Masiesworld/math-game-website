@@ -9,7 +9,7 @@
   color: #000;
 }
 
-.Profile .information {
+.information {
     text-align: left;
 }
 
@@ -22,5 +22,6 @@
 }
 
 .PassChange .btn{
+    font-size: 10px;
 }
 

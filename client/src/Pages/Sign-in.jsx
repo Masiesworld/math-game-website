@@ -38,24 +38,23 @@ function SignIn(){
     }
   };
   return (
-    /* <div class= "box-main">
-        <h1>Placeholder for Sign in/ sign up link or popup?/reset password function</h1>
-    </div> */
 
+  <div className= "box-main">
     <div className='sign-in-form'>
         <h2>Sign In</h2>
         <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
         <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
         {/* could delete later */}
         <p>Username: {name}</p> 
-        <p>Reset password</p>
+        <Link to="/PasswordReset" className="passwordChange">Reset password</Link>
         <p>Don't have an account?</p>
         <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link> 
-        <button onClick={handleLogin}>Login</button>
+        <button className="btn btn-sm" onClick={handleLogin}>Login</button>
         <p className={message.includes('successful') ? 'success-message' : 'error-message'}>
             {message}
         </p>
     </div>
+  </div>
   );
 }
 

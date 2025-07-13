@@ -46,7 +46,7 @@ function SignIn(){
         <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
         {/* could delete later */}
         <p>Username: {name}</p> 
-        <p>Reset password</p>
+        <Link to="/PasswordReset" className="passwordChange">Reset password</Link>
         <p>Don't have an account?</p>
         <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link> 
         <button className="btn btn-sm" onClick={handleLogin}>Login</button>

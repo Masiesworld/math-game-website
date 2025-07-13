@@ -61,10 +61,10 @@ function SignUp(){
             <div className= "box-main">
                 <div className='sign-up-form'>
                     <p>Account Type <input type='checkbox' checked={isChecked} onChange={HandleCheck}/>Teacher</p>
-                    <h2 className='align-end'>Username: <input value ={name} onChange={handleNameChange} type='text'/></h2>
-                    <h2 className='align-end'>Email: <input value ={email} onChange={handleEmailChange} type='text'/></h2>
-                    <h2 className='align-end'>Password: <input value ={password} onChange={handlePasswordChange} type='text'/></h2>
-                    <h2 className='align-end'>Confirm Password: <input value ={passwordCheck} onChange={handlePasswordCheckChange} type='text'/></h2>
+                    <h2>Username: <input value ={name} onChange={handleNameChange} type='text'/></h2>
+                    <h2>Email: <input value ={email} onChange={handleEmailChange} type='text'/></h2>
+                    <h2>Password: <input value ={password} onChange={handlePasswordChange} type='text'/></h2>
+                    <h2>Confirm Password: <input value ={passwordCheck} onChange={handlePasswordCheckChange} type='text'/></h2>
 
                     <button className="btn btn-sm" onClick={validateUser}>Create Account</button>
 

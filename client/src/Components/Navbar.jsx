@@ -22,6 +22,9 @@ function NavBar(){
       {/* If user is NOT signed in */}
         <ul className="nav-list">
           <li>
+                <Link to="/Profile" className="btn btn-sm">Profile</Link>
+              </li>
+          <li>
             <Link to="/" className="btn btn-sm">Home</Link>
           </li>
 
@@ -29,6 +32,7 @@ function NavBar(){
             <li>
               <Link to="/Sign-in" className='btn btn-sm'>Sign In</Link>
             </li>
+            
           )}
           {/* If user is signed in */}
           {signedIn && (

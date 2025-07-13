@@ -1,0 +1,26 @@
+.Profile {
+  max-width: 80%;
+  margin: 100px auto;
+  padding: 50px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #000;
+}
+
+.Profile .information {
+    text-align: left;
+}
+
+.Profile h1 {
+    font-size: 36px;
+}
+
+.PassChange {
+    display: flex;
+}
+
+.PassChange .btn{
+}
+

@@ -89,7 +89,6 @@ async function getQuestions() {
 }
 
 function loadQuestion(questions, previous_question) {
-  console.log("WHAT");
   console.log(questions);
 
   let numQuestions = questions.length;
@@ -151,7 +150,6 @@ function Home() {
     <div>
       <div className="box-main">
         <h1>Placeholder for Leaderboard?</h1>
-        <h1>Placeholder where game window will go?</h1>
         <div id="game-window">
           <h1 id="score">Score: {score}</h1>
           <h1 id="question">{questionTitle}</h1>
@@ -168,3 +166,5 @@ initQuestions();
 initUsers();
 
 export default Home;
+
+// <h1>Placeholder where game window will go?</h1>

@@ -59,7 +59,7 @@ body, html, #root{
 
 #game-window {
   position: absolute;
-  top: 120%; /* 15% is the default for now */
+  top: 15%; /* 15% is the default for now */
   left: 40%;
 
   width: 50%;

@@ -89,17 +89,24 @@ async function getQuestions() {
 }
 
 function loadQuestion(questions, previous_question) {
+  console.log("QUESTIONS:");
   console.log(questions);
+  console.log("previous_question");
+  console.log(previous_question);
 
   let numQuestions = questions.length;
   let chosen = 0;
   while (true) {
     var randomIndex = Math.floor(Math.random() * numQuestions);
-    if (questions[randomIndex]["question"] != previous_question)
+    if (questions[randomIndex]["question"] != previous_question) {
       chosen = questions[randomIndex];
       break;
+    }
+    else {
+      console.log("DUPLIACTE QUESTION... SKIPPING...");
+    }
   }
-
+  
   return [chosen["question"], chosen["answer"]];
 }
 
@@ -120,6 +127,7 @@ function Home() {
     // The answer choices should randomize in order as long as some state is being changed??
     setQuestions(questions + 1);
     setPrev(question);
+    console.log(`prev question set to ${prevQuestion}`);
   }
 
   let test = loadQuestion(initialized_questions, prevQuestion);
@@ -128,10 +136,10 @@ function Home() {
   console.log("GOOD MORNING" + test);
 
   let answerChoices = [];
-  answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1)}}/>);
-  answerChoices.push(<AnswerChoice id={2} choice={questionAnswer + 1} onClick={function(){CheckAnswer(0)}}/>);
-  answerChoices.push(<AnswerChoice id={3} choice={questionAnswer + 2} onClick={function(){CheckAnswer(0)}}/>);
-  answerChoices.push(<AnswerChoice id={4} choice={questionAnswer - 1} onClick={function(){CheckAnswer(0)}}/>);
+  answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle)}}/>);
+  answerChoices.push(<AnswerChoice id={2} choice={questionAnswer + 1} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
+  answerChoices.push(<AnswerChoice id={3} choice={questionAnswer + 2} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
+  answerChoices.push(<AnswerChoice id={4} choice={questionAnswer - 1} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
 
   answerChoices = RandomizeAnswerChoices(answerChoices);
   console.log(answerChoices);

@@ -56,10 +56,10 @@ connectDB(process.env.MONGO_URI)
 
 // User sign up route
 app.post('/sign-up', async (req, res) => {
-  const { username, password, role } = req.body;
+   let { username, password, role, class_number } = req.body;
 
   console.log("Received from frontend:", req.body);
-  console.log("Parsed role value:", role); 
+  console.log("Parsed role value:", role);
 
   try {
     const usersCollection = db.collection('users');
@@ -74,13 +74,21 @@ app.post('/sign-up', async (req, res) => {
       return res.status(401).json({ error: 'Password must be at least 8 characters long' });
     }
 
-    const isAdmin = role ? "teacher" : "student"; // Determine role based on checkbox state
+    role ? "teacher" : "student"; // Determine role based on checkbox state
 
+    
     // Success!
     res.json({ message: 'Sign up successful!', username: username });
 
     // Add the user credential to the users database
-    let result = await usersCollection.insertOne({ username: username, password: password, role: role });
+    if (role == "student") {
+      // class_number = 0; Default class number for students
+      await usersCollection.insertOne({ username: username, password: password, role: role, class_number: 0 });
+    }
+    else if (role == "teacher") {
+      // class_number = null; teachers will not have a class number
+      await usersCollection.insertOne({ username: username, password: password, role: role, class_number: null });
+    }
     console.log(`SIGNED UP WITH USERNAME ${username} + PASSWORD ${password} ENTERED` + ` + ROLE ${role}`);
 
   } catch (error) {

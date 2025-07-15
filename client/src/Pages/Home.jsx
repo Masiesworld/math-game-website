@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
+import {sortUsersByScoreAscending, sortUsersByScoreDescending, Leaderboards} from "./Leaderboards.jsx";
 
 function AnswerChoice({ id, choice, onClick }) {
   return (
@@ -157,7 +158,7 @@ function Home() {
   return (
     <div>
       <div className="box-main">
-        <h1>Placeholder for Leaderboard?</h1>
+        <Leaderboards />
         <div id="game-window">
           <h1 id="score">Score: {score}</h1>
           <h1 id="question">{questionTitle}</h1>
@@ -172,7 +173,7 @@ function Home() {
 // When the website loads...
 initQuestions();
 initUsers();
-
 export default Home;
 
 // <h1>Placeholder where game window will go?</h1>
+// <h1>Placeholder for Leaderboard?</h1>

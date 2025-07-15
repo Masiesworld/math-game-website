@@ -2,11 +2,13 @@
   {
     "username": "userTest",
     "password": "password",
-    "role": "student"
+    "role": "student",
+    "total_score": 500
   },
   {
     "username": "teacherTest",
     "password": "teacher123",
-    "role": "teacher"
+    "role": "teacher",
+    "total_score": 1000
   }
 ]

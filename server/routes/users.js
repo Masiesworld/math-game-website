@@ -2,6 +2,17 @@ const express = require('express')
 const router = express.Router();
 
 module.exports = function(db, entryIsUnique){
+    router.get('/', async (req, res) => { // fetch all users from the database
+    try {
+        const users = db.collection('users');
+        const data = await users.find({}).toArray();
+        res.json(data);
+
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch users' });
+    }
+    });
+
     router.get('/initialize-users', async (req, res) => { // test to see if we can insert initusers.json into MongoDB Compass
   try {
     const initJson = require("../initusers.json");
@@ -12,7 +23,7 @@ module.exports = function(db, entryIsUnique){
       // Make sure we are not inserting duplicate users
       if (await entryIsUnique('users', initJson[i], "username")) {
         console.log("USER IS UNIQUE");
-        let result = await users.insertOne({ username: initJson[i]["username"], password: initJson[i]["password"], role: initJson[i]["role"] });
+        let result = await users.insertOne({ username: initJson[i]["username"], password: initJson[i]["password"], role: initJson[i]["role"], total_score: initJson[i]["total_score"]});
       }
     }
 
@@ -24,7 +35,7 @@ module.exports = function(db, entryIsUnique){
 
 // User log in route
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role, total_score } = req.body;
 
   try {
     const usersCollection = db.collection('users');

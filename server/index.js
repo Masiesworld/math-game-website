@@ -56,7 +56,7 @@ connectDB(process.env.MONGO_URI)
 
 // User sign up route
 app.post('/sign-up', async (req, res) => {
-  const { username, password, role } = req.body;
+  const { username, password, role} = req.body;
 
   console.log("Received from frontend:", req.body);
   console.log("Parsed role value:", role); 
@@ -80,7 +80,7 @@ app.post('/sign-up', async (req, res) => {
     res.json({ message: 'Sign up successful!', username: username });
 
     // Add the user credential to the users database
-    let result = await usersCollection.insertOne({ username: username, password: password, role: role });
+    let result = await usersCollection.insertOne({ username: username, password: password, role: role, total_score: 0});
     console.log(`SIGNED UP WITH USERNAME ${username} + PASSWORD ${password} ENTERED` + ` + ROLE ${role}`);
 
   } catch (error) {

@@ -1,6 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
 import '../App.css';
-//import { sortUsersByScoreAscending, sortUsersByScoreDescending, Leaderboards } from "./Leaderboards.jsx";
 const Leaderboards = lazy(() => import('./Leaderboards.jsx'));
 
 function AnswerChoice({ id, choice, onClick }) {
@@ -98,6 +98,7 @@ function Home({ questions, users }) {
   const [score, setScore] = useState(0);
   //const [questions, setQuestions] = useState(0);
   const [prevQuestion, setPrev] = useState("");
+  
   //console.log("on skibidi");
   function CheckAnswer(isCorrect, question) {
     if (isCorrect) {
@@ -121,7 +122,7 @@ function Home({ questions, users }) {
   answerChoices.push(<AnswerChoice id={2} choice={questionAnswer + 1} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
   answerChoices.push(<AnswerChoice id={3} choice={questionAnswer + 2} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
   answerChoices.push(<AnswerChoice id={4} choice={questionAnswer - 1} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
-
+  
   answerChoices = RandomizeAnswerChoices(answerChoices);
   console.log(answerChoices);
 

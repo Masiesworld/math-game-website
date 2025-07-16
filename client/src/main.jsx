@@ -14,7 +14,8 @@ Promise.all([initQuestions(), initUsers()])
     // Make sure we have the json information from the server before proceeding
     Promise.all([questions, users])
       .then((get_responses) => {
-        createRoot(document.getElementById('root')).render(
+        const root = createRoot(document.getElementById('root'));
+        root.render(
           <StrictMode>
             {console.log("YALL GOT HERE!??!?!")}
             <Suspense>
@@ -25,10 +26,3 @@ Promise.all([initQuestions(), initUsers()])
         )
       });
   });
-
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     {console.log("YALL GOT HERE!??!?!")}
-//     <App />
-//   </StrictMode>,
-// )

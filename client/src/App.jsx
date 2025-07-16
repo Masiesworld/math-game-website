@@ -25,12 +25,10 @@ function App({ questions, users }) {
             <Route path="/Sign-up" element={<SignUp />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
           </Routes>
-
             <Footer/>
-            
       </Router>
   </div>
   )
-} 
+}
 
 export default App

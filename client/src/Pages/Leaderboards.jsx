@@ -101,20 +101,42 @@ console.log("bro");
 console.log(sortedUsersDescending);
 
 function Leaderboards() {
-    const [refreshes, setRefreshes] = useState(1);
-    function handleRefresh() {
-        setRefreshes(refreshes + 1);
-        console.log(`REFRESHED; refreshes now at ${refreshes}`);
+    const [users, setUsers] = useState(sortedUsersDescending);
+    const [isRefreshing, indicateRefreshing] = useState(0);
+
+    async function refreshUsers() {
+        console.log("refreshUsers called");
+
+        let sortedUsersDescending = sortUsersByScoreDescending(await getUsers());
+        console.log("bro but refresh");
+        console.log(sortedUsersDescending);
+        setUsers(sortedUsersDescending);
+
+        console.log("refreshUsers returning");
     }
 
-    const userRankings = sortedUsersDescending.map(user =>
-    <li id="rank">{user.username} | {user.total_score}</li>
-  );
+    function bro() {
+        if (isRefreshing > 0) {
+            console.log("refreshes already taking place... returning...");
+            return;
+        }
+
+        indicateRefreshing(1);
+        console.log("this is the first refresh");
+
+        setInterval(refreshUsers, 10000);
+    }
+    
+    let userRankings = users.map(user =>
+        <li key={user._id} id="rank">{user.username} | {user.total_score}</li>);
+    
     return (
         <div id="leaderboards">
             <h2>LEADERBOARD GOES HERE!</h2>
             <ol id="user-rankings">{userRankings}</ol>
-            <button id="refresh-leaderboard" onClick={handleRefresh}>REFRESH</button>
+            {console.log("USER RANKINGS")}
+            {console.log(userRankings)}
+            {bro()}
         </div>
     );
 }

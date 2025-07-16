@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
-
+console.log("leaderboards called");
 // Merge Sort (Ascending Order)
 function sortUsersByScoreAscending(users) {
     if (users.length <= 1)
@@ -101,6 +101,12 @@ console.log("bro");
 console.log(sortedUsersDescending);
 
 function Leaderboards() {
+    const [refreshes, setRefreshes] = useState(1);
+    function handleRefresh() {
+        setRefreshes(refreshes + 1);
+        console.log(`REFRESHED; refreshes now at ${refreshes}`);
+    }
+
     const userRankings = sortedUsersDescending.map(user =>
     <li id="rank">{user.username} | {user.total_score}</li>
   );
@@ -108,8 +114,9 @@ function Leaderboards() {
         <div id="leaderboards">
             <h2>LEADERBOARD GOES HERE!</h2>
             <ol id="user-rankings">{userRankings}</ol>
+            <button id="refresh-leaderboard" onClick={handleRefresh}>REFRESH</button>
         </div>
     );
 }
 
-export {sortUsersByScoreAscending, sortUsersByScoreDescending, Leaderboards};
+export default Leaderboards;

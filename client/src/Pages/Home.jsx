@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import '../App.css';
-import {sortUsersByScoreAscending, sortUsersByScoreDescending, Leaderboards} from "./Leaderboards.jsx";
+//import { sortUsersByScoreAscending, sortUsersByScoreDescending, Leaderboards } from "./Leaderboards.jsx";
+const Leaderboards = lazy(() => import('./Leaderboards.jsx'));
 
 function AnswerChoice({ id, choice, onClick }) {
   return (
@@ -18,52 +19,6 @@ function RandomizeAnswerChoices(answerChoices) {
   }
 
   return randomized;
-}
-
-async function initQuestions() {
-  console.log("INITIALIZE QUESTIONS");
-  try {
-    const response = await fetch('http://localhost:3001/questions/initialize-questions', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log("after the await");
-    const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
-    if (response.ok) {
-      setMessage(data.message || `Insert ${data.length} questions`);
-    }
-    else {
-      setMessage(data.error || 'Error fetching questions');
-    }
-  } catch (error) {
-    console.error('Login error:', error);
-    setMessage('Error connecting to backend');
-  }
-}
-
-async function initUsers() {
-  console.log("INITIALIZE USERS");
-  try {
-    const response = await fetch('http://localhost:3001/users/initialize-users', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log("after the await");
-    const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
-    if (response.ok) {
-      setMessage(data.message);
-    }
-    else {
-      setMessage(data.error);
-    }
-  } catch (error) {
-    console.error('Login error:', error);
-    setMessage('Error connecting to backend');
-  }
 }
 
 async function getQuestions() {
@@ -111,14 +66,39 @@ function loadQuestion(questions, previous_question) {
   return [chosen["question"], chosen["answer"]];
 }
 
-let initialized_questions = await getQuestions();
+async function getUsers() {
+  console.log("getUsers called");
+  try {
+    const response = await fetch('http://localhost:3001/users', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    console.log("after the await");
+    const data = await response.json();
+    console.log("after the data; data is: ");
+    console.log(data);
+    return data;
+    if (response.ok) {
+      return data;
+    }
+    else {
+      return "";
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+  }
+}
 
-function Home() {
+// Get the questions before 
+// let initialized_questions = getQuestions();
+// let initialized_users = getUsers();
+
+function Home({ questions, users }) {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
-  const [questions, setQuestions] = useState(0);
+  //const [questions, setQuestions] = useState(0);
   const [prevQuestion, setPrev] = useState("");
-  
+  //console.log("on skibidi");
   function CheckAnswer(isCorrect, question) {
     if (isCorrect) {
       console.log(`score set to ${score}`)
@@ -126,12 +106,12 @@ function Home() {
     }
     
     // The answer choices should randomize in order as long as some state is being changed??
-    setQuestions(questions + 1);
+    //setQuestions(questions + 1);
     setPrev(question);
     console.log(`prev question set to ${prevQuestion}`);
   }
 
-  let test = loadQuestion(initialized_questions, prevQuestion);
+  let test = loadQuestion(questions, prevQuestion);
   let questionTitle = test[0];
   let questionAnswer = test[1];
   console.log("GOOD MORNING" + test);
@@ -158,7 +138,10 @@ function Home() {
   return (
     <div>
       <div className="box-main">
-        <Leaderboards />
+        {console.log("CALL ME ASPARAGUS")}
+        <Suspense>
+          <Leaderboards />
+        </Suspense>
         <div id="game-window">
           <h1 id="score">Score: {score}</h1>
           <h1 id="question">{questionTitle}</h1>
@@ -170,9 +153,6 @@ function Home() {
   );
 }
 
-// When the website loads...
-initQuestions();
-initUsers();
 export default Home;
 
 // <h1>Placeholder where game window will go?</h1>

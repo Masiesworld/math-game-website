@@ -117,3 +117,8 @@ body, html, #root{
 #rank {
   color: white;
 }
+
+#refresh-leaderboard {
+  position: absolute;
+  left: 75%;
+}

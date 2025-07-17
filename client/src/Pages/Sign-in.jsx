@@ -28,7 +28,10 @@ function SignIn(){
       const data = await response.json();
       if (response.ok) {
         setMessage(data.message);
-      } 
+
+        // Give the local storage the user's username so it knows that the user is logged in + what account the user is logged into
+        localStorage.setItem("username", name);
+      }
       else {
         setMessage(data.error);
       }
@@ -37,24 +40,24 @@ function SignIn(){
       setMessage('Error connecting to backend');
     }
   };
+  
   return (
-
-  <div className= "box-main">
-    <div className='sign-in-form'>
-        <h2>Sign In</h2>
-        <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
-        <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
-        {/* could delete later */}
-        <p>Username: {name}</p> 
-        <Link to="/PasswordReset" className="passwordChange">Reset password</Link>
-        <p>Don't have an account?</p>
-        <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link> 
-        <button className="btn btn-sm" onClick={handleLogin}>Login</button>
-        <p className={message.includes('successful') ? 'success-message' : 'error-message'}>
-            {message}
-        </p>
+    <div className= "box-main">
+      <div className='sign-in-form'>
+          <h2>Sign In</h2>
+          <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
+          <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
+          {/* could delete later */}
+          <p>Username: {name}</p> 
+          <Link to="/PasswordReset" className="passwordChange">Reset password</Link>
+          <p>Don't have an account?</p>
+          <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link> 
+          <button className="btn btn-sm" onClick={handleLogin}>Login</button>
+          <p className={message.includes('successful') ? 'success-message' : 'error-message'}>
+              {message}
+          </p>
+      </div>
     </div>
-  </div>
   );
 }
 

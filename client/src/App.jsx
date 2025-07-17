@@ -12,25 +12,23 @@ import SignUp from './Pages/Sign-up'
 import PasswordReset from './Pages/PasswordReset'
 
 
-function App() {
+function App({ questions, users }) {
   return (
     <div className='app-container'>
+      {console.log("THIS IS CONFUSING")}
       <Router>
         <NavBar/>
-
           <Routes>
-            <Route path="/" exact element= {<Home />} />
+            <Route path="/" exact element= {<Home questions={questions} users={users}/>} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/Sign-in" element={<SignIn />} />
             <Route path="/Sign-up" element={<SignUp />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
           </Routes>
-
             <Footer/>
-            
       </Router>
   </div>
   )
-} 
+}
 
 export default App

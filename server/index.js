@@ -23,8 +23,8 @@ connectDB(process.env.MONGO_URI)
       return database.find({ [uniqueKey]: entry[uniqueKey] }).toArray()
         .then(existing_entries => {
           return !existing_entries.some(e => e[uniqueKey] === entry[uniqueKey]);
-    });
-}
+      });
+    }
 
     // Routes
     // ..system routes
@@ -39,9 +39,6 @@ connectDB(process.env.MONGO_URI)
     const questionsRouter = require('./routes/questions')(db, entryIsUnique);
     app.use('/questions', questionsRouter);
 
-
-
-
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`);
     });
@@ -49,10 +46,6 @@ connectDB(process.env.MONGO_URI)
   .catch((err) => {
     console.error('Failed to connect to MongoDB', err);
   });
-
-
-
-
 
 // User sign up route
 app.post('/sign-up', async (req, res) => {
@@ -89,7 +82,7 @@ app.post('/sign-up', async (req, res) => {
   }
 });
 
-// THE TESTINGS OF A SOMEONE WHO THINKS THIS IS A PYTHON !!!
+// Default localhost URL page
 app.get('/', (req, res) => {
   let header = `This is the default http://localhost:${PORT} URL!`;
 

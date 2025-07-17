@@ -3,6 +3,22 @@ import { createRoot } from 'react-dom/client';
 import '../App.css';
 const Leaderboards = lazy(() => import('./Leaderboards.jsx'));
 
+// Initialize the local storage
+function initializeLocalStorage() {
+  console.log("initializeLocalStorage called");
+
+  const username = localStorage.getItem("username") || "";
+  console.log(username);
+  if (username != "") {
+    console.log("local storage has already been initialized... returning...");
+    return;
+  }
+
+  console.log("initializing local storage...");
+  localStorage.setItem("username", "");
+}
+initializeLocalStorage();
+
 function AnswerChoice({ id, choice, onClick }) {
   return (
     <button onClick={onClick} className="answer-choice">
@@ -59,7 +75,7 @@ function loadQuestion(questions, previous_question) {
       break;
     }
     else {
-      console.log("DUPLIACTE QUESTION... SKIPPING...");
+      console.log("DUPLICATE QUESTION... SKIPPING...");
     }
   }
   
@@ -100,10 +116,31 @@ function Home({ questions, users }) {
   const [prevQuestion, setPrev] = useState("");
   
   //console.log("on skibidi");
-  function CheckAnswer(isCorrect, question) {
+  async function CheckAnswer(isCorrect, question, points) {
     if (isCorrect) {
+      // Update the user's score in the frontend
       console.log(`score set to ${score}`)
-      setScore(score + 10);
+      setScore(score + points);
+      
+      // Update the user's score in the backend
+      try {
+        const response = await fetch('http://localhost:3001/users/update-score', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({username: localStorage.getItem("username"), score_increase: points})
+        });
+        
+        const data = await response.json();
+        if (response.ok) {
+          setMessage(data.message);
+        } 
+        else {
+          setMessage(data.error);
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        setMessage('Error connecting to backend');
+      }
     }
     
     // The answer choices should randomize in order as long as some state is being changed??
@@ -118,10 +155,10 @@ function Home({ questions, users }) {
   console.log("GOOD MORNING" + test);
 
   let answerChoices = [];
-  answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle)}}/>);
-  answerChoices.push(<AnswerChoice id={2} choice={questionAnswer + 1} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
-  answerChoices.push(<AnswerChoice id={3} choice={questionAnswer + 2} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
-  answerChoices.push(<AnswerChoice id={4} choice={questionAnswer - 1} onClick={function(){CheckAnswer(0, questionTitle)}}/>);
+  answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle, 10)}}/>);
+  answerChoices.push(<AnswerChoice id={2} choice={questionAnswer + 1} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
+  answerChoices.push(<AnswerChoice id={3} choice={questionAnswer + 2} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
+  answerChoices.push(<AnswerChoice id={4} choice={questionAnswer - 1} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
   
   answerChoices = RandomizeAnswerChoices(answerChoices);
   console.log(answerChoices);

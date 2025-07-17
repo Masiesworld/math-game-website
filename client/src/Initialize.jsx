@@ -3,7 +3,7 @@ async function initQuestions() {
   console.log("INITIALIZE QUESTIONS");
   try {
     const response = await fetch('http://localhost:3001/questions/initialize-questions', {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
     console.log("questions after the await");
@@ -27,7 +27,7 @@ async function initUsers() {
   console.log("INITIALIZE USERS");
   try {
     const response = await fetch('http://localhost:3001/users/initialize-users', {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
     console.log("users after the await");

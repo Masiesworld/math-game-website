@@ -23,7 +23,11 @@ module.exports = function(db, entryIsUnique){
       // Make sure we are not inserting duplicate users
       if (await entryIsUnique('users', initJson[i], "username")) {
         console.log("USER IS UNIQUE");
-        let result = await users.insertOne({ username: initJson[i]["username"], password: initJson[i]["password"], role: initJson[i]["role"], total_score: initJson[i]["total_score"]});
+        let result = await users.insertOne({  username: initJson[i]["username"], 
+                                              password: initJson[i]["password"], 
+                                              role: initJson[i]["role"],
+                                              total_score: initJson[i]["total_score"],
+                                              class_number: initJson[i]["class_number"] });
       }
     }
 
@@ -51,8 +55,7 @@ module.exports = function(db, entryIsUnique){
       }
 
       // Success!
-      res.json({ message: 'Login successful', username: user.username });
-
+      res.json({ message: 'Login successful', username: user.username, role: user.role });
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ error: 'Internal server error' });

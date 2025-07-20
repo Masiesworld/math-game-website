@@ -96,3 +96,7 @@ body, html, #root{
   color: red;
   font-weight: bold;
 }
+
+.header-title {
+  text-align: center;
+}

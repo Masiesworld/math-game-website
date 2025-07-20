@@ -39,6 +39,10 @@ connectDB(process.env.MONGO_URI)
     const questionsRouter = require('./routes/questions')(db, entryIsUnique);
     app.use('/questions', questionsRouter);
 
+    // ..admin routes
+    const adminRouter = require('./routes/admin')(db);
+    app.use('/admin', adminRouter);
+
 
 
 
@@ -81,14 +85,7 @@ app.post('/sign-up', async (req, res) => {
     res.json({ message: 'Sign up successful!', username: username });
 
     // Add the user credential to the users database
-    if (role == "student") {
-      // class_number = 0; Default class number for students
-      await usersCollection.insertOne({ username: username, password: password, role: role, class_number: 0 });
-    }
-    else if (role == "teacher") {
-      // class_number = null; teachers will not have a class number
-      await usersCollection.insertOne({ username: username, password: password, role: role, class_number: null });
-    }
+    await usersCollection.insertOne({ username: username, password: password, role: role});
     console.log(`SIGNED UP WITH USERNAME ${username} + PASSWORD ${password} ENTERED` + ` + ROLE ${role}`);
 
   } catch (error) {

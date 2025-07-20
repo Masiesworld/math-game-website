@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'
 import '../App.css'
 import './Sign-in.css'
-
 
 function SignIn(){
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   function handleNameChange(event){
       setName(event.target.value);
@@ -27,7 +27,12 @@ function SignIn(){
 
       const data = await response.json();
       if (response.ok) {
-        setMessage(data.message);
+        if (data.role === "student") {
+            navigate('/'); // Redirect to Home.jsx for students
+        }
+        else if (data.role === "teacher") {
+            navigate('/Teacher'); // Redirect to Teacher.jsx for teachers
+        }
       } 
       else {
         setMessage(data.error);

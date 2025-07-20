@@ -5,6 +5,7 @@ import NavBar from "./Components/Navbar"
 import Footer from "./Components/Footer"
 import Home from "./Pages/Home"
 import Profile from "./Pages/Profile"
+import Teacher from "./Pages/Teacher"
 
 import SignIn from './Pages/Sign-in'
 import SignUp from './Pages/Sign-up'
@@ -24,6 +25,7 @@ function App() {
             <Route path="/Sign-in" element={<SignIn />} />
             <Route path="/Sign-up" element={<SignUp />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
+            <Route path="/Teacher" element={<Teacher />} />
           </Routes>
 
             <Footer/>

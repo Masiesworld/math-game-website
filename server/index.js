@@ -23,8 +23,8 @@ connectDB(process.env.MONGO_URI)
       return database.find({ [uniqueKey]: entry[uniqueKey] }).toArray()
         .then(existing_entries => {
           return !existing_entries.some(e => e[uniqueKey] === entry[uniqueKey]);
-    });
-}
+      });
+    }
 
     // Routes
     // ..system routes
@@ -54,13 +54,9 @@ connectDB(process.env.MONGO_URI)
     console.error('Failed to connect to MongoDB', err);
   });
 
-
-
-
-
 // User sign up route
 app.post('/sign-up', async (req, res) => {
-   let { username, password, role, class_number } = req.body;
+  const { username, password, role} = req.body;
 
   console.log("Received from frontend:", req.body);
   console.log("Parsed role value:", role);
@@ -85,7 +81,7 @@ app.post('/sign-up', async (req, res) => {
     res.json({ message: 'Sign up successful!', username: username });
 
     // Add the user credential to the users database
-    await usersCollection.insertOne({ username: username, password: password, role: role});
+    let result = await usersCollection.insertOne({ username: username, password: password, role: role, total_score: 0});
     console.log(`SIGNED UP WITH USERNAME ${username} + PASSWORD ${password} ENTERED` + ` + ROLE ${role}`);
 
   } catch (error) {
@@ -94,7 +90,7 @@ app.post('/sign-up', async (req, res) => {
   }
 });
 
-// THE TESTINGS OF A SOMEONE WHO THINKS THIS IS A PYTHON !!!
+// Default localhost URL page
 app.get('/', (req, res) => {
   let header = `This is the default http://localhost:${PORT} URL!`;
 

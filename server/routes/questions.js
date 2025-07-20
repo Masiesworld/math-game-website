@@ -27,8 +27,6 @@ module.exports = function (db, entryIsUnique){
     }
     });
 
-
-
     router.get('/test-insert', async (req, res) => { // test to see if we can insert a question
     try {
         const questions = db.collection('questions');
@@ -39,19 +37,20 @@ module.exports = function (db, entryIsUnique){
     }
     });
 
+    // Function to check if a given entry does not already exist in a given database
     async function entryIsUnique(database_name, entry, uniqueKey) {
-    const database = db.collection(database_name);
-    const existing_entries = await database.find({}).toArray();
+        const database = db.collection(database_name);
+        const existing_entries = await database.find({}).toArray();
 
-    for (let i = 0; i < existing_entries.length; i++) {
-        if (entry[uniqueKey] == existing_entries[i][uniqueKey])
-            return false;
+        for (let i = 0; i < existing_entries.length; i++) {
+            if (entry[uniqueKey] == existing_entries[i][uniqueKey])
+                return false;
+        }
+
+        return true;
     }
 
-    return true;
-    }
-
-    router.get('/initialize-questions', async (req, res) => { // test to see if we can insert initquestions.json into MongoDB Compass
+    router.post('/initialize-questions', async (req, res) => { // test to see if we can insert initquestions.json into MongoDB Compass
     try {
         const initJson = require("../initquestions.json");
         const questions = db.collection('questions');

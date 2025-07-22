@@ -1,6 +1,7 @@
 [
   {
     "username": "userTest",
+    "email": "userTest@email.com",
     "password": "password",
     "role": "student",
     "total_score": 500,
@@ -8,6 +9,7 @@
   },
   {
     "username": "teacherTest",
+    "email": "teacherTest@email.com",
     "password": "teacher123",
     "role": "teacher",
     "total_score": 1000,
@@ -15,6 +17,7 @@
   },
   {
     "username": "userEasy",
+    "email": "userEasy@email.com",
     "password": "passwordEasy",
     "role": "student",
     "total_score": 200,
@@ -22,6 +25,7 @@
   },
   {
     "username": "userMedium",
+    "email": "userMedium@email.com",
     "password": "passwordMedium",
     "role": "student",
     "total_score": 400,
@@ -29,6 +33,7 @@
   },
   {
     "username": "userHard",
+    "email": "userHard@email.com",
     "password": "passwordHard",
     "role": "student",
     "total_score": 600,

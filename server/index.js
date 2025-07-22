@@ -57,7 +57,7 @@ connectDB(process.env.MONGO_URI)
 
 // User sign up route
 app.post('/sign-up', async (req, res) => {
-  const { username, password, role} = req.body;
+  const { username, email, password, password_check, role} = req.body;
 
   console.log("Received from frontend:", req.body);
   console.log("Parsed role value:", role);
@@ -75,15 +75,18 @@ app.post('/sign-up', async (req, res) => {
       return res.status(401).json({ error: 'Password must be at least 8 characters long' });
     }
 
-    role ? "teacher" : "student"; // Determine role based on checkbox state
+    if (password != password_check) {
+      return res.status(401).json({ error: 'Passwords do not match' });
+    }
 
+    role ? "teacher" : "student"; // Determine role based on checkbox state
     
     // Success!
     res.json({ message: 'Sign up successful!', username: username });
 
     // Add the user credential to the users database
-    let result = await usersCollection.insertOne({ username: username, password: password, role: role, total_score: 0});
-    console.log(`SIGNED UP WITH USERNAME ${username} + PASSWORD ${password} ENTERED` + ` + ROLE ${role}`);
+    let result = await usersCollection.insertOne({ username: username, email: email, password: password, role: role, total_score: 0});
+    console.log(`SIGNED UP WITH USERNAME ${username} + EMAIL ${email} + PASSWORD ${password} ENTERED` + ` + ROLE ${role}`);
 
   } catch (error) {
     console.error('Login error:', error);

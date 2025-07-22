@@ -15,13 +15,19 @@ module.exports = function (db){
         res.send("Emails!");
     });
 
-    router.get('/password-reset', async (req, res) => { // maybe list the email templates available?
+    router.post('/password-reset', async (req, res) => { // send a password reset email
         //res.send("Sending password reset email...");
         const { email } = req.body;
-        
+
         try {
             const usersCollection = db.collection('users');
-            const user = await usersCollection.findOne({ email: email });
+            let user = "";
+
+            try {
+                user = await usersCollection.findOne({ email: email });
+            } catch(err) {
+                return res.status(400).json({ error: 'Email not found' });
+            }
 
             let mail = {
                 from: 'teammathtrials@gmail.com',
@@ -33,10 +39,10 @@ module.exports = function (db){
             transporter.sendMail(mail, function(error, info){
                 if (error) {
                     console.log(error);
-                    res.send("Password Reset was not able to be sent: " + error);
+                    return res.status(500).json({ error: 'Something went wrong' });
                 } else {
                     console.log('Email sent: ' + info.response);
-                    res.send("Password Reset email successfully sent: " + info.response);
+                    res.json({ message: 'Password reset email successfully sent!' });
                 }
             });
         } catch (err) {
@@ -45,7 +51,7 @@ module.exports = function (db){
         }
     });
 
-return router;
+    return router;
 }
 
 function passwordResetHTML(username) {

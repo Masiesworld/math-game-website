@@ -1,0 +1,80 @@
+.teacher-block {
+  background-color: #f7f7f7;
+  color: #050505;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 1600px;
+  width: 75vw;
+  height: 45vh;
+}
+
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 0;
+  left: 100%; /* places it to the right of the button */
+  background-color: #ccc5;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 200px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.dropdown-menu p {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #ccc;
+}
+
+.selected-box {
+  margin-left: 10px;
+    height: auto;
+    width: 10vw;
+    color: #000000;
+    background-color: #2ece43;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.dropdown-item {
+  cursor: pointer;
+  padding: 6px;
+}
+
+.dropdown-item:hover {
+  background-color: #e0e0e0;
+}
+
+.teach-btn {
+  margin-left: 10px;
+  height: auto;
+  width: 10vw;
+  color: #000000;
+  background-color: #2ece43;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+}

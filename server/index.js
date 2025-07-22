@@ -39,6 +39,14 @@ connectDB(process.env.MONGO_URI)
     const questionsRouter = require('./routes/questions')(db, entryIsUnique);
     app.use('/questions', questionsRouter);
 
+    // ..admin routes
+    const adminRouter = require('./routes/admin')(db);
+    app.use('/admin', adminRouter);
+
+    // ..email routes
+    const emailRouter = require('./routes/emails')(db);
+    app.use('/emails', emailRouter);
+
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`);
     });
@@ -52,7 +60,7 @@ app.post('/sign-up', async (req, res) => {
   const { username, password, role} = req.body;
 
   console.log("Received from frontend:", req.body);
-  console.log("Parsed role value:", role); 
+  console.log("Parsed role value:", role);
 
   try {
     const usersCollection = db.collection('users');
@@ -67,8 +75,9 @@ app.post('/sign-up', async (req, res) => {
       return res.status(401).json({ error: 'Password must be at least 8 characters long' });
     }
 
-    const isAdmin = role ? "teacher" : "student"; // Determine role based on checkbox state
+    role ? "teacher" : "student"; // Determine role based on checkbox state
 
+    
     // Success!
     res.json({ message: 'Sign up successful!', username: username });
 

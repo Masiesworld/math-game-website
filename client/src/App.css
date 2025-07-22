@@ -97,6 +97,10 @@ body, html, #root{
   font-weight: bold;
 }
 
+.header-title {
+  text-align: center;
+}
+
 #leaderboards {
   position: absolute;
   top: 15%; /* 15% is the default for now */

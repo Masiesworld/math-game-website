@@ -3,12 +3,35 @@
     "username": "userTest",
     "password": "password",
     "role": "student",
-    "total_score": 500
+    "total_score": 500,
+    "class_number": 1
   },
   {
     "username": "teacherTest",
     "password": "teacher123",
     "role": "teacher",
-    "total_score": 1000
+    "total_score": 1000,
+    "class_number": null
+  },
+  {
+    "username": "userEasy",
+    "password": "passwordEasy",
+    "role": "student",
+    "total_score": 200,
+    "class_number": 1
+  },
+  {
+    "username": "userMedium",
+    "password": "passwordMedium",
+    "role": "student",
+    "total_score": 400,
+    "class_number": 2
+  },
+  {
+    "username": "userHard",
+    "password": "passwordHard",
+    "role": "student",
+    "total_score": 600,
+    "class_number": 3
   }
 ]

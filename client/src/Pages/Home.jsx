@@ -49,12 +49,17 @@ async function getQuestions() {
     console.log("after the data; data is: ");
     console.log(data);
     return data;
+
+    // Section shades out so can either needs to be fixed or removed
+    /*
     if (response.ok) {
       return data;
     }
     else {
       return "";
     }
+    */
+
   } catch (error) {
     console.error('Login error:', error);
   }

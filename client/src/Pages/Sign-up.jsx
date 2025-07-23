@@ -35,14 +35,17 @@ function SignUp(){
         console.log("VALIDATE USER");
         try {
             const response = await fetch('http://localhost:3001/sign-up', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({username: name, password: password, role: adminChecked ? "teacher" : "student"}) // role parameter added, "student" or "teacher"
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({username: name, email: email, password: password, password_check: passwordCheck, role: adminChecked ? "teacher" : "student"}) // role parameter added, "student" or "teacher"
             });
+
             console.log("after the await");
             const data = await response.json();
+
             console.log("after the data; data is: ");
             console.log(data);
+
             if (response.ok) {
                 setMessage(data.message);
                 navigate("/Sign-in");
@@ -50,10 +53,10 @@ function SignUp(){
             else {
                 setMessage(data.error);
             }
-            } catch (error) {
-                console.error('Login error:', error);
-                setMessage('Error connecting to backend');
-            }
+        } catch (error) {
+            console.error('Login error:', error);
+            setMessage('Error connecting to backend');
+        }
     }
 
     return(

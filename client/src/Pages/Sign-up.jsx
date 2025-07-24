@@ -47,6 +47,13 @@ function SignUp(){
             console.log(data);
 
             if (response.ok) {
+                // Send confirmation email
+                await fetch('http://localhost:3001/emails/registration-confirmation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({email: email, username: name})
+                });
+                
                 setMessage(data.message);
                 navigate("/Sign-in");
             }

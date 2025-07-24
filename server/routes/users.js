@@ -31,7 +31,7 @@ module.exports = function(db, entryIsUnique){
                                               class_number: initJson[i]["class_number"] });
       }
     }
-
+    
     res.json({ message: 'Inserted', dbName: db.databaseName, users: initJson});
     } catch (err) {
       res.status(500).json({ error: err.message });

@@ -42,11 +42,11 @@ connectDB(process.env.MONGO_URI)
     // ..admin routes
     const adminRouter = require('./routes/admin')(db);
     app.use('/admin', adminRouter);
-
+    
     // ..email routes
     const emailRouter = require('./routes/emails')(db);
     app.use('/emails', emailRouter);
-
+    
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`);
     });
@@ -74,11 +74,11 @@ app.post('/sign-up', async (req, res) => {
     if (password.length < 8) {
       return res.status(401).json({ error: 'Password must be at least 8 characters long' });
     }
-
+    
     if (password != password_check) {
       return res.status(401).json({ error: 'Passwords do not match' });
     }
-
+    
     role ? "teacher" : "student"; // Determine role based on checkbox state
     
     // Success!

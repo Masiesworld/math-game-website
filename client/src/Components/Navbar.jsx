@@ -5,10 +5,16 @@ import './Navbar.css'
 
 function NavBar(){
 
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(!!localStorage.getItem("username"));
 
   const handleSignInToggle = () =>{
     setSignedIn(!signedIn);
+  };
+
+  const handleSignOutToggle = () =>{ 
+    localStorage.removeItem("username");  //Removes Username from local storage
+    setSignedIn(!signedIn);               //Change signin to false
+    window.location.reload();             //Reload window after sign out
   };
 
   const statusText = signedIn ? 'Signed In' : 'Guest';
@@ -21,9 +27,6 @@ function NavBar(){
         </div>
       {/* If user is NOT signed in */}
         <ul className="nav-list">
-          <li>
-                <Link to="/Profile" className="btn btn-sm">Profile</Link>
-              </li>
           <li>
             <Link to="/" className="btn btn-sm">Home</Link>
           </li>
@@ -40,7 +43,9 @@ function NavBar(){
               <li>
                 <Link to="/Profile" className="btn btn-sm">Profile</Link>
               </li>
-              <button className='btn btn-sm' onClick={() => setSignedIn(false)}>Log out</button>
+              <li>
+              <button className='btn btn-sm' onClick={handleSignOutToggle}>Log out</button>
+              </li>
             </>
           )}
 

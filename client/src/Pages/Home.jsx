@@ -1,7 +1,9 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../App.css';
-const Leaderboards = lazy(() => import('./Leaderboards.jsx'));
+import '../Components/Leaderboards.css'
+import '../Components/Gamewindow.css'
+const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
 
 // Initialize the local storage
 function initializeLocalStorage() {

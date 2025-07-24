@@ -7,23 +7,21 @@ function NavBar(){
 
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem("username"));
 
-  const handleSignInToggle = () =>{
-    setSignedIn(!signedIn);
-  };
 
   const handleSignOutToggle = () =>{ 
     localStorage.removeItem("username");  //Removes Username from local storage
-    setSignedIn(!signedIn);               //Change signin to false
+    setSignedIn(false);                   //Change signin to false
     window.location.reload();             //Reload window after sign out
   };
 
   useEffect(() => { //Listens for events to change the SignIn status
-    const handlechange = () => {
-      setSignedIn(!!localStorage.getItem("username"));
+    const handleSignInToggle = () =>{
+    setSignedIn(!signedIn);
     };
 
-    window.addEventListener("Login", handlechange);
-    return () => window.removeEventListener("Login", handlechange);
+
+    window.addEventListener("Login", handleSignInToggle);
+    return () => window.removeEventListener("Login", handleSignInToggle);
   }, []);
 
   const statusText = signedIn ? 'Signed In' : 'Guest';

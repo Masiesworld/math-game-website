@@ -17,24 +17,24 @@ module.exports = function (db, entryIsUnique){
     });
 
     router.get('/', async (req, res) => { // fetch all questions from the database
-    try {
-        const questions = db.collection('questions');
-        const data = await questions.find({}).toArray();
-        res.json(data);
+        try {
+            const questions = db.collection('questions');
+            const data = await questions.find({}).toArray();
+            res.json(data);
 
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch questions' });
-    }
+        } catch (err) {
+            res.status(500).json({ error: 'Failed to fetch questions' });
+        }
     });
 
     router.get('/test-insert', async (req, res) => { // test to see if we can insert a question
-    try {
-        const questions = db.collection('questions');
-        const result = await questions.insertOne({ question: "Test question?", answer: 42 });
-        res.json({ message: 'Inserted', id: result.insertedId, dbName: db.databaseName });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+        try {
+            const questions = db.collection('questions');
+            const result = await questions.insertOne({ question: "Test question?", answer: 42 });
+            res.json({ message: 'Inserted', id: result.insertedId, dbName: db.databaseName });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
     });
 
     // Function to check if a given entry does not already exist in a given database
@@ -51,27 +51,29 @@ module.exports = function (db, entryIsUnique){
     }
 
     router.post('/initialize-questions', async (req, res) => { // test to see if we can insert initquestions.json into MongoDB Compass
-    try {
-        const initJson = require("../initquestions.json");
-        const questions = db.collection('questions');
+        try {
+            const initJson = require("../initquestions.json");
+            const questions = db.collection('questions');
 
-        // Insert each question and answer entry into the database
-        for (let i = 0; i < initJson.length; i++) {
-        // Make sure we are not inserting duplicate questions
-        if (await entryIsUnique('questions', initJson[i], "question")) {
-            console.log("QUESTION IS UNIQUE");
-            let result = await questions.insertOne({ question: initJson[i]["question"], answer: initJson[i]["answer"] });
-        }
-        }
+            // Insert each question and answer entry into the database
+            for (let i = 0; i < initJson.length; i++) {
+                // Make sure we are not inserting duplicate questions
+                if (await entryIsUnique('questions', initJson[i], "question")) {
+                    console.log("QUESTION IS UNIQUE");
+                    let result = await questions.insertOne({ question: initJson[i]["question"],
+                                                            answer: initJson[i]["answer"],
+                                                            difficulty: initJson[i]["difficulty"],
+                                                            incorrects: initJson[i]["incorrects"]
+                                                          });
+                }
+            }
 
-        res.json({ message: 'Inserted', dbName: db.databaseName, questions: initJson});
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+            res.json({ message: 'Inserted', dbName: db.databaseName, questions: initJson});
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
     });
 
-
-return router;
+    return router;
 }
-
 

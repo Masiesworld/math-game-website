@@ -73,6 +73,7 @@ function loadQuestion(questions, previous_question) {
 
   let numQuestions = questions.length;
   let chosen = 0;
+
   while (true) {
     var randomIndex = Math.floor(Math.random() * numQuestions);
     if (questions[randomIndex]["question"] != previous_question) {
@@ -84,7 +85,7 @@ function loadQuestion(questions, previous_question) {
     }
   }
   
-  return [chosen["question"], chosen["answer"]];
+  return [chosen["question"], chosen["answer"], chosen["incorrects"]];
 }
 
 async function getUsers() {
@@ -154,16 +155,17 @@ function Home({ questions, users }) {
     console.log(`prev question set to ${prevQuestion}`);
   }
 
-  let test = loadQuestion(questions, prevQuestion);
-  let questionTitle = test[0];
-  let questionAnswer = test[1];
-  console.log("GOOD MORNING" + test);
+  let questionInfo = loadQuestion(questions, prevQuestion);
+  let questionTitle = questionInfo[0];
+  let questionAnswer = questionInfo[1];
+  let incorrectAnswers = questionInfo[2];
+  console.log("GOOD MORNING" + questionInfo);
 
   let answerChoices = [];
   answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle, 10)}}/>);
-  answerChoices.push(<AnswerChoice id={2} choice={questionAnswer + 1} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
-  answerChoices.push(<AnswerChoice id={3} choice={questionAnswer + 2} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
-  answerChoices.push(<AnswerChoice id={4} choice={questionAnswer - 1} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
+  answerChoices.push(<AnswerChoice id={2} choice={incorrectAnswers[0]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
+  answerChoices.push(<AnswerChoice id={3} choice={incorrectAnswers[1]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
+  answerChoices.push(<AnswerChoice id={4} choice={incorrectAnswers[2]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
   
   answerChoices = RandomizeAnswerChoices(answerChoices);
   console.log(answerChoices);

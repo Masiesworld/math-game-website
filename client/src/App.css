@@ -57,36 +57,6 @@ body, html, #root{
   text-align: end;
 }
 
-#game-window {
-  position: absolute;
-  top: 15%; /* 15% is the default for now */
-  left: 40%;
-
-  width: 50%;
-  height: 65%;
-
-  background-color: rgb(100, 125, 133);
-  border: 1.5px solid #000000;
-}
-
-#score {
-  position: absolute;
-  top: 5%;
-  left: 70%;
-}
-
-#question {
-  position: absolute;
-  top: 15%;
-  left: 30%;
-}
-
-.answer-choice {
-  position: relative;
-  top: 50%;
-  left: 20%;
-}
-
 .success-message {
   color: green;
   font-weight: bold;
@@ -101,28 +71,3 @@ body, html, #root{
   text-align: center;
 }
 
-#leaderboards {
-  position: absolute;
-  top: 15%; /* 15% is the default for now */
-  left: 8%;
-
-  width: 30%;
-  height: 75%;
-
-  background-color: rgb(100, 125, 133);
-  border: 1.5px solid #000000;
-}
-
-#user-rankings {
-  position: absolute;
-  left: 5%;
-}
-
-#rank {
-  color: white;
-}
-
-#refresh-leaderboard {
-  position: absolute;
-  left: 75%;
-}

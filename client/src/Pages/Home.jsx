@@ -1,7 +1,9 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../App.css';
-const Leaderboards = lazy(() => import('./Leaderboards.jsx'));
+import '../Components/Leaderboards.css'
+import '../Components/Gamewindow.css'
+const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
 
 // Initialize the local storage
 function initializeLocalStorage() {
@@ -186,9 +188,12 @@ function Home({ questions, users }) {
           <Leaderboards />
         </Suspense>
         <div id="game-window">
+          <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
           <h1 id="score">Score: {score}</h1>
-          <h1 id="question">{questionTitle}</h1>
-          {answerChoices}
+            <div id="inner-window">
+            <h1 id="question">{questionTitle}</h1>
+            {answerChoices}
+            </div>
         </div>
         <h2>{message}</h2>
       </div>

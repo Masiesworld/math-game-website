@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
 import './Navbar.css'
@@ -16,6 +16,15 @@ function NavBar(){
     setSignedIn(!signedIn);               //Change signin to false
     window.location.reload();             //Reload window after sign out
   };
+
+  useEffect(() => { //Listens for events to change the SignIn status
+    const handlechange = () => {
+      setSignedIn(!!localStorage.getItem("username"));
+    };
+
+    window.addEventListener("Login", handlechange);
+    return () => window.removeEventListener("Login", handlechange);
+  }, []);
 
   const statusText = signedIn ? 'Signed In' : 'Guest';
 

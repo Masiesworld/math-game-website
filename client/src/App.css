@@ -69,6 +69,13 @@ body, html, #root{
   border: 1.5px solid #000000;
 }
 
+#Userinfo {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  font-size: 40px;
+}
+
 #score {
   position: absolute;
   top: 5%;
@@ -76,10 +83,20 @@ body, html, #root{
   font-size: 30px;
 }
 
+#inner-window {
+ position: absolute;
+ top: 20%;
+ left: 7%;
+ width: 80%;
+ height: 70%;
+ padding: 20px;
+ background-color: white;
+}
+
 #question {
   position: absolute;
-  top: 40%;
-  left: 15%;
+  top: 30%;
+  left: 10%;
   font-size: 50px;
 }
 
@@ -88,9 +105,9 @@ body, html, #root{
   width: 150px;
   height: 50px;
   top: 70%;
-  left: 15%;
+  left: 7%;
   margin-right: 10px;
-  background-color: blue;
+  background-color: lightgrey;
   border: 1.5px solid #000000;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }

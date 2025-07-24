@@ -186,9 +186,12 @@ function Home({ questions, users }) {
           <Leaderboards />
         </Suspense>
         <div id="game-window">
+          <h1 id="Userinfo">{localStorage.getItem("username")}</h1>
           <h1 id="score">Score: {score}</h1>
-          <h1 id="question">{questionTitle}</h1>
-          {answerChoices}
+            <div id="inner-window">
+            <h1 id="question">{questionTitle}</h1>
+            {answerChoices}
+            </div>
         </div>
         <h2>{message}</h2>
       </div>

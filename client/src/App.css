@@ -143,15 +143,38 @@ body, html, #root{
 
   background-color: rgb(100, 125, 133);
   border: 1.5px solid #000000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#leaderboards h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 #user-rankings {
-  position: absolute;
-  left: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 0;
+  list-style-position: inside;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
 }
 
 #rank {
-  color: white;
+  color: black;
+  width: 90%;
+  padding: 10px;
+  border: 1.5px solid #000000;
+  border-radius: 10px;
+  background-color: lightgrey;
+  font-size:15px;
 }
 
 #refresh-leaderboard {

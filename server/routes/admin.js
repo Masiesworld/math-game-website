@@ -35,5 +35,24 @@ router.post('/assign', async (req, res) => {
   }
 });
 
+// POST add a new question
+router.post('/add-question', async (req, res) => {
+  const { question, answer, incorrects, difficulty } = req.body;
+
+  try {
+    const questionsCollection = db.collection('questions');
+    const newQuestion = {
+      question,
+      answer,
+      incorrects,
+      difficulty
+    };
+    const result = await questionsCollection.insertOne(newQuestion);
+    res.status(201).json({ message: 'Question added', questionId: result.insertedId });
+  } catch (err) {
+    console.error('Error adding question:', err);
+    res.status(500).json({ error: 'Failed to add question' });
+  }
+});
   return router;
 };

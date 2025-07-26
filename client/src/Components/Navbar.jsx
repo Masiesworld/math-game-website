@@ -6,6 +6,8 @@ import './Navbar.css'
 function NavBar(){
 
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem("username"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
+
 
 
   const handleSignOutToggle = () =>{ 
@@ -17,6 +19,7 @@ function NavBar(){
   useEffect(() => { //Listens for events to change the SignIn status
     const handleSignInToggle = () =>{
     setSignedIn(!signedIn);
+    setRole(localStorage.getItem("role")); 
     };
 
 
@@ -55,6 +58,13 @@ function NavBar(){
               </li>
             </>
           )}
+          {/* Teacher page only visible if logged in as teacher*/}
+          {signedIn && role === "teacher" && (
+            <li>
+              <Link to="/Teacher" className="btn btn-sm">Teacher Page</Link>
+            </li>
+          )}
+          {/* Display the current sign-in status */}
 
 
         </ul>

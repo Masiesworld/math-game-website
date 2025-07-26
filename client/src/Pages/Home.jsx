@@ -39,6 +39,7 @@ function RandomizeAnswerChoices(answerChoices) {
   return randomized;
 }
 
+/*
 async function getQuestions() {
   console.log("get questions called");
   try {
@@ -60,13 +61,13 @@ async function getQuestions() {
     else {
       return "";
     }
-    */
+  
 
   } catch (error) {
     console.error('Login error:', error);
   }
 }
-
+*/
 function loadQuestion(questions, previous_question) {
   console.log("QUESTIONS:");
   console.log(questions);

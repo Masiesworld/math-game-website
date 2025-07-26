@@ -54,5 +54,17 @@ router.post('/add-question', async (req, res) => {
     res.status(500).json({ error: 'Failed to add question' });
   }
 });
+
+// GET all questions
+router.get('/questions', async (req, res) => {
+  try {
+    const questions = await db.collection('questions').find().toArray();
+    res.json(questions);
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+    res.status(500).json({ error: 'Failed to fetch questions' });
+  }
+});
+
   return router;
 };

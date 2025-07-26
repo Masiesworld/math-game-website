@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../App.css'
 import './Teacher.css'
 
@@ -27,7 +29,7 @@ function Teacher() {
                 });
                 if (response.ok) {
                   await response.json();
-                  alert('Class number assigned successfully!');
+                  toast.success('Class Number Assigned Successfully!');
                 } 
                 else {
                    const error = await response.text();
@@ -51,8 +53,6 @@ function Teacher() {
     setIsUserDropdownOpen(false); // close the other
     };
 
-
-
   // Fetch users from backend on component mount
   useEffect(() => {
     fetch('http://localhost:3001/admin/users') // adjust if needed
@@ -62,6 +62,7 @@ function Teacher() {
   }, []);
 
   return (
+    <div>
     <div className="box-main">
       <div className="teacher-block">
         <h1 className = "header-title">Teacher Page</h1>
@@ -167,12 +168,10 @@ function Teacher() {
 
                 if (res.ok) {
                   const data = await res.json();
-                  alert('Question added successfully!');
-                  // Clear form
-                  setQuestion('');
-                  setAnswer('');
-                  setIncorrects(['', '', '']);
-                  setDifficulty(null);
+                  toast.success('Question added successfully!');
+                  setTimeout(() => {
+                  window.location.reload(); // Full page reload to implement question into game window
+                  }, 4000); // 4 second delay
                 } else {
                   const error = await res.text();
                   alert('Error adding question: ' + error);
@@ -237,8 +236,9 @@ function Teacher() {
         </div>
       </div>
     </div>
-  </div>  
+  </div>
+      <ToastContainer />
+    </div> 
   );
 }
-
 export default Teacher;

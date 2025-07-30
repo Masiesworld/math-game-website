@@ -68,3 +68,23 @@
     margin-left: 15px;
 }
 
+.avatar-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.avatar-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.avatar-thumb:hover {
+    transform: scale(1.1);
+}
+

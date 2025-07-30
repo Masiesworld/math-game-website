@@ -10,24 +10,34 @@
   margin-top: -250px;
 }
 
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
 .information {
     text-align: left;
-    margin-left: 50px;
+    margin: 0 auto; /* center horizontally */
+    max-width: 300px; /* keep a reasonable width */
 }
 
 .row {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
 }
 
 .row label{
-    width: 15px;
-    margin-right: 10px;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 .row input{
-    align-items: flex;
+    width: 100%;
     padding: 5px;
     border: 1px solid #000000;
     border-radius: 4px;
@@ -39,9 +49,22 @@
 
 .PassChange {
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .PassChange .btn{
     font-size: 12px;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.change-avatar-btn {
+    margin-left: 15px;
 }
 

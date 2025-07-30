@@ -26,6 +26,10 @@
             <div className= "box-main">
                 <div className="Profile">
                     <h1>Placeholder for details such as picture/class affiliation/personal scores?/ability to change details</h1>
+                    <div className="avatar-container">
+                        <img src="/cat.png" alt="Profile Avatar" className="profile-avatar" />
+                        <button className="change-avatar-btn btn btn-sm">Change Profile Picture</button>
+                    </div>
                     <div className="information">
                         <div className="row">
                             <label>Name: <input value ={name} onChange={handleNameChange} type='text' placeholder={name}/></label>

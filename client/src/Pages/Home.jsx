@@ -183,6 +183,12 @@ function Home({ questions, users }) {
     });
   }, []);
 
+  const [gamestate, setGameState] = useState("start");
+
+  function handleGameStart(){
+    setGameState("play");
+  }
+
   return (
     <div>
       <div className="box-main">
@@ -194,8 +200,14 @@ function Home({ questions, users }) {
           <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
           <h1 id="score">Score: {score}</h1>
             <div id="inner-window">
-            <h1 id="question">{questionTitle}</h1>
-            {answerChoices}
+              {gamestate === "play" ? (
+                <>
+                <h1 id="question">{questionTitle}</h1>
+                {answerChoices}
+                </>
+              ): (
+                <button onClick={handleGameStart} className="btn btn-sm play">Start the game</button>
+              )}
             </div>
         </div>
         <h2>{message}</h2>

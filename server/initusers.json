@@ -38,5 +38,141 @@
     "role": "student",
     "total_score": 600,
     "class_number": 3
+  },
+  {
+    "username": "Coolguy123",
+    "email": "Coolguy123@email.com",
+    "password": "password547",
+    "role": "student",
+    "total_score": 250,
+    "class_number": 2
+  },
+  {
+    "username": "MathManiac",
+    "email": "MathPsycho@email.com",
+    "password": "password1483",
+    "role": "student",
+    "total_score": 1100,
+    "class_number": 1
+  },
+  {
+    "username": "CalculusCarl",
+    "email": "CCarl@email.com",
+    "password": "password1542",
+    "role": "student",
+    "total_score": 830,
+    "class_number": 1
+  },
+  {
+    "username": "MyDearAuntSally",
+    "email": "PEMDAS@email.com",
+    "password": "pleaseexcusemydear",
+    "role": "student",
+    "total_score": 400,
+    "class_number": 1
+  },
+  {
+    "username": "Him",
+    "email": "Runaway@email.com",
+    "password": "password9999",
+    "role": "student",
+    "total_score": 1200,
+    "class_number": 3
+  },
+  {
+    "username": "JohnDoe",
+    "email": "Generic1254@email.com",
+    "password": "passwordHuh125",
+    "role": "student",
+    "total_score": 760,
+    "class_number": 2
+  },
+  {
+    "username": "ALiteralMonkey",
+    "email": "ApeEscape@email.com",
+    "password": "idkhowthisguygothere",
+    "role": "student",
+    "total_score": 920,
+    "class_number": 3
+  },
+  {
+    "username": "RemmyTheRat",
+    "email": "SecretChef@email.com",
+    "password": "password1548332",
+    "role": "student",
+    "total_score": 380,
+    "class_number": 1
+  },
+  {
+    "username": "SlugMan",
+    "email": "Generic14123@email.com",
+    "password": "passworduhhhhh",
+    "role": "student",
+    "total_score": 150,
+    "class_number": 1
+  },
+  {
+    "username": "RunningOutOfIdeasMan",
+    "email": "Generic12485@email.com",
+    "password": "passwordyeah1548",
+    "role": "student",
+    "total_score": 550,
+    "class_number": 2
+  },
+  {
+    "username": "OnceMoreIntoTheFold",
+    "email": "Generic12484845@email.com",
+    "password": "passwordyeah154268",
+    "role": "student",
+    "total_score": 260,
+    "class_number": 1
+  },
+  {
+    "username": "RunningIntoIdeasMan",
+    "email": "Generic112485@email.com",
+    "password": "passwordyeah1525448",
+    "role": "student",
+    "total_score": 520,
+    "class_number": 2
+  },
+  {
+    "username": "BabyBob",
+    "email": "Generic1248125@email.com",
+    "password": "passwordyeah15468948",
+    "role": "student",
+    "total_score": 180,
+    "class_number": 1
+  },
+  {
+    "username": "ForgotToPlayMan",
+    "email": "Generic1223485@email.com",
+    "password": "passwordyeah111548",
+    "role": "student",
+    "total_score": 10,
+    "class_number": 1
+  },
+  {
+    "username": "RunningOutOfIdeasMan",
+    "email": "Generic12485@email.com",
+    "password": "passwordyeah1548",
+    "role": "student",
+    "total_score": 550,
+    "class_number": 2
+  },
+  {
+    "username": "TheGreaterGasby",
+    "email": "Generic816514@email.com",
+    "password": "passwordyeah15102",
+    "role": "student",
+    "total_score": 660,
+    "class_number": 2
+  },
+  {
+    "username": "PennywiseTheNotSoWise",
+    "email": "Generic5161651@email.com",
+    "password": "password19645",
+    "role": "student",
+    "total_score": 120,
+    "class_number": 1
   }
 ]

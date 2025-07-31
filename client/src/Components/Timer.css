@@ -1,0 +1,22 @@
+:root {
+    --timer-diameter: 75px;
+}
+
+#timer-area {
+    width: var(--timer-diameter);
+    height: var(--timer-diameter);
+    border-radius: calc(var(--timer-diameter) / 2);
+
+    position: absolute;
+    left: calc(50% - (var(--timer-diameter) / 2));
+    top: 3%;
+
+    background-color: rgb(61, 76, 99);
+}
+
+#countdown {
+    font-size: 29px;
+    text-align: center;
+    line-height: var(--timer-diameter);
+    color: white;
+}

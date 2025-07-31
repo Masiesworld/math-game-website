@@ -1,9 +1,11 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../App.css';
-import '../Components/Leaderboards.css'
-import '../Components/Gamewindow.css'
+import '../Components/Leaderboards.css';
+import '../Components/Gamewindow.css';
+import '../Components/Timer.css';
 const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
+const Timer = lazy(() => import('../Components/Timer.jsx'));
 
 // Initialize the local storage
 function initializeLocalStorage() {
@@ -21,6 +23,7 @@ function initializeLocalStorage() {
 }
 initializeLocalStorage();
 
+// Answer choice buttons
 function AnswerChoice({ id, choice, onClick }) {
   return (
     <button onClick={onClick} className="answer-choice">
@@ -37,34 +40,6 @@ function RandomizeAnswerChoices(answerChoices) {
   }
 
   return randomized;
-}
-
-async function getQuestions() {
-  console.log("get questions called");
-  try {
-    const response = await fetch('http://localhost:3001/questions', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log("after the await");
-    const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
-    return data;
-
-    // Section shades out so can either needs to be fixed or removed
-    /*
-    if (response.ok) {
-      return data;
-    }
-    else {
-      return "";
-    }
-    */
-
-  } catch (error) {
-    console.error('Login error:', error);
-  }
 }
 
 function loadQuestion(questions, previous_question) {
@@ -90,40 +65,11 @@ function loadQuestion(questions, previous_question) {
   return [chosen["question"], chosen["answer"], chosen["incorrects"]];
 }
 
-async function getUsers() {
-  console.log("getUsers called");
-  try {
-    const response = await fetch('http://localhost:3001/users', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log("after the await");
-    const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
-    return data;
-    if (response.ok) {
-      return data;
-    }
-    else {
-      return "";
-    }
-  } catch (error) {
-    console.error('Login error:', error);
-  }
-}
-
-// Get the questions before 
-// let initialized_questions = getQuestions();
-// let initialized_users = getUsers();
-
 function Home({ questions, users }) {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
-  //const [questions, setQuestions] = useState(0);
   const [prevQuestion, setPrev] = useState("");
   
-  //console.log("on skibidi");
   async function CheckAnswer(isCorrect, question, points) {
     if (isCorrect) {
       // Update the user's score in the frontend
@@ -152,7 +98,6 @@ function Home({ questions, users }) {
     }
     
     // The answer choices should randomize in order as long as some state is being changed??
-    //setQuestions(questions + 1);
     setPrev(question);
     console.log(`prev question set to ${prevQuestion}`);
   }
@@ -161,7 +106,7 @@ function Home({ questions, users }) {
   let questionTitle = questionInfo[0];
   let questionAnswer = questionInfo[1];
   let incorrectAnswers = questionInfo[2];
-  console.log("GOOD MORNING" + questionInfo);
+  console.log("questionInfo is " + questionInfo);
 
   let answerChoices = [];
   answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle, 10)}}/>);
@@ -185,16 +130,17 @@ function Home({ questions, users }) {
   return (
     <div>
       <div className="box-main">
-        {console.log("CALL ME ASPARAGUS")}
+        {console.log("This is called inside of the box-main div")}
         <Suspense>
           <Leaderboards />
         </Suspense>
         <div id="game-window">
           <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
+          <Timer />
           <h1 id="score">Score: {score}</h1>
             <div id="inner-window">
-            <h1 id="question">{questionTitle}</h1>
-            {answerChoices}
+              <h1 id="question">{questionTitle}</h1>
+              {answerChoices}
             </div>
         </div>
         <h2>{message}</h2>

@@ -132,7 +132,7 @@ function Leaderboards() {
     
     return (
         <div id="leaderboards">
-            <h2>LEADERBOARD GOES HERE!</h2>
+            <h2>LEADERBOARD</h2>            
             <ol id="user-rankings">{userRankings}</ol>
             {console.log("USER RANKINGS")}
             {console.log(userRankings)}

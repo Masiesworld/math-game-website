@@ -1,0 +1,12 @@
+:root {
+    --start-button-width: 15%;
+    --start-button-height: 8%;
+}
+
+#restart-game-button {
+    position: absolute;
+    width: var(--start-button-width);
+    height: var(--start-button-height);
+    left: calc(50% - calc(var(--start-button-width) / 2));
+    top: calc(50% - calc(var(--start-button-height) / 2));
+}

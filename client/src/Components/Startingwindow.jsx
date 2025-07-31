@@ -6,15 +6,14 @@ import '../App.css';
 function StartingWindow() {
   return (
     <div>
-      <div className="box-main">
         <div id="game-window">
           <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
 
-          <button onClick={function(){window.dispatchEvent(new Event("Game Start!"));}}>Start Game</button>
+          <button id="start-game-button" onClick={function(){window.dispatchEvent(new Event("Game Start!"));}}>Start Game</button>
         </div>
-      </div>
     </div>
   );
 }
 
-export default StartingWindow;
+// export default StartingWindow;
+export { StartingWindow }

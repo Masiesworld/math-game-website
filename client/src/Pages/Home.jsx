@@ -6,6 +6,7 @@ import '../Components/Gamewindow.css';
 import '../Components/Timer.css';
 const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
 const Timer = lazy(() => import('../Components/Timer.jsx'));
+const StartingWindow = lazy(() => import('../Components/Startingwindow.jsx'));
 
 // Initialize the local storage
 function initializeLocalStorage() {
@@ -69,6 +70,15 @@ function Home({ questions, users }) {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
   const [prevQuestion, setPrev] = useState("");
+  const [gameInProgress, setGameState] = useState(0);
+
+  function startGame() {
+    setGameState(1);
+  }
+
+  function finishGame() {
+    setGameState(0);
+  }
   
   async function CheckAnswer(isCorrect, question, points) {
     if (isCorrect) {
@@ -125,6 +135,9 @@ function Home({ questions, users }) {
       console.error('Error fetching from backend:', err);
       setMessage('Error connecting to backend');
     });
+    
+    window.addEventListener("Game Start!", startGame);
+    window.addEventListener("Game Finish!", finishGame);
   }, []);
 
   return (
@@ -134,15 +147,19 @@ function Home({ questions, users }) {
         <Suspense>
           <Leaderboards />
         </Suspense>
-        <div id="game-window">
-          <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
-          <Timer />
-          <h1 id="score">Score: {score}</h1>
-            <div id="inner-window">
-              <h1 id="question">{questionTitle}</h1>
-              {answerChoices}
-            </div>
-        </div>
+        {gameInProgress ? (
+          <div id="game-window">
+            <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
+            <Timer />
+            <h1 id="score">Score: {score}</h1>
+              <div id="inner-window">
+                <h1 id="question">{questionTitle}</h1>
+                {answerChoices}
+              </div>
+          </div>
+          ) : (
+          <StartingWindow />
+        )}
         <h2>{message}</h2>
       </div>
     </div>

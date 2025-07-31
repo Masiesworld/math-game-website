@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 
-// note: learn this first
+console.log("Timer.jsx called");
+
 function useInterval(callback, delay) {
   const savedCallback = useRef();
  
@@ -21,26 +22,30 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-console.log("Timer.jsx called");
-
 function Timer() {
     const [time, setTime] = useState(5);
+    const [startTimer, setStartTimer] = useState(true);
 
     function handleTime() {
-        if (time > 0)
-            console.log(time);
-            setTime((prevTime) => prevTime - 0.5);
+      console.log("called");
+      if (time > 0) {
+        console.log(time);
+        setTime((prevTime) => prevTime - 1);
+      }
+      else {
+        console.log("TIME IS UP");
+        window.dispatchEvent(new Event("Game Finish!"));
+      }
     }
 
-    useEffect(() => {
-        // This gets called twice??
-        const countdown = setInterval(handleTime, 1000);
-    }, []);
+    const countdown = useInterval(handleTime, 1000);
 
     return (
+      <>
         <div id="timer-area">
             <h1 id="countdown">{time}</h1>
         </div>
+      </>
     );
 }
 

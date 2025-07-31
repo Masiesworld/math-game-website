@@ -62,8 +62,8 @@ module.exports = function (db, entryIsUnique){
                     console.log("QUESTION IS UNIQUE");
                     let result = await questions.insertOne({ question: initJson[i]["question"],
                                                             answer: initJson[i]["answer"],
-                                                            difficulty: initJson[i]["difficulty"],
-                                                            incorrects: initJson[i]["incorrects"]
+                                                            incorrects: initJson[i]["incorrects"],
+                                                            difficulty: initJson[i]["difficulty"]  
                                                           });
                 }
             }

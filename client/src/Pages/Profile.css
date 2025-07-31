@@ -7,27 +7,37 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   color: #000;
-  margin-top: -250px;
+  margin-top: 20px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
 .information {
     text-align: left;
-    margin-left: 50px;
+    margin: 0 auto; /* center horizontally */
+    max-width: 300px; /* keep a reasonable width */
 }
 
 .row {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
 }
 
 .row label{
-    width: 15px;
-    margin-right: 10px;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 .row input{
-    align-items: flex;
+    width: 100%;
     padding: 5px;
     border: 1px solid #000000;
     border-radius: 4px;
@@ -39,9 +49,42 @@
 
 .PassChange {
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .PassChange .btn{
     font-size: 12px;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.change-avatar-btn {
+    margin-left: 15px;
+}
+
+.avatar-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.avatar-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.avatar-thumb:hover {
+    transform: scale(1.1);
 }
 

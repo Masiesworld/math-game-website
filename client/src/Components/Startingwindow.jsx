@@ -18,7 +18,7 @@ function dispatchDifficulty(difficulty) {
       break;
     default:
       console.log("Failed to dispatch difficulty");
-}
+  }
 }
 
 function StartingWindow() {

@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import './Navbar.css'
 
@@ -13,7 +14,11 @@ function NavBar(){
   const handleSignOutToggle = () =>{ 
     localStorage.removeItem("username");  //Removes Username from local storage
     setSignedIn(false);                   //Change signin to false
-    window.location.reload();             //Reload window after sign out
+    //window.location.reload();             //Reload window after sign out
+
+    // Redirect back to the homepage when the user logs out
+    // Kind of hardcoded with the URL, so we might need to change this if needed
+    window.location.replace("http://localhost:5173/");
   };
 
   useEffect(() => { //Listens for events to change the SignIn status

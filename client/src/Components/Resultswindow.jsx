@@ -8,7 +8,6 @@ function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
     const [test, setTest] = useState(0);
 
     async function updateUserScore(points) {
-        console.log("updateUserScore called");
 
         // Update the user's score in the backend
         try {
@@ -20,7 +19,6 @@ function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
             
             const data = await response.json();
         } catch (error) {
-            console.error('Login error:', error);
             setMessage('Error connecting to backend');
         }
     }

@@ -46,7 +46,7 @@ function RandomizeAnswerChoices(answerChoices) {
   return randomized;
 }
 
-function loadQuestion(questions, previous_question) {
+function loadQuestion(questions, previous_question, difficulty) {
   console.log("QUESTIONS:");
   console.log(questions);
   console.log("previous_question");
@@ -57,12 +57,15 @@ function loadQuestion(questions, previous_question) {
 
   while (true) {
     var randomIndex = Math.floor(Math.random() * numQuestions);
-    if (questions[randomIndex]["question"] != previous_question) {
-      chosen = questions[randomIndex];
-      break;
+    if (questions[randomIndex]["question"] == previous_question) {
+      console.log("DUPLICATE QUESTION... SKIPPING...");
+    }
+    else if ((questions[randomIndex]["difficulty"] != difficulty) && (difficulty != "All")) {
+      console.log("QUESTION IS NOT OF CHOSEN DIFFICULTY... SKIPPING");
     }
     else {
-      console.log("DUPLICATE QUESTION... SKIPPING...");
+      chosen = questions[randomIndex];
+      break;
     }
   }
   
@@ -76,6 +79,27 @@ function Home({ questions, users }) {
   const [gamestate, setGameState] = useState("start");
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [questionsCorrect, setQuestionsCorrect] = useState(0);
+  const [difficulty, setDifficulty] = useState("All");
+
+  function selectAllDifficulty() {
+    console.log("Switched to All difficulty");
+    setDifficulty("All");
+  }
+  
+  function selectEasyDifficulty() {
+    console.log("Switched to Easy difficulty");
+    setDifficulty("Easy");
+  }
+  
+  function selectMediumDifficulty() {
+    console.log("Switched to Medium difficulty");
+    setDifficulty("Medium");
+  }
+  
+  function selectHardDifficulty() {
+    console.log("Switched to Hard difficulty");
+    setDifficulty("Hard");
+  }
 
   function startGame() {
     setGameState("play");
@@ -111,7 +135,8 @@ function Home({ questions, users }) {
     console.log(`prev question set to ${prevQuestion}`);
   }
 
-  let questionInfo = loadQuestion(questions, prevQuestion);
+  let questionInfo = loadQuestion(questions, prevQuestion, difficulty);
+  // let questionInfo = ["asdf", "asdf", ["asdf", "asdf", "asdf"]];
   let questionTitle = questionInfo[0];
   let questionAnswer = questionInfo[1];
   let incorrectAnswers = questionInfo[2];
@@ -138,6 +163,12 @@ function Home({ questions, users }) {
     window.addEventListener("Game Start!", startGame);
     window.addEventListener("Game Finish!", finishGame);
     window.addEventListener("Game Restart!", closeResultsWindow);
+
+    window.addEventListener("All Difficulty!", selectAllDifficulty);
+    window.addEventListener("Easy Difficulty!", selectEasyDifficulty);
+    window.addEventListener("Medium Difficulty!", selectMediumDifficulty);
+    window.addEventListener("Hard Difficulty!", selectHardDifficulty);
+
   }, []);
 
   return (

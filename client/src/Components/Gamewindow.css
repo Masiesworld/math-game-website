@@ -60,3 +60,16 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   font-weight: bold;
 }
+
+#inner-window .play {
+  position: absolute;
+  top: 40%;
+  left: 35%;
+  width: 200px;
+  height: 60px;
+  font-size: x-large;
+}
+
+#inner-window .play:hover {
+  background-color: #d3d3d3;
+}

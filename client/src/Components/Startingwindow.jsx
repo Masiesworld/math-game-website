@@ -8,8 +8,9 @@ function StartingWindow() {
     <div>
         <div id="game-window">
           <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
-
-          <button id="start-game-button" onClick={function(){window.dispatchEvent(new Event("Game Start!"));}}>Start Game</button>
+          <div id="inner-window">
+            <button className="btn btn-sm play" onClick={function(){window.dispatchEvent(new Event("Game Start!"));}}>Start Game</button>
+          </div>
         </div>
     </div>
   );

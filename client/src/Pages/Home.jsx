@@ -73,22 +73,20 @@ function Home({ questions, users }) {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
   const [prevQuestion, setPrev] = useState("");
-  const [gameInProgress, setGameState] = useState(0);
-  const [inResultsWindow, setResultsWindow] = useState(0);
+  const [gamestate, setGameState] = useState("start");
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [questionsCorrect, setQuestionsCorrect] = useState(0);
 
   function startGame() {
-    setGameState(1);
+    setGameState("play");
   }
 
   function finishGame() {
-    setGameState(0);
-    setResultsWindow(1);
+    setGameState("finish");
   }
 
   function closeResultsWindow() {
-    setResultsWindow(0);
+    setGameState("start");
 
     // Reset Game Statistics
     setScore(0);
@@ -104,26 +102,6 @@ function Home({ questions, users }) {
       // Update the user's score in the frontend
       console.log(`score set to ${score}`)
       setScore(score + points);
-      
-      // Update the user's score in the backend
-      // try {
-      //   const response = await fetch('http://localhost:3001/users/update-score', {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify({username: localStorage.getItem("username"), score_increase: points})
-      //   });
-        
-      //   const data = await response.json();
-      //   if (response.ok) {
-      //     setMessage(data.message);
-      //   } 
-      //   else {
-      //     setMessage(data.error);
-      //   }
-      // } catch (error) {
-      //   console.error('Login error:', error);
-      //   setMessage('Error connecting to backend');
-      // }
     }
     
     setQuestionsAnswered(questionsAnswered + 1);
@@ -169,7 +147,7 @@ function Home({ questions, users }) {
         <Suspense>
           <Leaderboards />
         </Suspense>
-        {gameInProgress ? (
+        {gamestate == "play" ? (
           <div id="game-window">
             <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
             <Timer />
@@ -181,7 +159,7 @@ function Home({ questions, users }) {
           </div>
           ) : (
             <>
-              {inResultsWindow ? (
+              {gamestate == "finish" ? (
                 <ResultsWindow score={score} questionsAnswered={questionsAnswered} questionsCorrect={questionsCorrect} />
               ) : (
                 <StartingWindow />

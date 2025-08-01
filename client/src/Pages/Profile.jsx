@@ -2,6 +2,7 @@
     import '../App.css'
     import './Profile.css'
     import '../Components/Leaderboards.css'
+    import MusicControls from '../Components/MusicControls.jsx';
     const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
     
     
@@ -146,6 +147,7 @@
                                 )}                               
                             </div>
                         </div>
+                        <MusicControls />
                     </div>
                     <div className="leaderboards">
                         <Suspense fallback={<div>Loading Leaderboards...</div>}>

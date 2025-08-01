@@ -1,0 +1,22 @@
+.music-controls {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.music-button {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: background-color 0.15s ease;
+}
+
+.music-button:hover {
+  background-color: #e7e7e7;
+} 

@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './MusicControls.css';
 
-/*
- * MusicControls – Plays looping background music of choice on the profile page.
- */
+/* MusicControls – Plays looping background music of choice on the profile page. */
 function MusicControls() {
   const tracks = {
     track1: '/music/profile-music-1.flac',
@@ -34,8 +32,10 @@ function MusicControls() {
       audio.play().catch(() => {});
     }
 
-    // Persist currently chosen track
+    
     localStorage.setItem('profileMusicTrack', track);
+    // Set volume for the background music
+    audio.volume = 0.8;
 
     // Cleanup component 
     return () => {
@@ -71,8 +71,11 @@ function MusicControls() {
         className="music-button"
         onClick={toggleMute}
         aria-label={muted ? 'Play music' : 'Mute music'}
+        title={muted
+          ? 'Click to turn on background music during the game'
+          : 'Click to turn off background music during the game'}
       >
-        {muted ? '⏯' : '▶'}
+        {muted ? '⏸' : '▶'}
       </button>
 
       {/* Single button to rotate tracks.  */}

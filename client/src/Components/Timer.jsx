@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
 
-console.log("Timer.jsx called");
-
 function useInterval(callback, delay) {
   const savedCallback = useRef();
  
@@ -27,13 +25,10 @@ function Timer() {
     const [startTimer, setStartTimer] = useState(true);
 
     function handleTime() {
-      console.log("called");
       if (time > 0) {
-        console.log(time);
         setTime((prevTime) => prevTime - 1);
       }
       else {
-        console.log("TIME IS UP");
         window.dispatchEvent(new Event("Game Finish!"));
       }
     }

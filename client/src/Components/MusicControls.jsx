@@ -2,11 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './MusicControls.css';
 
 /*
- * MusicControls – Plays looping background music on the profile page.
- * Features:
- * 1. Auto-plays "Profile Music 1" on mount.
- * 2. Mute / un-mute toggle persists in localStorage (key: profileMusicMuted).
- * 3. Track switcher toggles between two tracks and persists choice (key: profileMusicTrack).
+ * MusicControls – Plays looping background music of choice on the profile page.
  */
 function MusicControls() {
   const tracks = {
@@ -24,7 +20,7 @@ function MusicControls() {
 
   // Create the Audio element whenever the track changes for  looping
   useEffect(() => {
-// Tear down previous instance if any
+    // pause previous instance if any
     if (audioRef.current) {
       audioRef.current.pause();
     }
@@ -34,14 +30,14 @@ function MusicControls() {
     audioRef.current = audio;
 
     if (!muted) {
-      // play() returns a promise – ignore errors (e.g. autoplay restrictions)
-      audio.play().catch(() => {/* autoplay prevented */});
+      // ignore errors and autoplay prevented
+      audio.play().catch(() => {});
     }
 
     // Persist currently chosen track
     localStorage.setItem('profileMusicTrack', track);
 
-    // Cleanup when component unmounts
+    // Cleanup component 
     return () => {
       audio.pause();
     };
@@ -61,13 +57,16 @@ function MusicControls() {
   const toggleMute = () => setMuted(prev => !prev);
   const switchTrack = () =>
     setTrack(prev => {
+      // Yeah, this is basically a manual switch-case. enough for 3 tracks.
+      // If past that, maybe use an array + (index + 1) % length.
       if (prev === 'track1') return 'track2';
       if (prev === 'track2') return 'track3';
-      return 'track1'; // when prev === 'track3' or unknown
+      return 'track1'; // when prev === 'track3' or something unexpected
     });
 
   return (
     <div className="music-controls">
+   
       <button
         className="music-button"
         onClick={toggleMute}
@@ -75,13 +74,14 @@ function MusicControls() {
       >
         {muted ? '⏯' : '▶'}
       </button>
-      <button
-        className="music-button"
+
+      {/* Single button to rotate tracks.  */}
+      <button  className="music-button"
         onClick={switchTrack}
-        aria-label="Switch track"
-      >
+        aria-label="Switch track">
         ⏭
       </button>
+
     </div>
   );
 }

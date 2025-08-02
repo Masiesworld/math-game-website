@@ -32,6 +32,7 @@ function SignIn(){
         // Give the local storage the user's username so it knows that the user is logged in + what account the user is logged into
         localStorage.setItem("username", name);
         localStorage.setItem("role", data.role);
+        localStorage.setItem("avatar", data.avatar);
         window.dispatchEvent(new Event("Login")); //Dispatch an event for login so other components can update
         if (data.role === "student") {
             navigate('/'); // Redirect to Home.jsx for students

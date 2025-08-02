@@ -62,7 +62,7 @@ module.exports = function(db, entryIsUnique){
       }
 
       // Success!
-      res.json({ message: 'Login successful', username: user.username, role: user.role });
+      res.json({ message: 'Login successful', username: user.username, role: user.role, avatar: user.avatar });
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ error: 'Internal server error' });

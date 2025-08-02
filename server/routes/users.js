@@ -173,7 +173,7 @@ module.exports = function(db, entryIsUnique){
       usersCollection.updateOne(
         { username: username },
         {
-          // Increment total_score by score_increase
+          // Update avatar
           $set: { avatar: avatar }
         }
       );

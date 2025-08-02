@@ -10,11 +10,12 @@ function NavBar(){
 
 
 
-  const handleSignOutToggle = () =>{ 
-    localStorage.removeItem("username");  //Removes Username from local storage
-    setSignedIn(false);                   //Change signin to false
-    window.location.reload();             //Reload window after sign out
-  };
+  const handleSignOutToggle = () => { 
+  localStorage.removeItem("username");   // Clear username
+  setSignedIn(false);                    // Update app state
+  window.location.href = "/Sign-in";       // Redirect instead of reload
+};
+
 
   useEffect(() => { //Listens for events to change the SignIn status
     const handleSignInToggle = () =>{

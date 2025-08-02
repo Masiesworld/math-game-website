@@ -22,7 +22,7 @@
                     setPassword(event.target.value)
                 }
         const [classroom, setClassRoomCheck] = useState("");
-
+        const [totalScore, setTotalScore] = useState(0);
         const [editMode, setEditMode] = useState(false);
     // Fetch user info on mount
     useEffect(() => {
@@ -43,6 +43,7 @@
                 setEmail(user.email || "");
                 setClassRoomCheck(user.class_number !== undefined ? user.class_number : "");
                 setPassword(user.password || "");
+                setTotalScore(user.total_score || 0);
                 }
 
           })
@@ -108,7 +109,6 @@
     });
 
 }
-
     
     const [originalData, setOriginalData] = useState({
         name: "",
@@ -136,6 +136,10 @@
         <div>
             <div className= "box-main">
                     <div className="Profile">
+                        <div className="top-right-display">
+                                <h2>Class Number: {classroom}</h2>
+                                <h2> Total Score: {totalScore}</h2>
+                                </div>
                         <div className="avatar-container">
                             <img src={avatarPath} alt="Profile Avatar" className="profile-avatar" />
                             <button className="change-avatar-btn btn btn-sm" onClick={togglePicker}>Change Profile Picture</button>
@@ -164,10 +168,6 @@
                             <div className="row">
                                 <label>Email:</label> 
                                 <input value ={email} onChange={handleEmailChange} type='text' placeholder={email} readOnly={!editMode}/>
-                                </div>
-                            <div className="row">
-                                <label>Class:</label> 
-                                <input value ={classroom} type='text' placeholder={classroom} readOnly/>
                                 </div>
                             <div className="row">
                                 <label>Password:</label> 

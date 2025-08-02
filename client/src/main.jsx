@@ -5,24 +5,28 @@ import './index.css'
 
 const App = lazy(() => import('./App.jsx'));
 
-// Make sure we have loaded the json files into the server before proceeding
-Promise.all([initQuestions(), initUsers()])
-  .then((init_responses) => {
-    let questions = getQuestions();
-    let users = getUsers();
+async function shouldInitUsers() {
+  const res = await fetch('http://localhost:3001/users');
+  const data = await res.json();
+  return data.length === 0;
+}
 
-    // Make sure we have the json information from the server before proceeding
-    Promise.all([questions, users])
-      .then((get_responses) => {
+// Updated this to avoid duplicate user accounts from initusers.json after editing the original username from Profile settings
+shouldInitUsers().then((shouldInit) => {
+  const init = shouldInit ? initUsers() : getUsers();
+  
+  Promise.all([initQuestions(), init])
+    .then(([_, users]) => {
+      return getQuestions().then((questions) => {
         const root = createRoot(document.getElementById('root'));
         root.render(
           <StrictMode>
-            {console.log("YALL GOT HERE!??!?!")}
             <Suspense>
-              {console.log(get_responses[0])}
-              <App questions={get_responses[0]} users={get_responses[1]}/>
+              <App questions={questions} users={users} />
             </Suspense>
-          </StrictMode>,
-        )
+          </StrictMode>
+        );
       });
-  });
+    });
+});
+

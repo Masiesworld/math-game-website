@@ -14,7 +14,12 @@ module.exports = function(db, entryIsUnique){
   });
 
   router.post('/initialize-users', async (req, res) => { // test to see if we can insert initusers.json into MongoDB Compass
-  try {
+  
+    if (process.env.NODE_ENV === 'production') {
+    return res.status(403).json({ error: 'Not allowed in production' });
+  }
+
+    try {
     const initJson = require("../initusers.json");
     const users = db.collection('users');
     

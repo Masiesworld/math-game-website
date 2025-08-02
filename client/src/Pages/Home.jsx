@@ -205,7 +205,6 @@ function Home({ questions, users }) {
               )}
             </>
         )}
-        <h2>{message}</h2>
       </div>
     </div>
   );

@@ -26,6 +26,8 @@
     position: relative;
     margin-top: 18%;
     width: 18%;
+    background-color: lightgray;
+    transition: background-color 0.25s;
 }
 
 #all-difficulty {

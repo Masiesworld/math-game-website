@@ -21,9 +21,17 @@ function initializeLocalStorage() {
     console.log("local storage has already been initialized... returning...");
     return;
   }
+  
+  const difficulty = localStorage.getItem("difficulty") || "";
+  console.log(difficulty);
+  if (difficulty != "") {
+    console.log("local storage has already been initialized... returning...");
+    return;
+  }
 
   console.log("initializing local storage...");
   localStorage.setItem("username", "");
+  localStorage.setItem("difficulty", "all");
 }
 initializeLocalStorage();
 
@@ -168,7 +176,6 @@ function Home({ questions, users }) {
     window.addEventListener("Easy Difficulty!", selectEasyDifficulty);
     window.addEventListener("Medium Difficulty!", selectMediumDifficulty);
     window.addEventListener("Hard Difficulty!", selectHardDifficulty);
-
   }, []);
 
   return (
@@ -193,6 +200,7 @@ function Home({ questions, users }) {
               {gamestate == "finish" ? (
                 <ResultsWindow score={score} questionsAnswered={questionsAnswered} questionsCorrect={questionsCorrect} />
               ) : (
+
                 <StartingWindow />
               )}
             </>

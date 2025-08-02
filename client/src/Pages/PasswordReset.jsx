@@ -27,6 +27,8 @@ function PasswordReset(){
             console.log(data);
 
             if (response.ok) {
+                localStorage.setItem("passwordResetEmail", Email);
+
                 console.log("password reset email successfully sent");
                 setMessage(data.message);
             }

@@ -86,5 +86,36 @@ module.exports = function(db, entryIsUnique){
     }
   });
 
+  // Update a user's password
+  router.post('/update-password', (req, res) => {
+    const { email, password, password_check } = req.body;
+
+    try {
+      const usersCollection = db.collection('users');
+      
+      if (password.length < 8) {
+        return res.status(401).json({ error: 'Password must be at least 8 characters long' });
+      }
+
+      if (password != password_check) {
+        return res.status(401).json({ error: 'Passwords do not match' });
+      }
+
+      usersCollection.updateOne(
+        { email: email },
+        {
+          $set: { password: password }
+        }
+      );
+
+      // Success!
+      res.json({ message: 'Password reset successful' });
+
+    } catch (error) {
+        console.error('Update error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
   return router;
 };

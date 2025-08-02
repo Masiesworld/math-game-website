@@ -11,7 +11,7 @@ import SignIn from './Pages/Sign-in'
 import SignUp from './Pages/Sign-up'
 
 import PasswordReset from './Pages/PasswordReset'
-
+import ConfirmPasswordReset from './pages/ConfirmPasswordReset'
 
 function App({ questions, users }) {
   return (
@@ -25,6 +25,7 @@ function App({ questions, users }) {
             <Route path="/Sign-in" element={<SignIn />} />
             <Route path="/Sign-up" element={<SignUp />} />
             <Route path="/PasswordReset" element={<PasswordReset />} />
+            <Route path="/ConfirmPasswordReset" element={<ConfirmPasswordReset />} />
             <Route path="/Teacher" element={<Teacher />} />
           </Routes>
             <Footer/>

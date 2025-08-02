@@ -126,7 +126,7 @@ module.exports = function(db, entryIsUnique){
     // PUT /users/:username
   router.put('/:username', async (req, res) => {
     const { username } = req.params;
-    const { newUsername, email, password, avatar } = req.body;
+    const { newUsername, email, password} = req.body;
 
     try {
       const usersCollection = db.collection('users');
@@ -145,8 +145,7 @@ module.exports = function(db, entryIsUnique){
           $set: {
             username: newUsername,
             email,
-            password,
-            avatar,
+            password
           }
         }
       );
@@ -164,6 +163,29 @@ module.exports = function(db, entryIsUnique){
     }
   });
 
+
+  // Update user's avatar
+  router.post('/update-avatar', (req, res) => {
+    const { username, avatar } = req.body;
+
+    try {
+      const usersCollection = db.collection('users');
+      usersCollection.updateOne(
+        { username: username },
+        {
+          // Increment total_score by score_increase
+          $set: { avatar: avatar }
+        }
+      );
+
+      // Success!
+      res.json({ message: 'Avatar update successful' });
+
+    } catch (error) {
+        console.error('Update error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
   return router;
 };

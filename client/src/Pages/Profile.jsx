@@ -75,15 +75,13 @@
     localStorage.setItem("avatar", path);
     setShowPicker(false);
 
-    fetch(`http://localhost:3001/users/${originalUsername}`, {
-        method: "PUT",
+    fetch(`http://localhost:3001/users/update-avatar`, {
+        method: "POST",
         headers: {
         "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            newUsername: name,
-            email: email,  
-            password: password,
+            username: username, // Use stored username
             avatar: path,
         }),
     })
@@ -115,7 +113,7 @@
     body: JSON.stringify({
       newUsername: name, 
       email,
-      password
+      password,
     }),
   })
    .then(res => {
@@ -130,6 +128,7 @@
     .then(data => {
     console.log("Profile updated:", data);
     setEditMode(false);
+    localStorage.setItem("username", name); // Update stored username
     setOriginalUsername(name); // Update stored username
     toast.success('Profile Updated!');
     })

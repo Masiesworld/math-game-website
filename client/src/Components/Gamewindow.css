@@ -12,8 +12,8 @@
 
 #Userinfo {
   position: absolute;
-  top: 5%;
-  left: 5%;
+  top: 7%;
+  left: 15%;
   font-size: 40px;
   color: white;
 }
@@ -71,6 +71,16 @@
   font-size: x-large;
 }
 
+.avatar {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #000000;
+}
 /* #inner-window .play:hover {
   background-color: #d3d3d3;
 } */

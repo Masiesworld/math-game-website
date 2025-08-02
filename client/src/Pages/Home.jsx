@@ -35,6 +35,13 @@ function initializeLocalStorage() {
     console.log("initializing local storage passwordResetEmail...");
     localStorage.setItem("passwordResetEmail", "");
   }
+  
+  const avatar = localStorage.getItem("avatar") || "";
+  console.log(avatar);
+  if (avatar == "") {
+    console.log("initializing local storage avatar...");
+    localStorage.setItem("avatar", "/cat.png");
+  }
 }
 initializeLocalStorage();
 
@@ -190,7 +197,10 @@ function Home({ questions, users }) {
         </Suspense>
         {gamestate == "play" ? (
           <div id="game-window">
-            <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
+            <img src={localStorage.getItem("avatar") || "/cat.png"} alt="Avatar" className="avatar" />
+            <h1 id="Userinfo">
+            <span>{localStorage.getItem("username") || "Guest"}</span>
+            </h1>
             <Timer />
             <h1 id="score">Score: {score}</h1>
               <div id="inner-window">

@@ -33,7 +33,8 @@ module.exports = function(db, entryIsUnique){
                                               password: initJson[i]["password"],
                                               role: initJson[i]["role"],
                                               total_score: initJson[i]["total_score"],
-                                              class_number: initJson[i]["class_number"] });
+                                              class_number: initJson[i]["class_number"],
+                                              avatar: initJson[i]["avatar"] });
       }
     }
     
@@ -125,7 +126,7 @@ module.exports = function(db, entryIsUnique){
     // PUT /users/:username
   router.put('/:username', async (req, res) => {
     const { username } = req.params;
-    const { newUsername, email, password } = req.body;
+    const { newUsername, email, password, avatar } = req.body;
 
     try {
       const usersCollection = db.collection('users');
@@ -145,6 +146,7 @@ module.exports = function(db, entryIsUnique){
             username: newUsername,
             email,
             password,
+            avatar,
           }
         }
       );

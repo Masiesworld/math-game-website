@@ -57,6 +57,7 @@ function StartingWindow() {
   return (
     <div>
         <div id="game-window">
+          <img src={localStorage.getItem("avatar") || "/cat.png"} alt="Avatar" className="avatar" />
           <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
           <div id="inner-window">
             <button className="btn btn-sm play" id="start-game-button" onClick={function(){window.dispatchEvent(new Event("Game Start!"));}}>Start Game</button>

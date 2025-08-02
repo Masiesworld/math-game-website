@@ -5,7 +5,8 @@
     "password": "password",
     "role": "student",
     "total_score": 500,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/cat.png"
   },
   {
     "username": "teacherTest",
@@ -13,7 +14,8 @@
     "password": "teacher123",
     "role": "teacher",
     "total_score": 1000,
-    "class_number": null
+    "class_number": null,
+    "avatar": "/cat.png"
   },
   {
     "username": "userEasy",
@@ -21,7 +23,8 @@
     "password": "passwordEasy",
     "role": "student",
     "total_score": 200,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/meerkat.png"
   },
   {
     "username": "userMedium",
@@ -29,7 +32,8 @@
     "password": "passwordMedium",
     "role": "student",
     "total_score": 400,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/duck.png"
   },
   {
     "username": "userHard",
@@ -37,7 +41,8 @@
     "password": "passwordHard",
     "role": "student",
     "total_score": 600,
-    "class_number": 3
+    "class_number": 3,
+    "avatar": "/meerkat.png"
   },
   {
     "username": "Coolguy123",
@@ -45,7 +50,8 @@
     "password": "password547",
     "role": "student",
     "total_score": 250,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/duck.png"
   },
   {
     "username": "MathManiac",
@@ -53,7 +59,8 @@
     "password": "password1483",
     "role": "student",
     "total_score": 1100,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/panda.png"
   },
   {
     "username": "CalculusCarl",
@@ -61,7 +68,8 @@
     "password": "password1542",
     "role": "student",
     "total_score": 830,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/rabbit.png"
   },
   {
     "username": "MyDearAuntSally",
@@ -69,7 +77,8 @@
     "password": "pleaseexcusemydear",
     "role": "student",
     "total_score": 400,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/rabbit.png"
   },
   {
     "username": "Him",
@@ -77,7 +86,8 @@
     "password": "password9999",
     "role": "student",
     "total_score": 1200,
-    "class_number": 3
+    "class_number": 3,
+    "avatar":"/meerkat.png"
   },
   {
     "username": "JohnDoe",
@@ -85,7 +95,8 @@
     "password": "passwordHuh125",
     "role": "student",
     "total_score": 760,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/panda.png"
   },
   {
     "username": "ALiteralMonkey",
@@ -93,7 +104,8 @@
     "password": "idkhowthisguygothere",
     "role": "student",
     "total_score": 920,
-    "class_number": 3
+    "class_number": 3,
+    "avatar": "/rabbit.png"
   },
   {
     "username": "RemmyTheRat",
@@ -101,7 +113,8 @@
     "password": "password1548332",
     "role": "student",
     "total_score": 380,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/rabbit.png"
   },
   {
     "username": "SlugMan",
@@ -109,7 +122,8 @@
     "password": "passworduhhhhh",
     "role": "student",
     "total_score": 150,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/rabbit.png"
   },
   {
     "username": "RunningOutOfIdeasMan",
@@ -117,7 +131,8 @@
     "password": "passwordyeah1548",
     "role": "student",
     "total_score": 550,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/panda.png"
   },
   {
     "username": "OnceMoreIntoTheFold",
@@ -125,7 +140,8 @@
     "password": "passwordyeah154268",
     "role": "student",
     "total_score": 260,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/meerkat.png"
   },
   {
     "username": "RunningIntoIdeasMan",
@@ -133,7 +149,8 @@
     "password": "passwordyeah1525448",
     "role": "student",
     "total_score": 520,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/panda.png"
   },
   {
     "username": "BabyBob",
@@ -141,7 +158,8 @@
     "password": "passwordyeah15468948",
     "role": "student",
     "total_score": 180,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/cat.png"
   },
   {
     "username": "ForgotToPlayMan",
@@ -149,7 +167,8 @@
     "password": "passwordyeah111548",
     "role": "student",
     "total_score": 10,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/panda.png"
   },
   {
     "username": "RunningOutOfIdeasMan",
@@ -157,7 +176,8 @@
     "password": "passwordyeah1548",
     "role": "student",
     "total_score": 550,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/meerkat.png"
   },
   {
     "username": "TheGreaterGatsby",
@@ -165,7 +185,8 @@
     "password": "passwordyeah15102",
     "role": "student",
     "total_score": 660,
-    "class_number": 2
+    "class_number": 2,
+    "avatar": "/duck.png"
   },
   {
     "username": "PennywiseTheNotSoWise",
@@ -173,6 +194,7 @@
     "password": "password19645",
     "role": "student",
     "total_score": 120,
-    "class_number": 1
+    "class_number": 1,
+    "avatar": "/cat.png"
   }
 ]

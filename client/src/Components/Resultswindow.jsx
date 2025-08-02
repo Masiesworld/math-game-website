@@ -33,6 +33,7 @@ function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
     return (
         <div>
             <div id="game-window">
+                <img src={localStorage.getItem("avatar") || "/cat.png"} alt="Avatar" className="avatar" />
                 <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
                 <div id="inner-window">
                     <button className="btn btn-sm play" onClick={function(){window.dispatchEvent(new Event("Game Restart!"));}}>Restart Game</button>

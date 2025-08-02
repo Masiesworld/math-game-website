@@ -10,6 +10,12 @@ function NavBar(){
 
   const handleSignOutToggle = () =>{ 
     localStorage.removeItem("username");  //Removes Username from local storage
+    localStorage.removeItem("role");      //Removes Role from local storage
+    localStorage.removeItem("avatar");    //Removes Avatar from local storage
+    localStorage.removeItem("class_number"); //Removes Class Number from local storage
+    localStorage.removeItem("total_score"); //Removes Total Score from local storage
+    localStorage.removeItem("email");     //Removes Email from local storage
+    localStorage.removeItem("password");  //Removes Password from local storage
     setSignedIn(false);                   //Change signin to false
     window.location.href = "/";             //Reload window after sign out and redirect to home page 
   };

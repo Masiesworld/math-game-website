@@ -33,7 +33,8 @@ module.exports = function(db, entryIsUnique){
                                               password: initJson[i]["password"],
                                               role: initJson[i]["role"],
                                               total_score: initJson[i]["total_score"],
-                                              class_number: initJson[i]["class_number"] });
+                                              class_number: initJson[i]["class_number"],
+                                              avatar: initJson[i]["avatar"] });
       }
     }
     
@@ -61,7 +62,7 @@ module.exports = function(db, entryIsUnique){
       }
 
       // Success!
-      res.json({ message: 'Login successful', username: user.username, role: user.role });
+      res.json({ message: 'Login successful', username: user.username, role: user.role, avatar: user.avatar });
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -125,7 +126,7 @@ module.exports = function(db, entryIsUnique){
     // PUT /users/:username
   router.put('/:username', async (req, res) => {
     const { username } = req.params;
-    const { newUsername, email, password } = req.body;
+    const { newUsername, email, password} = req.body;
 
     try {
       const usersCollection = db.collection('users');
@@ -144,7 +145,7 @@ module.exports = function(db, entryIsUnique){
           $set: {
             username: newUsername,
             email,
-            password,
+            password
           }
         }
       );
@@ -162,6 +163,29 @@ module.exports = function(db, entryIsUnique){
     }
   });
 
+
+  // Update user's avatar
+  router.post('/update-avatar', (req, res) => {
+    const { username, avatar } = req.body;
+
+    try {
+      const usersCollection = db.collection('users');
+      usersCollection.updateOne(
+        { username: username },
+        {
+          // Update avatar
+          $set: { avatar: avatar }
+        }
+      );
+
+      // Success!
+      res.json({ message: 'Avatar update successful' });
+
+    } catch (error) {
+        console.error('Update error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
   return router;
 };

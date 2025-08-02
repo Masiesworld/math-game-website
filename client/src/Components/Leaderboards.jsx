@@ -126,8 +126,12 @@ function Leaderboards() {
         setInterval(refreshUsers, 10000);
     }
     
+    let rank = 1;
     let userRankings = users.map(user =>
-        <li key={user._id} id="rank">{user.username} | {user.total_score}</li>);
+        <li key={user._id} id="rank">
+            {rank++}. {user.username} | {user.total_score}
+            <img src={user.avatar || "/cat.png"} className="leaderboard-avatar" alt="Avatar" />
+        </li>);
     
     return (
         <div id="leaderboards">

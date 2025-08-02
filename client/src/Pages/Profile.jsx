@@ -68,9 +68,37 @@
     }
 
     function handleAvatarSelect(path) {
-        setAvatarPath(path);
-        localStorage.setItem("avatar", path);
-        setShowPicker(false);
+    const username = localStorage.getItem("username");
+    if (!username) return;
+
+    setAvatarPath(path);
+    localStorage.setItem("avatar", path);
+    setShowPicker(false);
+
+    fetch(`http://localhost:3001/users/update-avatar`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: username, // Use stored username
+            avatar: path,
+        }),
+    })
+    .then(res => {
+    if (!res.ok) {
+        throw new Error("Failed to update avatar");
+    }
+    return res.json();
+    })
+    .then(data => {
+        toast.success('Avatar Updated!');
+        console.log("Avatar updated:", data);
+    })
+    .catch(err => {
+        console.error("Avatar failed to change:", err);
+        alert(err.message); // Will show the actual error message like "Username already taken"
+    });
     }
 
     function handleSave() {
@@ -85,7 +113,7 @@
     body: JSON.stringify({
       newUsername: name, 
       email,
-      password
+      password,
     }),
   })
    .then(res => {
@@ -100,6 +128,7 @@
     .then(data => {
     console.log("Profile updated:", data);
     setEditMode(false);
+    localStorage.setItem("username", name); // Update stored username
     setOriginalUsername(name); // Update stored username
     toast.success('Profile Updated!');
     })

@@ -17,21 +17,24 @@ function initializeLocalStorage() {
 
   const username = localStorage.getItem("username") || "";
   console.log(username);
-  if (username != "") {
-    console.log("local storage has already been initialized... returning...");
-    return;
-  }
-  
-  const difficulty = localStorage.getItem("difficulty") || "";
-  console.log(difficulty);
-  if (difficulty != "") {
-    console.log("local storage has already been initialized... returning...");
-    return;
+  if (username == "") {
+    console.log("initializing local storage user...");
+    localStorage.setItem("username", "");
   }
 
-  console.log("initializing local storage...");
-  localStorage.setItem("username", "");
-  localStorage.setItem("difficulty", "all");
+  const difficulty = localStorage.getItem("difficulty") || "";
+  console.log(difficulty);
+  if (difficulty == "") {
+    console.log("initializing local storage difficulty...");
+    localStorage.setItem("difficulty", "all"); 
+  }
+
+  const passwordResetEmail = localStorage.getItem("passwordResetEmail") || "";
+  console.log(passwordResetEmail);
+  if (passwordResetEmail == "") {
+    console.log("initializing local storage passwordResetEmail...");
+    localStorage.setItem("passwordResetEmail", "");
+  }
 }
 initializeLocalStorage();
 

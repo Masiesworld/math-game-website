@@ -5,11 +5,10 @@ import '../App.css'
 import './Navbar.css'
 
 function NavBar(){
-
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem("username"));
   const [role, setRole] = useState(localStorage.getItem("role"));
 
-
+  const navigate = useNavigate();
 
   const handleSignOutToggle = () =>{ 
     localStorage.removeItem("username");  //Removes Username from local storage
@@ -17,8 +16,7 @@ function NavBar(){
     //window.location.reload();             //Reload window after sign out
 
     // Redirect back to the homepage when the user logs out
-    // Kind of hardcoded with the URL, so we might need to change this if needed
-    window.location.replace("http://localhost:5173/");
+    navigate("/");
   };
 
   useEffect(() => { //Listens for events to change the SignIn status
@@ -26,7 +24,6 @@ function NavBar(){
     setSignedIn(!signedIn);
     setRole(localStorage.getItem("role")); 
     };
-
 
     window.addEventListener("Login", handleSignInToggle);
     return () => window.removeEventListener("Login", handleSignInToggle);

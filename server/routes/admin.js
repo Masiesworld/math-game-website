@@ -66,5 +66,21 @@ router.get('/questions', async (req, res) => {
   }
 });
 
+// GET user by username
+router.get('/users/:username', async (req, res) => {
+  const { username } = req.params;
+  try {
+    const usersCollection = db.collection('users');
+    const user = await usersCollection.findOne({ username: username });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    res.status(500).json({ error: 'Failed to fetch user' });
+  }
+});
+
   return router;
 };

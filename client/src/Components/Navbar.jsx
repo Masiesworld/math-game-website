@@ -1,19 +1,17 @@
 import React, {useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import './Navbar.css'
 
 function NavBar(){
-
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem("username"));
   const [role, setRole] = useState(localStorage.getItem("role"));
-
-
 
   const handleSignOutToggle = () =>{ 
     localStorage.removeItem("username");  //Removes Username from local storage
     setSignedIn(false);                   //Change signin to false
-    window.location.reload();             //Reload window after sign out
+    window.location.href = "/";             //Reload window after sign out and redirect to home page 
   };
 
   useEffect(() => { //Listens for events to change the SignIn status
@@ -21,7 +19,6 @@ function NavBar(){
     setSignedIn(!signedIn);
     setRole(localStorage.getItem("role")); 
     };
-
 
     window.addEventListener("Login", handleSignInToggle);
     return () => window.removeEventListener("Login", handleSignInToggle);

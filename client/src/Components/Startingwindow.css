@@ -1,0 +1,47 @@
+:root {
+    --start-button-width: 200px;
+    --start-button-height: 8%;
+    --select-difficulty-text-width: 100px;
+    --difficulty-button-width: 20%;
+    --difficulty-button-left: 25%;
+    --difficulty-button-offset: 19%;
+}
+
+#start-game-button {
+    position: absolute;
+    /* width: var(--start-button-width); */
+    width: 200px;
+    height: var(--start-button-height);
+    left: calc(50% - calc(var(--start-button-width) / 2));
+    top: calc(50% - calc(var(--start-button-height) / 2));
+}
+
+#select-difficulty-text {
+    position: relative;
+    text-align: center;
+    top: 65%;
+}
+
+.difficulty-button {
+    position: relative;
+    margin-top: 18%;
+    width: 18%;
+    background-color: lightgray;
+    transition: background-color 0.25s;
+}
+
+#all-difficulty {
+    margin-left: calc(10px - var(--difficulty-button-left));
+}
+
+#easy-difficulty {
+    margin-left: calc(10px - var(--difficulty-button-left) + var(--difficulty-button-offset));
+}
+
+#medium-difficulty {
+    margin-left: calc(10px - var(--difficulty-button-left) + calc(2 * var(--difficulty-button-offset)));
+}
+
+#hard-difficulty {
+    margin-left: calc(10px - var(--difficulty-button-left) + calc(3 * var(--difficulty-button-offset)));
+}

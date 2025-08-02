@@ -97,7 +97,7 @@ async function getUsers() {
 }
 
 let sortedUsersDescending = sortUsersByScoreDescending(await getUsers());
-console.log("bro");
+
 console.log(sortedUsersDescending);
 
 function Leaderboards() {
@@ -107,8 +107,7 @@ function Leaderboards() {
     async function refreshUsers() {
         console.log("refreshUsers called");
 
-        let sortedUsersDescending = sortUsersByScoreDescending(await getUsers());
-        console.log("bro but refresh");
+        let sortedUsersDescending = sortUsersByScoreDescending(await getUsers()); 
         console.log(sortedUsersDescending);
         setUsers(sortedUsersDescending);
 

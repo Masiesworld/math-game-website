@@ -1,9 +1,15 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../App.css';
-import '../Components/Leaderboards.css'
-import '../Components/Gamewindow.css'
+import '../Components/Leaderboards.css';
+import '../Components/Gamewindow.css';
+import '../Components/Timer.css';
+import '../Components/Startingwindow.css';
+import '../Components/Resultswindow.css';
 const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
+import { Timer } from '../Components/Timer.jsx';
+import { StartingWindow } from '../Components/Startingwindow.jsx';
+import { ResultsWindow } from '../Components/Resultswindow.jsx';
 
 // Initialize the local storage
 function initializeLocalStorage() {
@@ -11,16 +17,28 @@ function initializeLocalStorage() {
 
   const username = localStorage.getItem("username") || "";
   console.log(username);
-  if (username != "") {
-    console.log("local storage has already been initialized... returning...");
-    return;
+  if (username == "") {
+    console.log("initializing local storage user...");
+    localStorage.setItem("username", "");
   }
 
-  console.log("initializing local storage...");
-  localStorage.setItem("username", "");
+  const difficulty = localStorage.getItem("difficulty") || "";
+  console.log(difficulty);
+  if (difficulty == "") {
+    console.log("initializing local storage difficulty...");
+    localStorage.setItem("difficulty", "all"); 
+  }
+
+  const passwordResetEmail = localStorage.getItem("passwordResetEmail") || "";
+  console.log(passwordResetEmail);
+  if (passwordResetEmail == "") {
+    console.log("initializing local storage passwordResetEmail...");
+    localStorage.setItem("passwordResetEmail", "");
+  }
 }
 initializeLocalStorage();
 
+// Answer choice buttons
 function AnswerChoice({ id, choice, onClick }) {
   return (
     <button onClick={onClick} className="answer-choice">
@@ -39,36 +57,7 @@ function RandomizeAnswerChoices(answerChoices) {
   return randomized;
 }
 
-/*
-async function getQuestions() {
-  console.log("get questions called");
-  try {
-    const response = await fetch('http://localhost:3001/questions', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log("after the await");
-    const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
-    return data;
-
-    // Section shades out so can either needs to be fixed or removed
-    /*
-    if (response.ok) {
-      return data;
-    }
-    else {
-      return "";
-    }
-  
-
-  } catch (error) {
-    console.error('Login error:', error);
-  }
-}
-*/
-function loadQuestion(questions, previous_question) {
+function loadQuestion(questions, previous_question, difficulty) {
   console.log("QUESTIONS:");
   console.log(questions);
   console.log("previous_question");
@@ -79,90 +68,90 @@ function loadQuestion(questions, previous_question) {
 
   while (true) {
     var randomIndex = Math.floor(Math.random() * numQuestions);
-    if (questions[randomIndex]["question"] != previous_question) {
-      chosen = questions[randomIndex];
-      break;
+    if (questions[randomIndex]["question"] == previous_question) {
+      console.log("DUPLICATE QUESTION... SKIPPING...");
+    }
+    else if ((questions[randomIndex]["difficulty"] != difficulty) && (difficulty != "All")) {
+      console.log("QUESTION IS NOT OF CHOSEN DIFFICULTY... SKIPPING");
     }
     else {
-      console.log("DUPLICATE QUESTION... SKIPPING...");
+      chosen = questions[randomIndex];
+      break;
     }
   }
   
   return [chosen["question"], chosen["answer"], chosen["incorrects"]];
 }
 
-async function getUsers() {
-  console.log("getUsers called");
-  try {
-    const response = await fetch('http://localhost:3001/users', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log("after the await");
-    const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
-    return data;
-    if (response.ok) {
-      return data;
-    }
-    else {
-      return "";
-    }
-  } catch (error) {
-    console.error('Login error:', error);
-  }
-}
-
-// Get the questions before 
-// let initialized_questions = getQuestions();
-// let initialized_users = getUsers();
-
 function Home({ questions, users }) {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
-  //const [questions, setQuestions] = useState(0);
   const [prevQuestion, setPrev] = useState("");
+  const [gamestate, setGameState] = useState("start");
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [questionsCorrect, setQuestionsCorrect] = useState(0);
+  const [difficulty, setDifficulty] = useState("All");
+
+  function selectAllDifficulty() {
+    console.log("Switched to All difficulty");
+    setDifficulty("All");
+  }
   
-  //console.log("on skibidi");
+  function selectEasyDifficulty() {
+    console.log("Switched to Easy difficulty");
+    setDifficulty("Easy");
+  }
+  
+  function selectMediumDifficulty() {
+    console.log("Switched to Medium difficulty");
+    setDifficulty("Medium");
+  }
+  
+  function selectHardDifficulty() {
+    console.log("Switched to Hard difficulty");
+    setDifficulty("Hard");
+  }
+
+  function startGame() {
+    setGameState("play");
+  }
+
+  function finishGame() {
+    setGameState("finish");
+  }
+
+  function closeResultsWindow() {
+    setGameState("start");
+
+    // Reset Game Statistics
+    setScore(0);
+    setQuestionsAnswered(0);
+    setQuestionsCorrect(0);
+  }
+
   async function CheckAnswer(isCorrect, question, points) {
     if (isCorrect) {
+      // Update the number of questions the user has answered correct
+      setQuestionsCorrect(questionsCorrect + 1);
+
       // Update the user's score in the frontend
       console.log(`score set to ${score}`)
       setScore(score + points);
-      
-      // Update the user's score in the backend
-      try {
-        const response = await fetch('http://localhost:3001/users/update-score', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({username: localStorage.getItem("username"), score_increase: points})
-        });
-        
-        const data = await response.json();
-        if (response.ok) {
-          setMessage(data.message);
-        } 
-        else {
-          setMessage(data.error);
-        }
-      } catch (error) {
-        console.error('Login error:', error);
-        setMessage('Error connecting to backend');
-      }
     }
     
+    setQuestionsAnswered(questionsAnswered + 1);
+
     // The answer choices should randomize in order as long as some state is being changed??
-    //setQuestions(questions + 1);
     setPrev(question);
     console.log(`prev question set to ${prevQuestion}`);
   }
 
-  let questionInfo = loadQuestion(questions, prevQuestion);
+  let questionInfo = loadQuestion(questions, prevQuestion, difficulty);
+  // let questionInfo = ["asdf", "asdf", ["asdf", "asdf", "asdf"]];
   let questionTitle = questionInfo[0];
   let questionAnswer = questionInfo[1];
   let incorrectAnswers = questionInfo[2];
-  console.log("GOOD MORNING" + questionInfo);
+  console.log("questionInfo is " + questionInfo);
 
   let answerChoices = [];
   answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle, 10)}}/>);
@@ -181,36 +170,44 @@ function Home({ questions, users }) {
       console.error('Error fetching from backend:', err);
       setMessage('Error connecting to backend');
     });
+    
+    window.addEventListener("Game Start!", startGame);
+    window.addEventListener("Game Finish!", finishGame);
+    window.addEventListener("Game Restart!", closeResultsWindow);
+
+    window.addEventListener("All Difficulty!", selectAllDifficulty);
+    window.addEventListener("Easy Difficulty!", selectEasyDifficulty);
+    window.addEventListener("Medium Difficulty!", selectMediumDifficulty);
+    window.addEventListener("Hard Difficulty!", selectHardDifficulty);
   }, []);
-
-  const [gamestate, setGameState] = useState("start");
-
-  function handleGameStart(){
-    setGameState("play");
-  }
 
   return (
     <div>
       <div className="box-main">
-        {console.log("CALL ME ASPARAGUS")}
+        {console.log("This is called inside of the box-main div")}
         <Suspense>
           <Leaderboards />
         </Suspense>
-        <div id="game-window">
-          <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
-          <h1 id="score">Score: {score}</h1>
-            <div id="inner-window">
-              {gamestate === "play" ? (
-                <>
+        {gamestate == "play" ? (
+          <div id="game-window">
+            <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
+            <Timer />
+            <h1 id="score">Score: {score}</h1>
+              <div id="inner-window">
                 <h1 id="question">{questionTitle}</h1>
                 {answerChoices}
-                </>
-              ): (
-                <button onClick={handleGameStart} className="btn btn-sm play">Start the game</button>
+              </div>
+          </div>
+          ) : (
+            <>
+              {gamestate == "finish" ? (
+                <ResultsWindow score={score} questionsAnswered={questionsAnswered} questionsCorrect={questionsCorrect} />
+              ) : (
+
+                <StartingWindow />
               )}
-            </div>
-        </div>
-        <h2>{message}</h2>
+            </>
+        )}
       </div>
     </div>
   );

@@ -1,34 +1,36 @@
     import { useState, useEffect, lazy, Suspense } from 'react'
+    import { ToastContainer, toast } from 'react-toastify';
+    import 'react-toastify/dist/ReactToastify.css';
     import '../App.css'
     import './Profile.css'
     import '../Components/Leaderboards.css'
+    import MusicControls from '../Components/MusicControls.jsx';
     const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
-    
     
     function Profile(){
         const [name, setName] = useState("");
             function handleNameChange(event){
                 setName(event.target.value);
             }
-    const [email, setEmail] = useState("");
-            function handleEmailChange(event){
-                setEmail(event.target.value)
-            }
-    const [password, setPassword] = useState("");
-            function handlePasswordChange(event){
-                setPassword(event.target.value)
-            }
-    const [classroom, setClassRoomCheck] = useState("");
-            function handleClassRoomChange(event){
-                setClassRoomCheck(event.target.value)
-            }
-    const [editMode, setEditMode] = useState(false);
+        const [originalUsername, setOriginalUsername] = useState("");
+        const [email, setEmail] = useState("");
+                function handleEmailChange(event){
+                    setEmail(event.target.value)
+                }
+        const [password, setPassword] = useState("");
+                function handlePasswordChange(event){
+                    setPassword(event.target.value)
+                }
+        const [classroom, setClassRoomCheck] = useState("");
+        const [totalScore, setTotalScore] = useState(0);
+        const [editMode, setEditMode] = useState(false);
     // Fetch user info on mount
     useEffect(() => {
         const username = localStorage.getItem("username");
+        
         if (!username) return;
 
-        fetch("http://localhost:3001/users", {
+        fetch(`http://localhost:3001/users/${originalUsername}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         })
@@ -36,11 +38,14 @@
           .then(data => {
               const user = data.find(u => u.username === username);
               if (user) {
-                  setName(user.username || "");
-                  setEmail(user.email || "");
-                  setClassRoomCheck(user.class_number !== undefined ? user.class_number : "");
-                  setPassword(user.password || "");
-              }
+                setOriginalUsername(user.username); // ← Track original username
+                setName(user.username || "");
+                setEmail(user.email || "");
+                setClassRoomCheck(user.class_number !== undefined ? user.class_number : "");
+                setPassword(user.password || "");
+                setTotalScore(user.total_score || 0);
+                }
+
           })
           .catch(err => console.error("Failed to fetch user info:", err));
     }, []);
@@ -69,8 +74,41 @@
     }
 
     function handleSave() {
-        setEditMode(false);
+  const username = localStorage.getItem("username");
+  if (!username) return;
+
+  fetch(`http://localhost:3001/users/${originalUsername}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      newUsername: name, 
+      email,
+      password
+    }),
+  })
+   .then(res => {
+    if (res.status === 409) {
+        throw new Error("Username already taken");
     }
+    if (!res.ok) {
+        throw new Error("Failed to update profile");
+    }
+    return res.json();
+    })
+    .then(data => {
+    console.log("Profile updated:", data);
+    setEditMode(false);
+    setOriginalUsername(name); // Update stored username
+    toast.success('Profile Updated!');
+    })
+    .catch(err => {
+    console.error("Error updating profile:", err);
+    alert(err.message); // Will show the actual error message like "Username already taken"
+    });
+
+}
     
     const [originalData, setOriginalData] = useState({
         name: "",
@@ -98,6 +136,10 @@
         <div>
             <div className= "box-main">
                     <div className="Profile">
+                        <div className="top-right-display">
+                                <h2>Class Number: {classroom}</h2>
+                                <h2> Total Score: {totalScore}</h2>
+                                </div>
                         <div className="avatar-container">
                             <img src={avatarPath} alt="Profile Avatar" className="profile-avatar" />
                             <button className="change-avatar-btn btn btn-sm" onClick={togglePicker}>Change Profile Picture</button>
@@ -128,10 +170,6 @@
                                 <input value ={email} onChange={handleEmailChange} type='text' placeholder={email} readOnly={!editMode}/>
                                 </div>
                             <div className="row">
-                                <label>Class:</label> 
-                                <input value ={classroom} onChange={handleClassRoomChange} type='text' placeholder={classroom} readOnly={!editMode}/>
-                                </div>
-                            <div className="row">
                                 <label>Password:</label> 
                                 <input value ={password} onChange={handlePasswordChange} type='text' placeholder={password} readOnly={!editMode}/>
                                 </div>
@@ -146,6 +184,7 @@
                                 )}                               
                             </div>
                         </div>
+                        <MusicControls />
                     </div>
                     <div className="leaderboards">
                         <Suspense fallback={<div>Loading Leaderboards...</div>}>
@@ -153,6 +192,7 @@
                         </Suspense>
                     </div>
             </div>
+            <ToastContainer />
         </div>
          )
     }

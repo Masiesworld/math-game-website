@@ -13,33 +13,33 @@ import { ResultsWindow } from '../Components/Resultswindow.jsx';
 
 // Initialize the local storage
 function initializeLocalStorage() {
-  console.log("initializeLocalStorage called");
+  // initializeLocalStorage called (debug log removed)
 
   const username = localStorage.getItem("username") || "";
-  console.log(username);
+  // username logged (debug removed)
   if (username == "") {
-    console.log("initializing local storage user...");
+    // initializing local storage user...
     localStorage.setItem("username", "");
   }
 
   const difficulty = localStorage.getItem("difficulty") || "";
-  console.log(difficulty);
+  // difficulty logged (debug removed)
   if (difficulty == "") {
-    console.log("initializing local storage difficulty...");
+    // initializing local storage difficulty...
     localStorage.setItem("difficulty", "all"); 
   }
 
   const passwordResetEmail = localStorage.getItem("passwordResetEmail") || "";
-  console.log(passwordResetEmail);
+  // passwordResetEmail logged (debug removed)
   if (passwordResetEmail == "") {
-    console.log("initializing local storage passwordResetEmail...");
+    // initializing local storage passwordResetEmail...
     localStorage.setItem("passwordResetEmail", "");
   }
   
   const avatar = localStorage.getItem("avatar") || "";
-  console.log(avatar);
+  // avatar logged (debug removed)
   if (avatar == "") {
-    console.log("initializing local storage avatar...");
+    // initializing local storage avatar...
     localStorage.setItem("avatar", "/cat.png");
   }
 }
@@ -65,10 +65,7 @@ function RandomizeAnswerChoices(answerChoices) {
 }
 
 function loadQuestion(questions, previous_question, difficulty) {
-  console.log("QUESTIONS:");
-  console.log(questions);
-  console.log("previous_question");
-  console.log(previous_question);
+  // removed debug logs for questions and previous question
 
   let numQuestions = questions.length;
   let chosen = 0;
@@ -76,10 +73,10 @@ function loadQuestion(questions, previous_question, difficulty) {
   while (true) {
     var randomIndex = Math.floor(Math.random() * numQuestions);
     if (questions[randomIndex]["question"] == previous_question) {
-      console.log("DUPLICATE QUESTION... SKIPPING...");
+      // duplicate question skipped
     }
     else if ((questions[randomIndex]["difficulty"] != difficulty) && (difficulty != "All")) {
-      console.log("QUESTION IS NOT OF CHOSEN DIFFICULTY... SKIPPING");
+      // question not of chosen difficulty skipped
     }
     else {
       chosen = questions[randomIndex];
@@ -100,22 +97,22 @@ function Home({ questions, users }) {
   const [difficulty, setDifficulty] = useState("All");
 
   function selectAllDifficulty() {
-    console.log("Switched to All difficulty");
+    // switched to All difficulty
     setDifficulty("All");
   }
   
   function selectEasyDifficulty() {
-    console.log("Switched to Easy difficulty");
+    // switched to Easy difficulty
     setDifficulty("Easy");
   }
   
   function selectMediumDifficulty() {
-    console.log("Switched to Medium difficulty");
+    // switched to Medium difficulty
     setDifficulty("Medium");
   }
   
   function selectHardDifficulty() {
-    console.log("Switched to Hard difficulty");
+    // switched to Hard difficulty
     setDifficulty("Hard");
   }
 
@@ -142,7 +139,7 @@ function Home({ questions, users }) {
       setQuestionsCorrect(questionsCorrect + 1);
 
       // Update the user's score in the frontend
-      console.log(`score set to ${score}`)
+      // score updated
       setScore(score + points);
     }
     
@@ -150,7 +147,7 @@ function Home({ questions, users }) {
 
     // The answer choices should randomize in order as long as some state is being changed??
     setPrev(question);
-    console.log(`prev question set to ${prevQuestion}`);
+    // prev question updated
   }
 
   let questionInfo = loadQuestion(questions, prevQuestion, difficulty);
@@ -158,7 +155,7 @@ function Home({ questions, users }) {
   let questionTitle = questionInfo[0];
   let questionAnswer = questionInfo[1];
   let incorrectAnswers = questionInfo[2];
-  console.log("questionInfo is " + questionInfo);
+  // questionInfo debug removed
 
   let answerChoices = [];
   answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle, 10)}}/>);
@@ -167,7 +164,7 @@ function Home({ questions, users }) {
   answerChoices.push(<AnswerChoice id={4} choice={incorrectAnswers[2]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
   
   answerChoices = RandomizeAnswerChoices(answerChoices);
-  console.log(answerChoices);
+  // answerChoices debug removed
 
   useEffect(() => {
     fetch('http://localhost:3001/api/test') // Your Express route
@@ -191,7 +188,7 @@ function Home({ questions, users }) {
   return (
     <div>
       <div className="box-main">
-        {console.log("This is called inside of the box-main div")}
+        {/* debug removed */}
         <Suspense>
           <Leaderboards />
         </Suspense>

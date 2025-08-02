@@ -93,7 +93,7 @@
     })
     .then(data => {
         toast.success('Avatar Updated!');
-        console.log("Avatar updated:", data);
+        // Avatar updated
     })
     .catch(err => {
         console.error("Avatar failed to change:", err);
@@ -126,7 +126,7 @@
     return res.json();
     })
     .then(data => {
-    console.log("Profile updated:", data);
+    // Profile updated
     setEditMode(false);
     localStorage.setItem("username", name); // Update stored username
     setOriginalUsername(name); // Update stored username

@@ -2,7 +2,7 @@ import { useEffect, useState, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../App.css';
 
-console.log("Resultswindow.jsx called");
+// Resultswindow.jsx loaded
 
 function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
     const [test, setTest] = useState(0);

@@ -16,7 +16,6 @@ import ConfirmPasswordReset from './pages/ConfirmPasswordReset'
 function App({ questions, users }) {
   return (
     <div className='app-container'>
-      {console.log("THIS IS CONFUSING")}
       <Router>
         <NavBar/>
           <Routes>

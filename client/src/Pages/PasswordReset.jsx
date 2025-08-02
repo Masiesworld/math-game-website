@@ -12,7 +12,7 @@ function PasswordReset(){
     }
 
     async function sendPasswordResetEmail() {
-        console.log(`Sending password reset email to ${Email} ...`);
+        // initiate password reset request
         try {
             const response = await fetch('http://localhost:3001/emails/password-reset', {
                 method: 'POST',
@@ -20,20 +20,16 @@ function PasswordReset(){
                 body: JSON.stringify({ email: Email })
             });
 
-            console.log("after the await");
             const data = await response.json();
-
-            console.log("after the await; data is: ");
-            console.log(data);
 
             if (response.ok) {
                 localStorage.setItem("passwordResetEmail", Email);
 
-                console.log("password reset email successfully sent");
+                // successful email sent
                 setMessage(data.message);
             }
             else {
-                console.log("password reset email was not sent");
+                // email send failed
                 setMessage(data.error);
             }
             } catch (error) {

@@ -20,7 +20,6 @@ function ConfirmPasswordReset(){
     }
 
     async function confirmPasswordResetEmail() {
-        console.log(`Attempting to change password to ${password} ...`);
         try {
             const response = await fetch('http://localhost:3001/users/update-password', {
                 method: 'POST',
@@ -28,19 +27,13 @@ function ConfirmPasswordReset(){
                 body: JSON.stringify({ email: localStorage.getItem("passwordResetEmail") || "", password: password, password_check: passwordConfirm })
             });
 
-            console.log("after the await");
             const data = await response.json();
 
-            console.log("after the await; data is: ");
-            console.log(data);
-
             if (response.ok) {
-                console.log("password reset successful");
                 setMessage(data.message);
                 navigate("/Sign-in");
             }
             else {
-                console.log("password reset was not successful");
                 setMessage(data.error);
             }
             } catch (error) {

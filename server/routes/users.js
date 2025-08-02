@@ -86,5 +86,46 @@ module.exports = function(db, entryIsUnique){
     }
   });
 
+    // PUT /users/:username
+  router.put('/:username', async (req, res) => {
+    const { username } = req.params;
+    const { newUsername, email, password } = req.body;
+
+    try {
+      const usersCollection = db.collection('users');
+
+      // Check if the new username is already taken
+      if (newUsername !== username) {
+      const existingUser = await usersCollection.findOne({ username: newUsername });
+      if (existingUser) {
+        return res.status(409).json({ error: 'Username already taken' });
+      }
+    }
+
+      const result = await usersCollection.updateOne(
+        { username },
+        {
+          $set: {
+            username: newUsername,
+            email,
+            password,
+          }
+        }
+      );
+        console.log("Update result:", result);
+// e.g. { acknowledged: true, matchedCount: 1, modifiedCount: 1 }
+
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      res.json({ message: 'User updated successfully' });
+    } catch (error) {
+      console.error('Error updating user:', error);
+      res.status(500).json({ error: 'Failed to update user' });
+    }
+  });
+
+
   return router;
 };

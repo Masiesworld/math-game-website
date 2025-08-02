@@ -32,7 +32,7 @@ function SignUp(){
     const navigate = useNavigate();
 
     async function validateUser() {
-        console.log("VALIDATE USER");
+        // VALIDATE USER (debug log removed)
         try {
             const response = await fetch('http://localhost:3001/sign-up', {
                 method: 'POST',
@@ -40,11 +40,10 @@ function SignUp(){
                 body: JSON.stringify({username: name, email: email, password: password, password_check: passwordCheck, role: adminChecked ? "teacher" : "student"}) // role parameter added, "student" or "teacher"
             });
 
-            console.log("after the await");
+            // debug removed
             const data = await response.json();
 
-            console.log("after the data; data is: ");
-            console.log(data);
+            // debug removed
 
             if (response.ok) {
                 // Send confirmation email

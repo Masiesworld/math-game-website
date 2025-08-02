@@ -30,7 +30,7 @@ function dispatchDifficulty(difficulty) {
       window.dispatchEvent(new Event("Hard Difficulty!"));
       break;
     default:
-      console.log("Failed to dispatch difficulty");
+      // Failed to dispatch difficulty
   }
 
   for (let i = 0; i < buttons.length; i++) {

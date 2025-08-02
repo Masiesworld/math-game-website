@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../App.css';
-console.log("leaderboards called");
+// removed debug log
 // Merge Sort (Ascending Order)
 function sortUsersByScoreAscending(users) {
     if (users.length <= 1)
@@ -19,8 +19,7 @@ function sortUsersByScoreAscending(users) {
 
 // Merge Sort (Descending Order)
 function sortUsersByScoreDescending(users) {
-    console.log("users is:");
-    console.log(users);
+    // removed debug logs
     // Get the sorted result in ascending order
     let L = sortUsersByScoreAscending(users);
     
@@ -37,33 +36,30 @@ function merge(A, B) {
     let C = [];
     let i = 0;
     let j = 0;
-    console.log("A");
-    console.log(A);
-    console.log("B");
-    console.log(B);
+    // removed debug logs
     // Sort in ascending order
     while (true) {
         if (A[i]["total_score"] <= B[j]["total_score"]) {
-            console.log("A pushed");
+            // debug log removed
             C.push(A[i]);
             i++;
         }
         
         else if (A[i]["total_score"] > B[j]["total_score"]) {
-            console.log("B pushed");
+            // debug log removed
             C.push(B[j]);
             j++;
         }
         
         if (i >= A.length) {
-            console.log("All of A inserted; insert the rest of B now");
+            // debug log removed
             for (let k = j; k < B.length; k++)
                 C.push(B[k]);
             break;
         }
         
         else if (j >= B.length) {
-            console.log("All of B inserted; insert the rest of A now");
+            // debug log removed
             for (let k = i; k < A.length; k++)
                 C.push(A[k]);
             break;
@@ -74,16 +70,15 @@ function merge(A, B) {
 }
 
 async function getUsers() {
-  console.log("getUsers called");
+  // debug log removed
   try {
     const response = await fetch('http://localhost:3001/users', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
-    console.log("after the await");
+    // debug log removed
     const data = await response.json();
-    console.log("after the data; data is: ");
-    console.log(data);
+    // debug log removed
     return data;
     if (response.ok) {
       return data;
@@ -98,30 +93,30 @@ async function getUsers() {
 
 let sortedUsersDescending = sortUsersByScoreDescending(await getUsers());
 
-console.log(sortedUsersDescending);
+// debug log removed
 
 function Leaderboards() {
     const [users, setUsers] = useState(sortedUsersDescending);
     const [isRefreshing, indicateRefreshing] = useState(0);
 
     async function refreshUsers() {
-        console.log("refreshUsers called");
+        // debug log removed
 
         let sortedUsersDescending = sortUsersByScoreDescending(await getUsers()); 
-        console.log(sortedUsersDescending);
+        // debug log removed
         setUsers(sortedUsersDescending);
 
-        console.log("refreshUsers returning");
+        // debug log removed
     }
 
     function bro() {
         if (isRefreshing > 0) {
-            console.log("refreshes already taking place... returning...");
+            // debug log removed
             return;
         }
 
         indicateRefreshing(1);
-        console.log("this is the first refresh");
+        // debug log removed
 
         setInterval(refreshUsers, 10000);
     }
@@ -137,8 +132,7 @@ function Leaderboards() {
         <div id="leaderboards">
             <h2>LEADERBOARD</h2>            
             <ol id="user-rankings">{userRankings}</ol>
-            {console.log("USER RANKINGS")}
-            {console.log(userRankings)}
+            {/* debug logs removed */}
             {bro()}
         </div>
     );

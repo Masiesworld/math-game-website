@@ -64,12 +64,13 @@
 #inner-window .play {
   position: absolute;
   top: 40%;
-  left: 35%;
-  width: 200px;
+  /* left: 35%; */
+  left: 36%;
+  /* width: 200px; */
   height: 60px;
   font-size: x-large;
 }
 
-#inner-window .play:hover {
+/* #inner-window .play:hover {
   background-color: #d3d3d3;
-}
+} */

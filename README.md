@@ -6,15 +6,17 @@ A math game website that is fun and engaging for a general audience who enjoys m
 ## Features
 
 - Responsive UI
-- Math game with score tracking
-- Leaderboard
+- Student/Teacher roles and functionalities
+- Math game with score tracking and difficulty levels
+- Leaderboard system
+- Avatars/Music
 
 ## Tech Stack
 
-- Frontend: React.js (TBD)
-- Backend: Node.js + Express.js (TBD)
-- Database: MySQL (TBD)
-- Project management: Jiro/Trello (TBD)
+- Frontend: React.js
+- Backend: Node.js + Express.js
+- Database: MongoDB
+- Project management: Jiro/Trello
 
 ## Instructions for MongoDB and Backend implementation
 
@@ -24,7 +26,7 @@ A math game website that is fun and engaging for a general audience who enjoys m
    the server folder will have its own node_modules folder
 3. create a .env file and paste the following information below:
    MONGO_URI= \*this will need to be given
-   PORT=5000
+   PORT=3001
 4. Start MongoDB locally:
    For Windows: Open a separate command prompt -> "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" - can double-check in file explorer if the path above exists
    For Mac: Open a separate terminal -> mongod
@@ -32,7 +34,7 @@ A math game website that is fun and engaging for a general audience who enjoys m
    Should be seeing items below:
    Connected to MongoDB
    Using database: Math-Trials
-   Server running at http://localhost:5000
+   Server running at http://localhost:3001
 
 ## Working between Frontend and Backend
 

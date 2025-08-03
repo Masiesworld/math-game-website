@@ -1,6 +1,5 @@
-import React, {useState, useEffect } from 'react'
+import {useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import './Navbar.css'
 
@@ -67,8 +66,6 @@ function NavBar(){
               <Link to="/Teacher" className="btn btn-sm">Teacher Page</Link>
             </li>
           )}
-          {/* Display the current sign-in status */}
-
 
         </ul>
       </nav>

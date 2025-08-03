@@ -21,7 +21,7 @@ function useInterval(callback, delay) {
 }
 
 function Timer() {
-    const [time, setTime] = useState(5);
+    const [time, setTime] = useState(30);
     const [startTimer, setStartTimer] = useState(true);
 
     function handleTime() {

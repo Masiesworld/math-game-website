@@ -1,5 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
+import { useEffect, useState } from 'react';
 import '../App.css';
 
 // Resultswindow.jsx loaded

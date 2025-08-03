@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../App.css';
 import '../Components/Leaderboards.css';
@@ -96,6 +96,10 @@ function Home({ questions, users }) {
   const [questionsCorrect, setQuestionsCorrect] = useState(0);
   const [difficulty, setDifficulty] = useState("All");
 
+  /* --- Audio refs for music --- */
+  const gameAudioRef = useRef(null);
+  const endAudioRef  = useRef(null);
+
   function selectAllDifficulty() {
     // switched to All difficulty
     setDifficulty("All");
@@ -132,6 +136,51 @@ function Home({ questions, users }) {
     setQuestionsAnswered(0);
     setQuestionsCorrect(0);
   }
+
+  /* Handle game music based on gamestate changes. */
+  useEffect(() => {
+    // Helper to safely stop and clear an audio ref
+    const stopAudio = (audioRef) => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+      }
+    };
+
+    if (gamestate === "play") {
+      // Stop any previous end jingle
+      stopAudio(endAudioRef);
+
+      // start and restart background music
+      stopAudio(gameAudioRef);
+      const bg = new Audio('/music/enemy-course.flac');
+      bg.loop = true;
+      bg.volume = 0.6;
+      bg.play().catch(() => {/* autoplay might be blocked */});
+      gameAudioRef.current = bg;
+    } else if (gamestate === "finish") {
+      // Stop background music
+      stopAudio(gameAudioRef);
+
+      // Play 1-shot end music
+      stopAudio(endAudioRef);
+      const fanfare = new Audio('/music/enemy-course-fanfare.flac');
+      fanfare.volume = 0.8;
+      fanfare.play().catch(() => {});
+      endAudioRef.current = fanfare;
+    } else {
+      // "start" or any other state: ensure no music is playing
+      stopAudio(gameAudioRef);
+      stopAudio(endAudioRef);
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      stopAudio(gameAudioRef);
+      stopAudio(endAudioRef);
+    };
+  }, [gamestate]);
 
   async function CheckAnswer(isCorrect, question, points) {
     if (isCorrect) {

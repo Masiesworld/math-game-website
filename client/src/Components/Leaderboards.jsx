@@ -70,26 +70,21 @@ function merge(A, B) {
 }
 
 async function getUsers() {
-  // debug log removed
   try {
     const response = await fetch('http://localhost:3001/users', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
-    // debug log removed
+
     const data = await response.json();
-    // debug log removed
-    return data;
-    if (response.ok) {
-      return data;
-    }
-    else {
-      return "";
-    }
+    // Filter only students
+    return data.filter(user => user.role === 'student');
   } catch (error) {
     console.error('Login error:', error);
+    return [];
   }
 }
+
 
 let sortedUsersDescending = sortUsersByScoreDescending(await getUsers());
 

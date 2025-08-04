@@ -33,7 +33,7 @@ function Teacher() {
                 if (response.ok) {
                   await response.json();
                   toast.success('Class Number Assigned Successfully!');
-                } 
+                }
                 else {
                    const error = await response.text();
                    alert(`Error: ${error}`);

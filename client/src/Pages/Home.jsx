@@ -8,6 +8,7 @@ import '../Components/Startingwindow.css';
 import '../Components/Resultswindow.css';
 const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
 import { Timer } from '../Components/Timer.jsx';
+import { TimeBonus } from '../Components/TimeBonus.jsx';
 import { StartingWindow } from '../Components/Startingwindow.jsx';
 import { ResultsWindow } from '../Components/Resultswindow.jsx';
 
@@ -41,6 +42,16 @@ function initializeLocalStorage() {
   if (avatar == "") {
     // initializing local storage avatar...
     localStorage.setItem("avatar", "/cat.png");
+  }
+
+  const classroom = localStorage.getItem("classroom") || "";
+  if (classroom == "") {
+    localStorage.setItem("classroom", null);
+  }
+
+  const time_bonus = localStorage.getItem("time_bonus") || "";
+  if (time_bonus == "") {
+    localStorage.setItem("time_bonus", 5);
   }
 }
 initializeLocalStorage();
@@ -121,6 +132,7 @@ function Home({ questions, users }) {
   }
 
   function startGame() {
+    window.dispatchEvent(new Event("New Question!"));
     setGameState("play");
   }
 
@@ -189,7 +201,7 @@ function Home({ questions, users }) {
 
       // Update the user's score in the frontend
       // score updated
-      setScore(score + points);
+      setScore(score + points + parseInt(localStorage.getItem("time_bonus")));
     }
     
     setQuestionsAnswered(questionsAnswered + 1);
@@ -197,10 +209,12 @@ function Home({ questions, users }) {
     // The answer choices should randomize in order as long as some state is being changed??
     setPrev(question);
     // prev question updated
+
+    // Reset the time bonus
+    window.dispatchEvent(new Event("New Question!"));
   }
 
   let questionInfo = loadQuestion(questions, prevQuestion, difficulty);
-  // let questionInfo = ["asdf", "asdf", ["asdf", "asdf", "asdf"]];
   let questionTitle = questionInfo[0];
   let questionAnswer = questionInfo[1];
   let incorrectAnswers = questionInfo[2];
@@ -248,6 +262,7 @@ function Home({ questions, users }) {
             <span>{localStorage.getItem("username") || "Guest"}</span>
             </h1>
             <Timer />
+            <TimeBonus />
             <h1 id="score">Score: {score}</h1>
               <div id="inner-window">
                 <h1 id="question">{questionTitle}</h1>

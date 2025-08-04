@@ -20,27 +20,32 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-function Timer() {
-    const [time, setTime] = useState(60);
+function TimeBonus() {
+    const [time, setTime] = useState(5);
 
     function handleTime() {
       if (time > 0) {
         setTime((prevTime) => prevTime - 1);
-      }
-      else {
-        window.dispatchEvent(new Event("Game Finish!"));
+        localStorage.setItem("time_bonus", time - 1);
       }
     }
 
-    const countdown = useInterval(handleTime, 1000);
+    function restartTimer() {
+        localStorage.setItem("time_bonus", 5);
+        clearInterval(countdown);
+        setTime(5);
+    }
+
+    let countdown = useInterval(handleTime, 1000);
+
+    useEffect(() => {
+        window.addEventListener("New Question!", restartTimer);
+    }, []);
 
     return (
       <>
-        <div id="timer-area">
-            <h1 id="countdown">{time}</h1>
-        </div>
       </>
     );
 }
 
-export { Timer }
+export { TimeBonus }

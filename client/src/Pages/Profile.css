@@ -1,14 +1,3 @@
-/* Styles for the Profile page to wrap content*/
-/* I think this is unused? */
-.flex-wrapper {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin: 2rem auto;
-    max-width: 90vw; /* Adjust as needed */
-}
 
 /* Styles for the Profile class on profile page */
 .Profile {
@@ -66,10 +55,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-}
-/* I think this is unused? */
-.PassChange .btn{
-    font-size: 12px;
 }
 /* Styles for the avatar selection section */
 .avatar-container {

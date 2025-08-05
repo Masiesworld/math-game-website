@@ -47,7 +47,7 @@ body, html, #root{
   flex-direction: column;
   min-height: 100vh;
 }
-/* Flex type and padding for the main content class (another I think is not used)*/
+/* Flex type and padding for the main content class (I think is not used)*/
 .main-content {
   flex: 1;
   padding: 20px;

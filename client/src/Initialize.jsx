@@ -1,13 +1,15 @@
 // Initialize the questions in initquestions.json into the database
 async function initQuestions() {
-  // INITIALIZE QUESTIONS
+  // INITIALIZE QUESTIONS (debug log removed)
   try {
     const response = await fetch('http://localhost:3001/questions/initialize-questions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
     const data = await response.json();
+
     // debug logs removed
+
     if (response.ok) {
       // pass
     }
@@ -22,14 +24,16 @@ async function initQuestions() {
 
 // Initialize the users in initusers.json into the database
 async function initUsers() {
-  // INITIALIZE USERS
+  // INITIALIZE USERS (debug log removed)
   try {
     const response = await fetch('http://localhost:3001/users/initialize-users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
     const data = await response.json();
+
     // debug logs removed
+    
     if (response.ok) {
       // pass
     }
@@ -51,8 +55,9 @@ async function getQuestions() {
       headers: { 'Content-Type': 'application/json' }
     });
     const data = await response.json();
+
     // debug logs removed
-    return data;
+
     if (response.ok) {
       return data;
     }
@@ -73,8 +78,9 @@ async function getUsers() {
       headers: { 'Content-Type': 'application/json' }
     });
     const data = await response.json();
+
     // debug logs removed
-    return data;
+
     if (response.ok) {
       return data;
     }
@@ -86,11 +92,7 @@ async function getUsers() {
   }
 }
 
-// Let the console know that Iniitalize.ksx has been called (ideally this should be called first I think at the moment)
-// Initialize.jsx has been called
-
-// Initialize the database
-// initQuestions();
-// initUsers();
+// Let the console know that Initialize.jsx has been called (ideally this should be called first I think at the moment)
+// Initialize.jsx has been called (debug log removed)
 
 export { initQuestions, initUsers, getQuestions, getUsers };

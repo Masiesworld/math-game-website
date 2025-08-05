@@ -1,7 +1,7 @@
 import './Footer.css'
 
-function Footer(){
-
+// A small footer at the bottom of the screen to display our names!
+function Footer() {
     return(
         <footer className="footer">
             <p className="text-footer">

@@ -1,4 +1,4 @@
-
+/* Styles for the sign-up page */
 .sign-up-form {
   max-width: 80%;
   margin: 100px auto;
@@ -9,18 +9,18 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   color: #000;
 }
-
+/* Styling for the input in the sign up for container*/
 .sign-up-form input {
   flex: 1;
   padding: 10px;
   margin-top: 0px;
   font-size: 16px;
 }
-
+/* Styling for the account type text in the sign up form container*/
 .sign-up-form p {
     display: end;
 }
-
+/* Styling for the h2 text in the sign up form container (username, email, password, password check*/
 .sign-up-form h2{
   flex: 0 0 120px;
   text-align: left;
@@ -28,7 +28,7 @@
   margin: 0;
   font-size: 16px;
 }
-
+/* Styling for the checkbox in the sign up form container*/
 .sign-up-form input[type="checkbox"] {
     cursor: pointer;
     width: 15px;
@@ -36,12 +36,12 @@
     margin-left: 10px;
     margin-bottom: 20px;
 }
-
+/* Styling for the button found in the sign up form container*/
 .sign-up-form .btn {
   display: inline-block;
   margin-top: 10px;
 }
-
+/* Each user info is it's own row this styles them to fit horizontally together with the h2 text*/
 .sign-up-form .row {
     display: flex;
     align-items: center;

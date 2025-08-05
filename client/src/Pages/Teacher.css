@@ -1,3 +1,5 @@
+
+/* Styling for the entirety of the content on teacher page */
 .teacher-block {
   background-color: #f7f7f7;
   color: #050505;
@@ -9,12 +11,12 @@
   min-height: 60vh;
 }
 
-
+/* Styling for the dropdown so that content wraps*/
 .dropdown-wrapper {
   position: relative;
   display: inline-block;
 }
-
+/*Styling for the dropdown menu*/
 .dropdown-menu {
   position: absolute;
   top: 0;
@@ -48,7 +50,7 @@
 .dropdown-menu li:hover {
   background-color: #ccc;
 }
-
+/* Styling for the selected box */
 .selected-box {
   margin-left: 10px;
     height: auto;
@@ -69,7 +71,7 @@
 .dropdown-item:hover {
   background-color: #e0e0e0;
 }
-
+/* Styling for the teacher button class on the teacher page */
 .teach-btn {
   margin-left: 10px;
   height: auto;
@@ -81,7 +83,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   cursor: pointer;
 }
-
+/* Justifys three content boxes to fit together horizontally*/
 .side-by-side-container {
   display: flex;
   justify-content: space-between;
@@ -89,7 +91,7 @@
   margin-top: 20px;
   width: 100%;
 }
-
+/* Styling for the three sections on the teacher page */
 .assign-section,
 .questions-section,
 .student-lookup-section {
@@ -100,7 +102,7 @@
   border: 1px solid #ccc;
   width: 20vw;
 }
-
+/* Styling for the input section for the questions */
 .question-input {
   padding: 8px;
   margin-bottom: 10px;
@@ -109,13 +111,13 @@
   font-size: 1rem;
   width: 95%;
 }
-
+/* Styling for the group that holds the incorrect answers */
 .incorrect-answers-group {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
 }
-
+/* Styling for the incorrect answer input boxes */
 .incorrect-input {
   flex: 1;
   padding: 8px;
@@ -126,7 +128,7 @@
   width: 30%;
   font-size: 0.85rem;
 }
-
+/* Styling for the difficulty buttons section */
 .difficulty-buttons {
   display: flex;
   gap: 10px;

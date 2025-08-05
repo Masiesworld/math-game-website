@@ -1,19 +1,18 @@
 import { useEffect, useState, lazy, Suspense, useRef } from 'react';
-import { createRoot } from 'react-dom/client';
 import '../App.css';
 import '../Components/Leaderboards.css';
 import '../Components/Gamewindow.css';
 import '../Components/Timer.css';
 import '../Components/Startingwindow.css';
 import '../Components/Resultswindow.css';
-const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx'));
+const Leaderboards = lazy(() => import('../Components/Leaderboards.jsx')); // "wait" to load this
 import { Timer } from '../Components/Timer.jsx';
 import { TimeBonus } from '../Components/TimeBonus.jsx';
 import { StartingWindow } from '../Components/Startingwindow.jsx';
 import { ResultsWindow } from '../Components/Resultswindow.jsx';
 
 // Initialize the local storage
-function initializeLocalStorage() {
+function initializeLocalStorage() {removeEventListener
   // initializeLocalStorage called (debug log removed)
 
   const username = localStorage.getItem("username") || "";
@@ -45,15 +44,21 @@ function initializeLocalStorage() {
   }
 
   const classroom = localStorage.getItem("classroom") || "";
+  // classroom logged (debug removed)
   if (classroom == "") {
+    // initializing local storage classroom...
     localStorage.setItem("classroom", null);
   }
 
   const time_bonus = localStorage.getItem("time_bonus") || "";
+  // time_bonus logged (debug removed)
   if (time_bonus == "") {
+    // initializing local storage time_bonus...
     localStorage.setItem("time_bonus", 5);
   }
 }
+
+// Call initializeLocalStorage early (ideally)
 initializeLocalStorage();
 
 // Answer choice buttons
@@ -65,9 +70,12 @@ function AnswerChoice({ id, choice, onClick }) {
   );
 }
 
+/* Randomize the order of the answer choice buttons by storing the buttons in an array,
+   and then randomizing their order in the array to be used later */
 function RandomizeAnswerChoices(answerChoices) {
   let randomized = []
   for(let i = answerChoices.length; i > 0; i--) {
+    // Take a random element in answerChoices, push that to randomized, and remove it from answerChoices
     var randomIndex = Math.floor(Math.random() * i);
     randomized.push(answerChoices.splice(randomIndex, 1));
   }
@@ -75,6 +83,7 @@ function RandomizeAnswerChoices(answerChoices) {
   return randomized;
 }
 
+// Chooses a question (of specified difficulty) from the database of questions
 function loadQuestion(questions, previous_question, difficulty) {
   // removed debug logs for questions and previous question
 
@@ -84,10 +93,10 @@ function loadQuestion(questions, previous_question, difficulty) {
   while (true) {
     var randomIndex = Math.floor(Math.random() * numQuestions);
     if (questions[randomIndex]["question"] == previous_question) {
-      // duplicate question skipped
+      // duplicate question skipped (debug log removed)
     }
     else if ((questions[randomIndex]["difficulty"] != difficulty) && (difficulty != "All")) {
-      // question not of chosen difficulty skipped
+      // question not of chosen difficulty skipped (debug log removed)
     }
     else {
       chosen = questions[randomIndex];
@@ -95,9 +104,11 @@ function loadQuestion(questions, previous_question, difficulty) {
     }
   }
   
+  // Return the question information
   return [chosen["question"], chosen["answer"], chosen["incorrects"]];
 }
 
+// Home Page receives the questions from the database in the form of the questions variable
 function Home({ questions, users }) {
   const [message, setMessage] = useState('Loading...');
   const [score, setScore] = useState(0);
@@ -132,15 +143,18 @@ function Home({ questions, users }) {
   }
 
   function startGame() {
+    // switched game state to "play" and begin the time bonus timer
     window.dispatchEvent(new Event("New Question!"));
     setGameState("play");
   }
 
   function finishGame() {
+    // switched game state to "finish"
     setGameState("finish");
   }
 
   function closeResultsWindow() {
+    // switched game state to "start"
     setGameState("start");
 
     // Reset Game Statistics
@@ -194,13 +208,14 @@ function Home({ questions, users }) {
     };
   }, [gamestate]);
 
+  // Function to check whether the answer option the user clicks is the correct answer option
   async function CheckAnswer(isCorrect, question, points) {
     if (isCorrect) {
       // Update the number of questions the user has answered correct
       setQuestionsCorrect(questionsCorrect + 1);
 
       // Update the user's score in the frontend
-      // score updated
+      // score updated (debug log removed)
       setScore(score + points + parseInt(localStorage.getItem("time_bonus")));
     }
     
@@ -208,24 +223,28 @@ function Home({ questions, users }) {
 
     // The answer choices should randomize in order as long as some state is being changed??
     setPrev(question);
-    // prev question updated
+    // prev question updated (debug log removed)
 
     // Reset the time bonus
     window.dispatchEvent(new Event("New Question!"));
   }
 
+  // Initialize the current question to be displayed
   let questionInfo = loadQuestion(questions, prevQuestion, difficulty);
   let questionTitle = questionInfo[0];
   let questionAnswer = questionInfo[1];
   let incorrectAnswers = questionInfo[2];
   // questionInfo debug removed
 
+  /* Make the answer choice buttons and put them in answerChoices. One choice will be set to "correct" and display the correct answer,
+     while the other three will be set to "incorrect" and display the incorrect answers */
   let answerChoices = [];
   answerChoices.push(<AnswerChoice id={1} choice={questionAnswer} onClick={function(){CheckAnswer(1, questionTitle, 10)}}/>);
   answerChoices.push(<AnswerChoice id={2} choice={incorrectAnswers[0]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
   answerChoices.push(<AnswerChoice id={3} choice={incorrectAnswers[1]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
   answerChoices.push(<AnswerChoice id={4} choice={incorrectAnswers[2]} onClick={function(){CheckAnswer(0, questionTitle, 10)}}/>);
   
+  // Randomize the order of the answer choices
   answerChoices = RandomizeAnswerChoices(answerChoices);
   // answerChoices debug removed
 
@@ -238,6 +257,7 @@ function Home({ questions, users }) {
       setMessage('Error connecting to backend');
     });
     
+    // Event listeners for when events are dispatched by other pages or components
     window.addEventListener("Game Start!", startGame);
     window.addEventListener("Game Finish!", finishGame);
     window.addEventListener("Game Restart!", closeResultsWindow);
@@ -255,6 +275,7 @@ function Home({ questions, users }) {
         <Suspense>
           <Leaderboards />
         </Suspense>
+        {/* If the user is playing the game, show the game window */}
         {gamestate == "play" ? (
           <div id="game-window">
             <img src={localStorage.getItem("avatar") || "/cat.png"} alt="Avatar" className="avatar" />
@@ -271,11 +292,14 @@ function Home({ questions, users }) {
           </div>
           ) : (
             <>
+              {/* Otherwise, if the user just finished the game, show the results window */}
               {gamestate == "finish" ? (
                 <ResultsWindow score={score} questionsAnswered={questionsAnswered} questionsCorrect={questionsCorrect} />
               ) : (
-
-                <StartingWindow />
+                <>
+                  {/* Otherwise, the user has not yet started the game, show the starting window */}
+                  <StartingWindow />
+                </>
               )}
             </>
         )}
@@ -285,6 +309,3 @@ function Home({ questions, users }) {
 }
 
 export default Home;
-
-// <h1>Placeholder where game window will go?</h1>
-// <h1>Placeholder for Leaderboard?</h1>

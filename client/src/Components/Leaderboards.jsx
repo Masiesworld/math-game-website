@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import '../App.css';
+
 // removed debug log
+
 // Merge Sort (Ascending Order)
 function sortUsersByScoreAscending(users) {
     if (users.length <= 1)
@@ -20,6 +22,7 @@ function sortUsersByScoreAscending(users) {
 // Merge Sort (Descending Order)
 function sortUsersByScoreDescending(users) {
     // removed debug logs
+
     // Get the sorted result in ascending order
     let L = sortUsersByScoreAscending(users);
     
@@ -36,7 +39,9 @@ function merge(A, B) {
     let C = [];
     let i = 0;
     let j = 0;
+
     // removed debug logs
+
     // Sort in ascending order
     while (true) {
         if (A[i]["total_score"] <= B[j]["total_score"]) {
@@ -69,6 +74,7 @@ function merge(A, B) {
     return C;
 }
 
+// Get the users from the database
 async function getUsers() {
   try {
     const response = await fetch('http://localhost:3001/users', {
@@ -77,6 +83,7 @@ async function getUsers() {
     });
 
     const data = await response.json();
+
     // Filter only students
     return data.filter(user => user.role === 'student');
   } catch (error) {
@@ -85,7 +92,7 @@ async function getUsers() {
   }
 }
 
-
+// Get the users from the database, and sort them in descending order
 let sortedUsersDescending = sortUsersByScoreDescending(await getUsers());
 
 // debug log removed
@@ -94,6 +101,7 @@ function Leaderboards() {
     const [users, setUsers] = useState(sortedUsersDescending);
     const [isRefreshing, indicateRefreshing] = useState(0);
 
+    // Get the users from the database again. This way, we can get any changes in the user score and update the leaderboards
     async function refreshUsers() {
         // debug log removed
 
@@ -104,7 +112,8 @@ function Leaderboards() {
         // debug log removed
     }
 
-    function bro() {
+    // Ideally, this should be called once to update the leaderboards every 10 seconds
+    function refreshLeaderboards() {
         if (isRefreshing > 0) {
             // debug log removed
             return;
@@ -116,6 +125,7 @@ function Leaderboards() {
         setInterval(refreshUsers, 10000);
     }
     
+    // Display the list of users ranked by their score in descending order
     let rank = 1;
     let userRankings = users.map(user =>
         <li key={user._id} id="rank">
@@ -128,7 +138,9 @@ function Leaderboards() {
             <h2>LEADERBOARD</h2>            
             <ol id="user-rankings">{userRankings}</ol>
             {/* debug logs removed */}
-            {bro()}
+
+            {/* being refreshing the leaderboards ever 10 seconds */}
+            {refreshLeaderboards()}
         </div>
     );
 }

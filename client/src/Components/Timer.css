@@ -1,7 +1,9 @@
+/* CSS variables */
 :root {
     --timer-diameter: 75px;
 }
 
+/* Timer background and area */
 #timer-area {
     width: var(--timer-diameter);
     height: var(--timer-diameter);
@@ -14,6 +16,7 @@
     background-color: rgb(61, 76, 99);
 }
 
+/* The timer countdown number itself */
 #countdown {
     font-size: 29px;
     text-align: center;

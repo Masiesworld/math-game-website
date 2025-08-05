@@ -3,23 +3,24 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 import './Navbar.css'
 
+// A component to display the navigation menu on the top of the website
 function NavBar(){
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem("username"));
   const [role, setRole] = useState(localStorage.getItem("role"));
 
   const handleSignOutToggle = () =>{ 
-    localStorage.removeItem("username");  //Removes Username from local storage
-    localStorage.removeItem("role");      //Removes Role from local storage
-    localStorage.removeItem("avatar");    //Removes Avatar from local storage
-    localStorage.removeItem("class_number"); //Removes Class Number from local storage
-    localStorage.removeItem("total_score"); //Removes Total Score from local storage
-    localStorage.removeItem("email");     //Removes Email from local storage
-    localStorage.removeItem("password");  //Removes Password from local storage
-    setSignedIn(false);                   //Change signin to false
-    window.location.href = "/";             //Reload window after sign out and redirect to home page 
+    localStorage.removeItem("username");     // Removes Username from local storage
+    localStorage.removeItem("role");         // Removes Role from local storage
+    localStorage.removeItem("avatar");       // Removes Avatar from local storage
+    localStorage.removeItem("class_number"); // Removes Class Number from local storage
+    localStorage.removeItem("total_score");  // Removes Total Score from local storage
+    localStorage.removeItem("email");        // Removes Email from local storage
+    localStorage.removeItem("password");     // Removes Password from local storage
+    setSignedIn(false);                      // Change signin to false
+    window.location.href = "/";              // Reload window after sign out and redirect to home page 
   };
 
-  useEffect(() => { //Listens for events to change the SignIn status
+  useEffect(() => { // Listens for events to change the SignIn status
     const handleSignInToggle = () =>{
     setSignedIn(!signedIn);
     setRole(localStorage.getItem("role")); 
@@ -60,13 +61,12 @@ function NavBar(){
               </li>
             </>
           )}
-          {/* Teacher page only visible if logged in as teacher*/}
+          {/* Teacher page only visible if logged in as teacher */}
           {signedIn && role === "teacher" && (
             <li>
               <Link to="/Teacher" className="btn btn-sm">Teacher Page</Link>
             </li>
           )}
-
         </ul>
       </nav>
     </div>

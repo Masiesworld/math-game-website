@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../App.css'
 import './Teacher.css'
 
+// A Teacher Page for teachers to assign students to classrooms, lookup students, and add questions
 function Teacher() {
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
     const [isClassDropdownOpen, setIsClassDropdownOpen] = useState(false);

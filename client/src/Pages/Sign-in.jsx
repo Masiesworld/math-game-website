@@ -9,14 +9,15 @@ function SignIn(){
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  function handleNameChange(event){
-      setName(event.target.value);
+  function handleNameChange(event) {
+    setName(event.target.value);
   }
 
-  function handlePasswordChange(event){
-          setPassword(event.target.value)
+  function handlePasswordChange(event) {
+    setPassword(event.target.value)
   }
   
+  // A fucntion to call the backend to validate the user's attempt to sign in
   const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:3001/users/login', {
@@ -26,6 +27,8 @@ function SignIn(){
       });
 
       const data = await response.json();
+
+      // If the sign in is successful
       if (response.ok) {
          setMessage(data.message);
 
@@ -42,6 +45,7 @@ function SignIn(){
         }
       } 
       else {
+        // Otherwise, display the error that occured
         setMessage(data.error);
       }
     } catch (error) {
@@ -54,14 +58,22 @@ function SignIn(){
     <div className= "box-main">
       <div className='sign-in-form'>
           <h2>Sign In</h2>
+          {/* text boxes to enter sign in information */}
           <input value={name} onChange={handleNameChange} type='text' placeholder='Enter your username'/>
           <input value={password} onChange={handlePasswordChange} type='text' placeholder='Enter your password'/>
-          {/* could delete later */}
-          <p>Username: {name}</p> 
+
+          {/* commented out because this was used for debugging */}
+          {/* <p>Username: {name}</p> */}
+
+          {/* link to password reset */}
           <Link to="/PasswordReset" className="passwordChange">Reset password</Link>
+
           <p>Don't have an account?</p>
+          {/* make a new account / log in */}
           <Link to="/Sign-up" className="btn btn-sm">Sign Up</Link> 
           <button className="btn btn-sm" onClick={handleLogin}>Login</button>
+
+          {/* resulting message */}
           <p className={message.includes('successful') ? 'success-message' : 'error-message'}>
               {message}
           </p>

@@ -1,36 +1,47 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import './Sign-up.css';
 
+// A page for the user to create a new account 
 function SignUp(){
-
+    // Username
     const [name, setName] = useState("");
-            function handleNameChange(event){
-                setName(event.target.value);
-            }
-    const [email, setEmail] = useState("");
-            function handleEmailChange(event){
-                setEmail(event.target.value)
-            }
-    const [password, setPassword] = useState("");
-            function handlePasswordChange(event){
-                setPassword(event.target.value)
-            }
-    const [passwordCheck, setPasswordCheck] = useState("");
-            function handlePasswordCheckChange(event){
-                setPasswordCheck(event.target.value)
-            }
+    function handleNameChange(event){
+        setName(event.target.value);
+    }
 
+    // Email
+    const [email, setEmail] = useState("");
+    function handleEmailChange(event){
+        setEmail(event.target.value)
+    }
+
+    // Password
+    const [password, setPassword] = useState("");
+    function handlePasswordChange(event){
+        setPassword(event.target.value)
+    }
+
+    // Confirm Password
+    const [passwordCheck, setPasswordCheck] = useState("");
+    function handlePasswordCheckChange(event){
+        setPasswordCheck(event.target.value)
+    }
+
+    // Teacher Account Checkbox
     const [adminChecked, setIsChecked] = useState(false);
-            function HandleCheck(event){
-                setIsChecked(event.target.checked);
-            }
+    function HandleCheck(event){
+        setIsChecked(event.target.checked);
+    }
+
+    // Account Creation Status
     const [message, setMessage] = useState("");
     
+    // This is used to navigate the user back to the Sign In page if the account creation is successful
     const navigate = useNavigate();
 
+    // Upon the user creating an account, validate that this is a valid account that can be added to the database
     async function validateUser() {
         // VALIDATE USER (debug log removed)
         try {
@@ -44,7 +55,8 @@ function SignUp(){
             const data = await response.json();
 
             // debug removed
-
+            
+            // If the account creation is successful
             if (response.ok) {
                 // Send confirmation email
                 await fetch('http://localhost:3001/emails/registration-confirmation', {
@@ -54,9 +66,12 @@ function SignUp(){
                 });
                 
                 setMessage(data.message);
+
+                // Redirect the user back to the Sign In page
                 navigate("/Sign-in");
             }
             else {
+                // Otherwise, display the error that occurred
                 setMessage(data.error);
             }
         } catch (error) {
@@ -69,7 +84,10 @@ function SignUp(){
         <div>
             <div className= "box-main">
                 <div className='sign-up-form'>
+                    {/* select the type of account */}
                     <p>Account Type <input type='checkbox' checked={adminChecked} onChange={HandleCheck}/>Teacher</p>
+
+                    {/* text boxes for the user to enter account credentials */}
                     <div className="row">
                         <h2>Username:</h2> 
                         <input value ={name} onChange={handleNameChange} type='text'/>
@@ -87,8 +105,10 @@ function SignUp(){
                         <input value ={passwordCheck} onChange={handlePasswordCheckChange} type='text'/>
                     </div>
 
+                    {/* create the account */}
                     <button className="btn btn-sm" onClick={validateUser}>Create Account</button>
 
+                    {/* was account creation successful? */}
                     <p className={message.includes('successful') ? 'success-message' : 'error-message'}>{message}</p>
                 </div>
             </div>
@@ -97,10 +117,3 @@ function SignUp(){
 }
 
 export default SignUp
-
-/*
-<Link to="/Sign-in" className="btn btn-sm" onClick={validateUser}>Create Account
-                    {Check validity of entered info, if it is valid create account else display error
-                    }
-                    </Link>
-*/

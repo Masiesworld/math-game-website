@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import '../App.css';
 
 // Resultswindow.jsx loaded
 
+// A component to signify the end of a round, and display the game statistics to the user
 function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
-    const [test, setTest] = useState(0);
-
+    // A function to update the user score after the round has ended
     async function updateUserScore(points) {
-
         // Update the user's score in the backend
         try {
             const response = await fetch('http://localhost:3001/users/update-score', {
@@ -28,14 +27,18 @@ function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
         updateUserScore(score / 2);
     }, []);
 
-
     return (
         <div>
             <div id="game-window">
+                {/* add the user's avatar and username */}
                 <img src={localStorage.getItem("avatar") || "/cat.png"} alt="Avatar" className="avatar" />
                 <h1 id="Userinfo">{localStorage.getItem("username") || "Guest"}</h1>
+
                 <div id="inner-window">
+                    {/* button to restart the game */}
                     <button className="btn btn-sm play" onClick={function(){window.dispatchEvent(new Event("Game Restart!"));}}>Restart Game</button>
+                    
+                    {/* display the game statistics */}
                     <h2>Score: {score}</h2>
                     <h2>Questions Correct: {questionsCorrect}</h2>
                     <h2>Questions Answered: {questionsAnswered}</h2>
@@ -45,5 +48,4 @@ function ResultsWindow({ score, questionsAnswered, questionsCorrect }) {
     );
 }
 
-// export default ResultsWindow;
 export { ResultsWindow }

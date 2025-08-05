@@ -3,6 +3,7 @@ const { MongoClient } = require('mongodb');
 
 let client;
 
+// Connect to MongoDB
 async function connectDB(uri) {
   if (!client) {
     client = new MongoClient(uri);

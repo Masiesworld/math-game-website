@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import './PasswordReset.css'
 
+// A page for the user to enter a new password to replace their current account password
 function ConfirmPasswordReset(){
     const [password, setpassword] = useState("")
     const [passwordConfirm, setpasswordConfirm] = useState("")

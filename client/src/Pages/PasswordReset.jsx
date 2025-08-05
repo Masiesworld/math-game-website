@@ -2,6 +2,7 @@ import { useState } from 'react'
 import '../App.css'
 import './PasswordReset.css'
 
+// A component for the user to send a password reset email to their email
 function PasswordReset() {
     const [Email, setEmail] = useState("")
     const [message, setMessage] = useState(""); // Message to the displayed depending on the state of the backend calls

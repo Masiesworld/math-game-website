@@ -14,31 +14,30 @@ module.exports = function(db, entryIsUnique){
   });
 
   router.post('/initialize-users', async (req, res) => { // test to see if we can insert initusers.json into MongoDB Compass
-  
     if (process.env.NODE_ENV === 'production') {
-    return res.status(403).json({ error: 'Not allowed in production' });
-  }
+      return res.status(403).json({ error: 'Not allowed in production' });
+    }
 
     try {
-    const initJson = require("../initusers.json");
-    const users = db.collection('users');
-    
-    // Insert each user and password entry into the database
-    for (let i = 0; i < initJson.length; i++) {
-      // Make sure we are not inserting duplicate users
-      if (await entryIsUnique('users', initJson[i], "username")) {
-        console.log("USER IS UNIQUE");
-        let result = await users.insertOne({  username: initJson[i]["username"],
-                                              email: initJson[i]["email"],
-                                              password: initJson[i]["password"],
-                                              role: initJson[i]["role"],
-                                              total_score: initJson[i]["total_score"],
-                                              class_number: initJson[i]["class_number"],
-                                              avatar: initJson[i]["avatar"] });
+      const initJson = require("../initusers.json");
+      const users = db.collection('users');
+      
+      // Insert each user and password entry into the database
+      for (let i = 0; i < initJson.length; i++) {
+        // Make sure we are not inserting duplicate users
+        if (await entryIsUnique('users', initJson[i], "username")) {
+          console.log("USER IS UNIQUE");
+          let result = await users.insertOne({  username: initJson[i]["username"],
+                                                email: initJson[i]["email"],
+                                                password: initJson[i]["password"],
+                                                role: initJson[i]["role"],
+                                                total_score: initJson[i]["total_score"],
+                                                class_number: initJson[i]["class_number"],
+                                                avatar: initJson[i]["avatar"] });
+        }
       }
-    }
-    
-    res.json({ message: 'Inserted', dbName: db.databaseName, users: initJson});
+      
+      res.json({ message: 'Inserted', dbName: db.databaseName, users: initJson});
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -53,10 +52,12 @@ module.exports = function(db, entryIsUnique){
 
       const user = await usersCollection.findOne({ username: username });
 
+      // The inputted username does not exist in the database
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
 
+      // The inputted username's password does not match the user's inputted password
       if (user.password !== password) {
         return res.status(401).json({ error: 'Incorrect password' });
       }
@@ -99,10 +100,12 @@ module.exports = function(db, entryIsUnique){
     try {
       const usersCollection = db.collection('users');
       
+      // The password is less than 8 characters long
       if (password.length < 8) {
         return res.status(401).json({ error: 'Password must be at least 8 characters long' });
       }
 
+      // Password and Confirm Password do not match
       if (password != password_check) {
         return res.status(401).json({ error: 'Passwords do not match' });
       }
@@ -123,7 +126,7 @@ module.exports = function(db, entryIsUnique){
     }
   });
 
-    // PUT /users/:username
+  // PUT /users/:username
   router.put('/:username', async (req, res) => {
     const { username } = req.params;
     const { newUsername, email, password} = req.body;
@@ -133,11 +136,11 @@ module.exports = function(db, entryIsUnique){
 
       // Check if the new username is already taken
       if (newUsername !== username) {
-      const existingUser = await usersCollection.findOne({ username: newUsername });
-      if (existingUser) {
-        return res.status(409).json({ error: 'Username already taken' });
+        const existingUser = await usersCollection.findOne({ username: newUsername });
+        if (existingUser) {
+          return res.status(409).json({ error: 'Username already taken' });
+        }
       }
-    }
 
       const result = await usersCollection.updateOne(
         { username },
@@ -149,8 +152,9 @@ module.exports = function(db, entryIsUnique){
           }
         }
       );
-        console.log("Update result:", result);
-// e.g. { acknowledged: true, matchedCount: 1, modifiedCount: 1 }
+
+      console.log("Update result:", result);
+      // e.g. { acknowledged: true, matchedCount: 1, modifiedCount: 1 }
 
       if (result.matchedCount === 0) {
         return res.status(404).json({ error: 'User not found' });
@@ -162,7 +166,6 @@ module.exports = function(db, entryIsUnique){
       res.status(500).json({ error: 'Failed to update user' });
     }
   });
-
 
   // Update user's avatar
   router.post('/update-avatar', (req, res) => {
@@ -180,7 +183,7 @@ module.exports = function(db, entryIsUnique){
 
       // Success!
       res.json({ message: 'Avatar update successful' });
-
+      
     } catch (error) {
         console.error('Update error:', error);
         res.status(500).json({ error: 'Internal server error' });

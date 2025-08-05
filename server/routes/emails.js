@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 
+// We made a Gmail account (teammathtrials@gmail.com) to send the website emails from
 let nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -12,23 +13,25 @@ let transporter = nodemailer.createTransport({
 
 module.exports = function (db){
     router.get('/', async (req, res) => { // maybe list the email templates available?
+        // I don't think we got to this summary feature at the moment
         res.send("Emails!");
     });
 
     router.post('/password-reset', async (req, res) => { // send a password reset email
-        //res.send("Sending password reset email...");
         const { email } = req.body;
 
         try {
             const usersCollection = db.collection('users');
             let user = "";
-
+            
+            // With the given email, check if there is an account with the associated email
             try {
                 user = await usersCollection.findOne({ email: email });
             } catch(err) {
                 return res.status(400).json({ error: 'Email not found' });
             }
 
+            // Make the email
             let mail = {
                 from: 'teammathtrials@gmail.com',
                 to: email,
@@ -36,6 +39,7 @@ module.exports = function (db){
                 html: passwordResetHTML(user.username)
             };
 
+            // Attempt to send the email
             transporter.sendMail(mail, function(error, info){
                 if (error) {
                     console.log(error);
@@ -51,10 +55,11 @@ module.exports = function (db){
         }
     });
 
-    router.post('/registration-confirmation', async (req, res) => {
+    router.post('/registration-confirmation', async (req, res) => { // send an account registration confirmation email
         const { email, username } = req.body;
 
         try {
+            // Make the email
             let mail = {
                 from: 'teammathtrials@gmail.com',
                 to: email,
@@ -62,6 +67,7 @@ module.exports = function (db){
                 html: registrationConfirmationHTML(username)
             };
 
+            // Attempt to send the email
             transporter.sendMail(mail, function(error, info) {
                 if (error) {
                     console.log(error);
@@ -80,6 +86,7 @@ module.exports = function (db){
     return router;
 }
 
+// A function that returns a string of HTML that can be used to make the password reset email
 function passwordResetHTML(username) {
     return `<!doctype html>
 <html lang="en">
@@ -145,6 +152,7 @@ function passwordResetHTML(username) {
 </html>`
 }
 
+// A function that returns a string of HTML that can be used to make the account registration email
 function registrationConfirmationHTML(username) {
     return `<!doctype html>
 <html lang="en">

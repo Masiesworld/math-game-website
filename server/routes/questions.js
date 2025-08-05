@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 
-
 module.exports = function (db, entryIsUnique){
     router.post('/', async (req, res) => { // add a new question/answer to the database with use of init.json
         try {
@@ -61,10 +60,10 @@ module.exports = function (db, entryIsUnique){
                 if (await entryIsUnique('questions', initJson[i], "question")) {
                     console.log("QUESTION IS UNIQUE");
                     let result = await questions.insertOne({ question: initJson[i]["question"],
-                                                            answer: initJson[i]["answer"],
-                                                            incorrects: initJson[i]["incorrects"],
-                                                            difficulty: initJson[i]["difficulty"]  
-                                                          });
+                                                             answer: initJson[i]["answer"],
+                                                             incorrects: initJson[i]["incorrects"],
+                                                             difficulty: initJson[i]["difficulty"]  
+                                                           });
                 }
             }
 
@@ -76,4 +75,3 @@ module.exports = function (db, entryIsUnique){
 
     return router;
 }
-

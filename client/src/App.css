@@ -10,7 +10,7 @@ body, html, #root{
   flex-direction: column;
 }
 
-
+/* Main box that is used on every page to fill them out */
 .box-main {
     display: flex;
     justify-content: center;
@@ -23,7 +23,7 @@ body, html, #root{
     color: #000;
 }
 
-
+/* Base styling for every button used */
 .btn {
     margin-left: 10px;
     height: auto;
@@ -35,28 +35,28 @@ body, html, #root{
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     cursor: pointer;
 }
-
+/* Styling for the text in every button */
 .btn-sm {
     padding: 6px 10px;
     vertical-align: middle;
     font-size: small;
 }
-
+/* Styling for the base container of the whole application */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-
+/* Flex type and padding for the main content class (I think is not used)*/
 .main-content {
   flex: 1;
   padding: 20px;
 }
-
+/* Aligning text to the end of the container (I believe it's not used)*/
 .align-end{
   text-align: end;
 }
-
+/* Coloring for the success and error messages */
 .success-message {
   color: green;
   font-weight: bold;
@@ -66,7 +66,7 @@ body, html, #root{
   color: red;
   font-weight: bold;
 }
-
+/* Header alignment*/
 .header-title {
   text-align: center;
 }

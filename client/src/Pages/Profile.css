@@ -1,14 +1,5 @@
-.flex-wrapper {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    margin: 2rem auto;
-    max-width: 90vw; /* Adjust as needed */
-}
 
-
+/* Styles for the Profile class on profile page */
 .Profile {
     position: absolute;
     top: 15%;
@@ -22,7 +13,7 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     color: #000;
 }
-
+/* Styling for the profile avatar image */
 .profile-avatar {
     width: 150px;
     height: 150px;
@@ -30,64 +21,60 @@
     object-fit: cover;
     margin-bottom: 20px;
 }
-
+/* Styles for the user info (name, email, password, class number) */
 .information {
     margin: 0 auto; /* center horizontally */
     max-width: 400px; /* keep a reasonable width */
 }
-
+/* Each user info is it's own row. This styles them to fit horizontally together with the labels*/
 .row {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
 }
-
+/* Styles for the text in each row (Name, Email, Password, Class Number) */
 .row label{
     width: 100px;
     text-align: right;
     font-weight: bold;
 }
-
+/* Styles for the input fields in each row (Name, Email, Password, Class Number) */
 .row input{
     flex: 1;
     padding: 5px;
     border: 1px solid #000000;
     border-radius: 4px;
 }
-
+/* Font size for the h1 of the profile page */
 .Profile h1 {
     font-size: 36px;
 }
-
+/* postioning of the edit button */
 .edit {
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
-
-.PassChange .btn{
-    font-size: 12px;
-}
-
+/* Styles for the avatar selection section */
 .avatar-container {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
 }
-
+/* Styles for the change avatar button */
 .change-avatar-btn {
     margin-left: 15px;
 }
-
+/* Styles for displaying the avatar options*/
 .avatar-options {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
 }
-
+/* Styles for each avatar thumbnail */
 .avatar-thumb {
     width: 60px;
     height: 60px;
@@ -96,11 +83,11 @@
     cursor: pointer;
     transition: transform 0.2s;
 }
-
+/* Hover effect for avatar thumbnails */
 .avatar-thumb:hover {
     transform: scale(1.1);
 }
-
+/*Styling for the classnumber and score display in the top right of the profile container */
 .top-right-display {
   position: absolute;
   top: 10px;

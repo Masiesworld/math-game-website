@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../App.css'
@@ -84,7 +84,7 @@ function Teacher() {
                 Select Student
               </button>
 
-              // Dropdown for selecting a student
+              {/* Dropdown for selecting a student */}
               {isUserDropdownOpen && (
                 <div className="dropdown-menu">
                   <p>Select Student</p>
@@ -198,7 +198,6 @@ function Teacher() {
               }
             }}
           >
-
             <input
               type="text"
               placeholder="Enter Question"

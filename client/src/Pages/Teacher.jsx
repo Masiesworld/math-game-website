@@ -63,7 +63,7 @@ function Teacher() {
 
   // Fetch users from backend on component mount
   useEffect(() => {
-    fetch('http://localhost:3001/admin/users') // adjust if needed
+    fetch('http://localhost:3001/admin/users')
       .then(res => res.json())
       .then(data => setUsers(data))
       .catch(err => console.error('Error fetching users:', err));
@@ -74,8 +74,9 @@ function Teacher() {
     <div className="box-main">
       <div className="teacher-block">
         <h1 className = "header-title">Teacher Page</h1>
-        
         <div className="side-by-side-container">
+
+          {/* Section for assigning class numbers to students */}
           <div className="assign-section">
             <h2 className="section-title">Assign Class Number</h2>
             <div className="dropdown-wrapper">
@@ -83,6 +84,7 @@ function Teacher() {
                 Select Student
               </button>
 
+              // Dropdown for selecting a student
               {isUserDropdownOpen && (
                 <div className="dropdown-menu">
                   <p>Select Student</p>
@@ -111,6 +113,7 @@ function Teacher() {
                 </div>
             )}
 
+          {/* Dropdown for selecting class number (only available if a student is selected) */}
           {selectedUser && (
             <div className="dropdown-wrapper">
               <button ref={classButtonRef} className="teach-btn" onClick={toggleClassDropdown}>
@@ -121,6 +124,7 @@ function Teacher() {
                 <div className="dropdown-menu">
                     <p>Select Class Number</p>
                     <ul>
+                    {/* Class numbers 1, 2, and 3 */}
                         {[1, 2, 3].map((num) => (
                         <li
                             key={num}
@@ -143,12 +147,16 @@ function Teacher() {
                     <h3>{selectedClass}</h3>
                 </div>
             )}
+
+          {/* Button to assign the selected student to the selected class number */}
           { selectedUser && selectedClass && (
             <button className="btn btn-sm" onClick={Assign}>
               <h3>Assign</h3>
             </button>
           )}
         </div>
+
+        {/* Section for adding questions to the game */}
         <div className="questions-section">
           <h2 className="section-title">Add Questions</h2>
           <form
@@ -156,7 +164,7 @@ function Teacher() {
               e.preventDefault();
 
               if (!question || !answer || incorrects.some(ans => !ans) || !difficulty) {
-                alert('Please fill in all fields including difficulty.');
+                alert('Please fill in all fields including difficulty.'); // Ensure all fields are filled
                 return;
               }
 
@@ -225,6 +233,7 @@ function Teacher() {
               ))}
             </div>
             <div className="difficulty-buttons">
+              {/* Difficulty levels Easy, Medium, and Hard */}
               {['Easy', 'Medium', 'Hard'].map((level) => (
                 <button
                   type="button"
@@ -239,6 +248,8 @@ function Teacher() {
             <button type="submit" className="btn btn-sm">Add</button>
           </form>
         </div>
+
+        {/* Section for looking up student details */}
         <div className="student-lookup-section">
           <h2 className="section-title">Student Lookup</h2>
           <div className="dropdown-wrapper">
@@ -250,7 +261,7 @@ function Teacher() {
                 <p>Select Student</p>
                   <ul>
                     {users
-                    .filter(user => user.role === "student")
+                    .filter(user => user.role === "student") // Filter to show only students
                     .map((user, index) => (
                    <li key={index}
                     onClick={async() => {
@@ -275,6 +286,7 @@ function Teacher() {
           </div>
         )}
           </div>
+          {/* Display selected student's details through MongoDB database */}
            {selectedLookupUser && (
               <div className="student-details">
                 <h3>Student Details</h3>

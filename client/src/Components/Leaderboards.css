@@ -1,3 +1,4 @@
+/* Controls the visual of the entire leaderboard component*/
 #leaderboards {
   position: absolute;
   top: 15%; /* 15% is the default for now */
@@ -15,7 +16,7 @@
   padding: 10px;
   box-sizing: border-box;
 }
-
+/* Affects only the h2 found in leaderboard*/
 #leaderboards h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -23,7 +24,7 @@
   font-weight: bold;
   color: white;
 }
-
+/* Controls the visual of the entire list of ranks*/
 #user-rankings {
   margin-left: 5%;
   margin-right: 5%;
@@ -40,7 +41,7 @@
   border: 1.5px solid #000000;
 }
 
-
+/* Controls the visual of each individual rank entry (rank, name, score, and avatar)*/
 #rank {
   color: black;
   width: 90%;
@@ -54,12 +55,13 @@
   align-items: center; 
   justify-content: space-between;
 }
-
+/* Controls the positioning of the ranks refreshing*/
 #refresh-leaderboard {
   position: absolute;
   left: 75%;
 }
 
+/* Controls the avatar styling located in the leaderboard*/
 .leaderboard-avatar {
   width: 50px;
   height: 50px;

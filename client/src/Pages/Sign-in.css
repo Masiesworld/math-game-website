@@ -1,3 +1,4 @@
+/* Styles for the sign-in page */
 .sign-in-form {
   max-width: 400px;
   margin: 100px auto;
@@ -8,14 +9,14 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   color: #000;
 }
-
+/* Styling for the input*/
 .sign-in-form input {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   font-size: 16px;
 }
-
+/*hover effect fot the password change text*/
 .passwordChange:hover{
   text-decoration: underline;
 }

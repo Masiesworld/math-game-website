@@ -1,8 +1,8 @@
-
-.footer{
+/* Footer.css background control*/
+.footer{ 
     background-color: #000;
 }
-
+/* Footer.css text styling*/
 .text-footer {
     text-align: center;
     padding: 10px 0;

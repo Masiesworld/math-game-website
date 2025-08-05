@@ -1,3 +1,4 @@
+/* Controls the visual of the entire game window*/
 #game-window {
   position: absolute;
   top: 15%; /* 15% is the default for now */
@@ -9,7 +10,7 @@
   background-color: rgb(100, 125, 133);
   border: 1.5px solid #000000;
 }
-
+/* Visual control of the user name*/
 #Userinfo {
   position: absolute;
   top: 7%;
@@ -17,7 +18,7 @@
   font-size: 40px;
   color: white;
 }
-
+/* Visual control of the score*/
 #score {
   position: absolute;
   top: 5%;
@@ -28,7 +29,7 @@
   padding-right: 10px;
   padding-left: 10px;
 }
-
+/* Controls the visual of the inner window, which holds the actual game*/
 #inner-window {
  position: absolute;
  top: 20%;
@@ -40,14 +41,14 @@
  border: 1.5px solid #000000;
  border-radius: 50px;
 }
-
+/* Controls the visual of the question*/
 #question {
   position: absolute;
   top: 30%;
   left: 10%;
   font-size: 50px;
 }
-
+/* Controls the visual of the answer choices*/
 .answer-choice {
   position: relative;
   width: 150px;
@@ -60,7 +61,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   font-weight: bold;
 }
-
+/* Controls the visual of the playstate*/
 #inner-window .play {
   position: absolute;
   top: 40%;
@@ -70,7 +71,7 @@
   height: 60px;
   font-size: x-large;
 }
-
+/* Controls the avatar styling located in the game window*/
 .avatar {
   position: absolute;
   top: 2%;
@@ -81,6 +82,3 @@
   object-fit: cover;
   border: 2px solid #000000;
 }
-/* #inner-window .play:hover {
-  background-color: #d3d3d3;
-} */

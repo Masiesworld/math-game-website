@@ -12,7 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/* Styling for the a element*/
 a {
   font-weight: 500;
   color: #646cff;
@@ -21,7 +21,7 @@ a {
 a:hover {
   color: #535bf2;
 }
-
+/* Styling for the body element*/
 body {
   margin: 0;
   display: flex;
@@ -29,12 +29,12 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
+/* Styling for the h1 element*/
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/* Styling for the button element*/
 button {
   border-radius: 8px;
   border: 1px solid transparent;

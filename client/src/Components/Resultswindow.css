@@ -4,7 +4,7 @@
     --start-button-width: 15%;
     --start-button-height: 8%;
 }
-
+/* Controls the visual of the results window button*/
 #restart-game-button {
     position: absolute;
     width: var(--start-button-width);

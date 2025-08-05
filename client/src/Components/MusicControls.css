@@ -1,3 +1,5 @@
+
+/* Controls the visual of the music control button */
 .music-controls {
   position: absolute;
   bottom: 15px;
@@ -5,7 +7,7 @@
   display: flex;
   gap: 10px;
 }
-
+/* Controls the visual of the music button */
 .music-button {
   background-color: #ffffff;
   border: 1px solid #000000;
@@ -16,7 +18,7 @@
   line-height: 1;
   transition: background-color 0.15s ease;
 }
-
+/* Hover effect for music button */
 .music-button:hover {
   background-color: #e7e7e7;
 } 

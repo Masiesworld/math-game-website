@@ -1,4 +1,4 @@
-
+/* Controls the visual of the entire navbar including title and buttons */
 .navbar {
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@
     border: 1px solid #000000;
     border-radius: 8px;
 }
-
+/* Controls the background of the navbar */
 .navbar-background {
     font-family:Arial, Helvetica, sans-serif;
     color: rgba(24, 24, 24, 0.39);
@@ -21,7 +21,7 @@
     background-size: cover;
     background-blend-mode: darken;
 }
-
+/* Controls the Math Games styling located in the middle of the navbar*/
 .title {
     position: absolute;
     left: 50%;
@@ -29,19 +29,19 @@
     color: #000;
     cursor: pointer;
 }
-
+/* Controls the list of buttons located on the right side of the navbar*/
 .nav-list { 
     display: flex;
     gap: 10px;
     align-items: center;
     margin: 0;
 }
-
+/* Controls the spacing of each button located in the navbar*/
 .nav-list li {
     list-style: none;
     padding: 8px 15px;
 }
-
+/* Controls the font size of each button located in the navbar*/
 .navbar .btn{
     font-size: large;
 }
